@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Magnificent Furnitures Limited - Quality Furniture in Kenya</title>
+    <meta name="description" content="Learn about Magnificent Furnitures Limited - Kenya's premier furniture provider since 2015. Quality office and home furniture with 30+ models per category.">
+    <meta name="keywords" content="about Magnificent Furnitures, furniture company Kenya, office furniture Nairobi, home furniture Kenya">
+    <meta name="author" content="Magnificent Furnitures Limited">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="About Magnificent Furnitures Limited | Quality Furniture Kenya">
+    <meta property="og:description" content="Kenya's premier furniture provider since 2015. Office chairs, desks, dining tables, and more. 30+ models per category.">
+    <meta property="og:image" content="assets/images/hero/showroom.jpg">
+    <meta property="og:url" content="https://magnificentfurnitures.co.ke/about.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FurnitureStore",
+      "name": "Magnificent Furnitures Limited",
+      "description": "Kenya's premier furniture provider since 2015. Quality office and home furniture with 30+ models per category.",
+      "url": "https://magnificentfurnitures.co.ke",
+      "logo": "https://magnificentfurnitures.co.ke/assets/images/logo/logo.png",
+      "image": "https://magnificentfurnitures.co.ke/assets/images/hero/showroom.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Nairobi",
+        "addressCountry": "KE"
+      },
+      "telephone": "+254726100242",
+      "email": "info@magnificentfurnitures.co.ke",
+      "priceRange": "KES 5,000 - KES 150,000",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      "sameAs": [
+        "https://wa.me/254726100242",
+        "https://www.facebook.com/profile.php?id=100063784484194"
+      ],
+      "foundingDate": "2015",
+      "numberOfEmployees": 25,
+      "areaServed": "Kenya",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Furniture Products",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Office Chairs",
+              "description": "30+ models of ergonomic office chairs"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Office Desks",
+              "description": "30+ models of modern office desks"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Dining Tables",
+              "description": "30+ models of elegant dining tables"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+<style>
+/* ====== ABOUT PAGE - COMPLETE FIX ====== */
+
+/* Always show content - defeat AOS hiding */
+[data-aos] { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+@media (max-width: 768px) {
+
+    /* Hide desktop nav */
+    ul.nav-links { display: none !important; }
+
+    /* Hamburger button */
+    .mobile-menu-btn {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        width: 36px !important;
+        height: 26px !important;
+        background: transparent !important;
+        border: none !important;
+        cursor: pointer !important;
+        z-index: 9999 !important;
+        margin-left: auto !important;
+        padding: 0 !important;
+    }
+    .mobile-menu-btn span {
+        display: block !important;
+        width: 26px !important;
+        height: 3px !important;
+        background: #D4A017 !important;
+        border-radius: 3px !important;
+        pointer-events: none !important;
+    }
+
+    /* Slide-in panel */
+    #mobileNavPanel {
+        position: fixed !important;
+        top: 0 !important;
+        right: -100% !important;
+        width: 80% !important;
+        max-width: 300px !important;
+        height: 100vh !important;
+        background: #fff !important;
+        z-index: 9998 !important;
+        padding-top: 70px !important;
+        transition: right 0.3s ease !important;
+        overflow-y: auto !important;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.2) !important;
+    }
+    #mobileNavPanel.active { right: 0 !important; }
+
+    /* Nav items */
+    #mobileNavPanel ul { list-style: none !important; padding: 0 !important; margin: 0 !important; display: block !important; }
+    #mobileNavPanel > ul > li { border-bottom: 1px solid #eee !important; display: block !important; }
+    #mobileNavPanel a {
+        display: block !important;
+        padding: 16px 25px !important;
+        color: #0F172A !important;
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        text-decoration: none !important;
+        width: 100% !important;
+    }
+    #mobileNavPanel a:hover { color: #D4A017 !important; background: #f8f9fa !important; }
+
+    /* Products toggle button */
+    .mob-toggle {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 16px 25px !important;
+        color: #0F172A !important;
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        cursor: pointer !important;
+        background: none !important;
+        border: none !important;
+        width: 100% !important;
+        text-align: left !important;
+        border-bottom: 0 !important;
+    }
+    .mob-toggle:hover { color: #D4A017 !important; background: #f8f9fa !important; }
+    .mob-arrow { font-size: 11px !important; transition: transform 0.3s !important; }
+    .mob-open .mob-arrow { transform: rotate(180deg) !important; }
+
+    /* Submenu - hidden by default */
+    .mob-sub {
+        display: none !important;
+        background: #f8f9fa !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .mob-open .mob-sub { display: block !important; }
+    .mob-sub li { border-top: 1px solid #eee !important; display: block !important; }
+    .mob-sub a { padding: 12px 25px 12px 40px !important; font-size: 14px !important; font-weight: 400 !important; }
+
+    /* Overlay */
+    #mobileOverlay {
+        display: none !important;
+        position: fixed !important;
+        inset: 0 !important;
+        background: rgba(0,0,0,0.45) !important;
+        z-index: 9997 !important;
+    }
+    #mobileOverlay.active { display: block !important; }
+}
+
+/* ====== ABOUT PAGE LAYOUT ====== */
+.page-header {
+    background: linear-gradient(rgba(15,23,42,0.85),rgba(15,23,42,0.85)),
+                url('assets/images/hero/showroom.jpg') center/cover no-repeat;
+    color: #fff;
+    padding: 80px 0;
+    text-align: center;
+}
+.page-header h1 { color: #fff !important; font-size: 2.2rem; margin-bottom: 15px; }
+.page-header p { color: rgba(255,255,255,0.85) !important; font-size: 1.1rem; }
+
+.company-story { padding: 70px 0; background: #fff; }
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+.story-content h2 { text-align: left; }
+.story-content h2:after { margin: 15px 0 0; }
+.story-content p { color: #475569; margin-bottom: 15px; line-height: 1.8; }
+.story-image img { width: 100%; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+@media(max-width:768px){ .story-grid { grid-template-columns: 1fr; gap: 25px; } }
+
+.mission-vision { background: #F8FAFC; padding: 70px 0; }
+.mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+@media(max-width:768px){ .mv-grid { grid-template-columns: 1fr; } }
+.mission-card, .vision-card {
+    background: #fff; border-radius: 16px; padding: 40px 30px;
+    text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: transform 0.3s;
+}
+.mission-card:hover, .vision-card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
+.mv-icon { color: #D4A017; margin-bottom: 20px; }
+
+.core-values { padding: 70px 0; background: #fff; }
+.values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; }
+.value-card {
+    background: #F8FAFC; border-radius: 12px; padding: 30px;
+    text-align: center; transition: transform 0.3s;
+}
+.value-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+.value-icon { color: #D4A017; margin-bottom: 15px; }
+.value-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+.value-card p { color: #475569; font-size: 0.88rem; }
+
+.why-choose-us-detailed { background: #F8FAFC; padding: 70px 0; }
+.why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.why-item {
+    display: flex; gap: 15px; align-items: flex-start;
+    background: #fff; padding: 25px; border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: transform 0.3s;
+}
+.why-item:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+.why-icon { font-size: 2rem; flex-shrink: 0; }
+.why-content h3 { font-size: 1rem; margin-bottom: 6px; }
+.why-content p { color: #475569; font-size: 0.88rem; }
+
+.stats-section { background: #0F172A; padding: 70px 0; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px; text-align: center; }
+.stat-card { padding: 10px; }
+.stat-number { font-size: 2.8rem; font-weight: 800; color: #D4A017; display: block; margin-bottom: 8px; }
+.stat-label { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
+
+.cta-section { padding: 70px 0; text-align: center; background: #fff; }
+.cta-content p { color: #475569; margin-bottom: 30px; }
+.cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+</style>
+
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+        <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+            <img src="assets/images/logo/logo.png" alt="Magnificent Furnitures Logo" style="height: 55px;" onerror="this.style.display='none'">
+            <div>
+                <h1 style="margin: 0; font-size: 1.5rem; line-height: 1.2;">Magnificent <span style="color: #D4A017;">Furnitures</span></h1>
+                <p style="margin: 0; font-size: 0.75rem;">Limited</p>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks" role="menubar">
+            <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+            <li class="dropdown" role="none">
+                <a href="products.html" class="dropdown-toggle" role="menuitem" aria-haspopup="true" aria-expanded="false">Products ▼</a>
+                <ul class="dropdown-menu" role="menu" aria-label="Product categories">
+                    <li role="none"><a href="products.html?category=office-chairs" role="menuitem">Office Chairs</a></li>
+                    <li role="none"><a href="products.html?category=office-desks" role="menuitem">Office Desks</a></li>
+                    <li role="none"><a href="products.html?category=dining-tables" role="menuitem">Dining Tables</a></li>
+                    <li role="none"><a href="products.html?category=workstations" role="menuitem">Workstations</a></li>
+                    <li role="none"><a href="products.html?category=school-furniture" role="menuitem">School Furniture</a></li>
+                    <li role="none"><a href="products.html?category=bar-stools" role="menuitem">Bar Stools</a></li>
+                    <li role="none"><a href="products.html?category=tv-stands" role="menuitem">TV Stands</a></li>
+                    <li role="none"><a href="products.html?category=coffee-tables" role="menuitem">Coffee Tables</a></li>
+                    <li role="none"><a href="products.html" role="menuitem">All Categories →</a></li>
+                </ul>
+            </li>
+            <li role="none"><a href="about.html" class="active" role="menuitem" aria-current="page">About</a></li>
+            <li role="none"><a href="contact.html" role="menuitem">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header" aria-labelledby="page-header-title">
+    <div class="container">
+        <h1 id="page-header-title" data-aos="fade-up">About Magnificent Furnitures Limited</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Your trusted partner for quality furniture in Kenya since 2015</p>
+    </div>
+</section>
+
+<!-- Company Story -->
+<article class="company-story" aria-labelledby="story-heading">
+    <div class="container">
+        <div class="story-grid">
+            <div class="story-content" data-aos="fade-right">
+                <h2 id="story-heading">Our Story</h2>
+                <p>Magnificent Furnitures Limited was founded in 2015 with a simple mission: to provide high-quality, affordable furniture to homes and businesses across Kenya. What started as a small showroom in Nairobi has grown into one of the country's most trusted furniture providers.</p>
+                <p>Over the years, we have built strong relationships with manufacturers and craftsmen who share our commitment to quality. Every piece of furniture we sell is carefully selected for its durability, design, and value.</p>
+                <p>Today, we proudly serve thousands of customers — from individual homeowners to large corporations, schools, and government institutions. Our extensive product range includes over 500 furniture models across 17 categories, ensuring we have something for every need and budget.</p>
+            </div>
+            <div class="story-image" data-aos="fade-left">
+                <img src="assets/images/about/showroom.jpg" alt="Magnificent Furnitures Showroom" loading="lazy" onerror="this.src='https://placehold.co/500x400?text=Our+Showroom'">
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- Mission & Vision -->
+<section class="mission-vision" aria-labelledby="mission-heading">
+    <div class="container">
+        <div class="mv-grid">
+            <div class="mission-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="mv-icon" aria-hidden="true">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
+                </div>
+                <h3 id="mission-heading">Our Mission</h3>
+                <p>To provide exceptional quality furniture that enhances living and working spaces, delivered with outstanding customer service and value for money.</p>
+            </div>
+            <div class="vision-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="mv-icon" aria-hidden="true">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <h3 id="vision-heading">Our Vision</h3>
+                <p>To be Kenya's most trusted and preferred furniture provider, known for quality, innovation, and customer satisfaction.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values -->
+<section class="core-values" aria-labelledby="values-heading">
+    <div class="container">
+        <h2 id="values-heading" data-aos="fade-up">Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="value-icon" aria-hidden="true">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </div>
+                <h3>Quality First</h3>
+                <p>We never compromise on quality. Every product is inspected before it reaches our customers.</p>
+            </div>
+            <div class="value-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="value-icon" aria-hidden="true">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <h3>Customer Focus</h3>
+                <p>Our customers are at the heart of everything we do. Your satisfaction is our priority.</p>
+            </div>
+            <div class="value-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="value-icon" aria-hidden="true">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2a10 10 0 0 0 0 20 10 10 0 0 0 4.5-1"></path>
+                        <path d="M20 12a8 8 0 1 0-8 8"></path>
+                        <path d="m12 12 4-4"></path>
+                        <path d="M16 12h4v4"></path>
+                    </svg>
+                </div>
+                <h3>Innovation</h3>
+                <p>We continuously update our product range to bring you the latest designs and trends.</p>
+            </div>
+            <div class="value-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="value-icon" aria-hidden="true">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <h3>Integrity</h3>
+                <p>We conduct our business with honesty, transparency, and ethical practices.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us (Detailed) -->
+<section class="why-choose-us-detailed" aria-labelledby="why-heading">
+    <div class="container">
+        <h2 id="why-heading" data-aos="fade-up">Why Choose Magnificent Furnitures?</h2>
+        <div class="why-grid">
+            <div class="why-item" data-aos="fade-up" data-aos-delay="0">
+                <div class="why-icon" aria-hidden="true">🪑</div>
+                <div class="why-content">
+                    <h3>500+ Products</h3>
+                    <p>Extensive selection across 17 categories, with 30+ models per category.</p>
+                </div>
+            </div>
+            <div class="why-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="why-icon" aria-hidden="true">💰</div>
+                <div class="why-content">
+                    <h3>Best Prices</h3>
+                    <p>Direct from manufacturer — no middlemen, no hidden costs.</p>
+                </div>
+            </div>
+            <div class="why-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="why-icon" aria-hidden="true">🚚</div>
+                <div class="why-content">
+                    <h3>Nationwide Delivery</h3>
+                    <p>Fast and reliable delivery to Nairobi and all major towns in Kenya.</p>
+                </div>
+            </div>
+            <div class="why-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="why-icon" aria-hidden="true">🔧</div>
+                <div class="why-content">
+                    <h3>Quality Guarantee</h3>
+                    <p>All products come with warranty and after-sales support.</p>
+                </div>
+            </div>
+            <div class="why-item" data-aos="fade-up" data-aos-delay="400">
+                <div class="why-icon" aria-hidden="true">🏢</div>
+                <div class="why-content">
+                    <h3>Bulk Orders</h3>
+                    <p>Special discounts for corporate, school, and government bulk purchases.</p>
+                </div>
+            </div>
+            <div class="why-item" data-aos="fade-up" data-aos-delay="500">
+                <div class="why-icon" aria-hidden="true">⭐</div>
+                <div class="why-content">
+                    <h3>Trusted Since 2015</h3>
+                    <p>Over a decade of experience serving thousands of satisfied customers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section" aria-labelledby="stats-heading">
+    <div class="container">
+        <h2 id="stats-heading" class="visually-hidden">Company Statistics</h2>
+        <div class="stats-grid">
+            <div class="stat-card" data-aos="zoom-in" data-aos-delay="0">
+                <div class="stat-number">11+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Products</div>
+            </div>
+            <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stat-number">17</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="stat-number">10k+</div>
+                <div class="stat-label">Happy Customers</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section" aria-labelledby="cta-heading">
+    <div class="container">
+        <div class="cta-content" data-aos="fade-up">
+            <h2 id="cta-heading">Ready to Transform Your Space?</h2>
+            <p>Browse our collection or visit our showroom to experience quality furniture firsthand.</p>
+            <div class="cta-buttons">
+                <a href="products.html" class="btn btn-primary">View Products</a>
+                <a href="contact.html" class="btn btn-outline">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Magnificent <span>Furnitures</span></h3>
+                <p>Quality furniture for home and office since <strong>2015</strong></p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                    <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                    <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                    <li><a href="products.html?category=school-furniture">School Furniture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>📞 0726 100242</p>
+                <p>📧 info@magnificentfurnitures.co.ke</p>
+                <p>📍 Nairobi, Kenya</p>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="https://wa.me/254726100242" target="_blank" style="color: #25D366; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        💬 WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank" style="color: #1877F2; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        📘 Facebook
+                    </a>
+                    <a href="#" target="_blank" style="color: #E4405F; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        📷 Instagram
+                    </a>
+                    <a href="#" target="_blank" style="color: #000000; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        🎵 TikTok
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank" style="color: #D4A017; text-decoration: none;">Kiara Web Solutions</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/whatsapp.js"></script>
+<script>
+    // Initialize AOS
+    
+</script>
+
+
+<!-- STATIC MOBILE NAV -->
+<div id="mobileNavPanel">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="mob-item">
+            <button class="mob-toggle">Products <span class="mob-arrow">▼</span></button>
+            <ul class="mob-sub">
+                <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                <li><a href="products.html?category=workstations">Workstations</a></li>
+                <li><a href="products.html?category=school-furniture">School Furniture</a></li>
+                <li><a href="products.html?category=bar-stools">Bar Stools</a></li>
+                <li><a href="products.html?category=tv-stands">TV Stands</a></li>
+                <li><a href="products.html?category=coffee-tables">Coffee Tables</a></li>
+                <li><a href="products.html">All Products →</a></li>
+            </ul>
+        </li>
+        <li><a href="about.html" style="color:#D4A017">About</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</div>
+<div id="mobileOverlay"></div>
+<script>
+(function(){
+    var btn = document.getElementById('mobileMenuBtn');
+    var panel = document.getElementById('mobileNavPanel');
+    var overlay = document.getElementById('mobileOverlay');
+    if (!btn || !panel || !overlay) return;
+
+    // Prevent main.js from creating its own mobile nav
+    panel.classList.add('nav-links-mobile');
+
+    function openMenu() {
+        panel.classList.add('active');
+        overlay.classList.add('active');
+        btn.innerHTML = '&#10005;';
+        btn.setAttribute('aria-expanded', 'true');
+    }
+    function closeMenu() {
+        panel.classList.remove('active');
+        overlay.classList.remove('active');
+        btn.innerHTML = '<span></span><span></span><span></span>';
+        btn.setAttribute('aria-expanded', 'false');
+    }
+
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        panel.classList.contains('active') ? closeMenu() : openMenu();
+    });
+    overlay.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
+
+    // Products toggle - uses button not anchor so no href conflict
+    panel.querySelectorAll('.mob-toggle').forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var item = toggle.closest('.mob-item');
+            var isOpen = item.classList.contains('mob-open');
+            // Close all first
+            panel.querySelectorAll('.mob-item').forEach(function(i) { i.classList.remove('mob-open'); });
+            // Open this one if it was closed
+            if (!isOpen) item.classList.add('mob-open');
+        });
+    });
+
+    // Close panel when any real link is clicked
+    panel.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', closeMenu);
+    });
+})();
+</script>
+
+</body>
+</html>

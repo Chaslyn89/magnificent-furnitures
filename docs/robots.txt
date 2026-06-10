@@ -1,0 +1,19 @@
+# ============================================
+# ROBOTS.TXT - Magnificent Furnitures Limited
+# SEO - Control search engine crawling
+# ============================================
+
+User-agent: *
+
+# Allow all public pages
+Allow: /
+
+# Block admin and data files only
+Disallow: /admin/
+Disallow: /data/
+
+# Prevent indexing of JSON files
+Disallow: *.json$
+
+# Sitemap location
+Sitemap: https://magnificentfurnitures.co.ke/sitemap.xml

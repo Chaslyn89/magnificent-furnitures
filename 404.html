@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Magnificent Furnitures Limited</title>
+    <meta name="description" content="The page you're looking for cannot be found. Search our furniture collection or return to our homepage.">
+    <meta name="robots" content="noindex, follow">
+    
+    <!-- Canonical URL - point to homepage for 404 pages -->
+    <link rel="canonical" href="https://magnificentfurnitures.co.ke/">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Page Not Found | Magnificent Furnitures Limited">
+    <meta property="og:description" content="The page you're looking for cannot be found. Search our furniture collection in Nairobi, Kenya.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://magnificentfurnitures.co.ke/404.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        .error-404 {
+            text-align: center;
+            padding: 80px 20px;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .error-content {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        
+        .error-code {
+            font-size: 8rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            line-height: 1;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 0 var(--border-color);
+        }
+        
+        .error-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .error-message {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .error-search {
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: var(--border-radius-lg);
+        }
+        
+        .error-search h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .error-search-box {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .error-search-box input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        
+        .error-search-box input:focus {
+            border-color: var(--accent-color);
+        }
+        
+        .error-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .whatsapp-help {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .whatsapp-help p {
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+        
+        .suggested-links {
+            text-align: left;
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: var(--border-radius-lg);
+            margin-top: 40px;
+        }
+        
+        .suggested-links h3 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .suggested-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .suggested-grid a {
+            display: block;
+            padding: 10px 15px;
+            background: var(--bg-white);
+            border-radius: var(--border-radius-sm);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .suggested-grid a:hover {
+            background: var(--accent-color);
+            color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 5rem;
+            }
+            .error-title {
+                font-size: 1.5rem;
+            }
+            .error-actions {
+                flex-direction: column;
+            }
+            .error-actions .btn {
+                width: 100%;
+            }
+            .error-search-box {
+                flex-direction: column;
+            }
+            .error-search-box .btn {
+                width: 100%;
+            }
+        }
+    </style>
+    <style>
+    /* ===== MOBILE MENU FINAL FIX ===== */
+    @media (max-width: 768px) {
+        ul.nav-links { display: none !important; }
+
+        .mobile-menu-btn {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            width: 36px !important;
+            height: 26px !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            cursor: pointer !important;
+            z-index: 9999 !important;
+            position: relative !important;
+            margin-left: auto !important;
+        }
+        .mobile-menu-btn span {
+            display: block !important;
+            width: 26px !important;
+            height: 3px !important;
+            background-color: #D4A017 !important;
+            border-radius: 3px !important;
+            pointer-events: none !important;
+        }
+
+        /* Panel - slides from RIGHT, does NOT move the page */
+        .nav-links-mobile {
+            position: fixed !important;
+            top: 0 !important;
+            right: -320px !important;
+            width: 280px !important;
+            height: 100% !important;
+            background: #ffffff !important;
+            z-index: 1001 !important;
+            padding: 70px 0 30px 0 !important;
+            transition: right 0.3s ease !important;
+            overflow-y: auto !important;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.15) !important;
+        }
+        .nav-links-mobile.active {
+            right: 0 !important;
+        }
+
+        /* Nav items */
+        .nav-links-mobile ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .nav-links-mobile > ul > li {
+            border-bottom: 1px solid #E2E8F0 !important;
+        }
+        .nav-links-mobile a,
+        .nav-links-mobile .mob-dropdown-toggle {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 16px 25px !important;
+            color: #0F172A !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            background: none !important;
+            border: none !important;
+            width: 100% !important;
+            text-align: left !important;
+        }
+        .nav-links-mobile a:hover,
+        .nav-links-mobile .mob-dropdown-toggle:hover {
+            color: #D4A017 !important;
+            background: #F8FAFC !important;
+        }
+
+        /* Products submenu */
+        .mob-submenu {
+            display: none !important;
+            background: #F8FAFC !important;
+            padding: 0 !important;
+        }
+        .mob-dropdown.open .mob-submenu {
+            display: block !important;
+        }
+        .mob-submenu li {
+            border-top: 1px solid #E2E8F0 !important;
+        }
+        .mob-submenu a {
+            padding: 12px 25px 12px 35px !important;
+            font-size: 14px !important;
+            font-weight: 400 !important;
+        }
+
+        /* Arrow rotation */
+        .mob-arrow {
+            transition: transform 0.3s ease !important;
+            font-size: 11px !important;
+        }
+        .mob-dropdown.open .mob-arrow {
+            transform: rotate(180deg) !important;
+        }
+
+        /* Overlay - darkens page but doesnt move it */
+        .mobile-overlay {
+            display: none !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0,0,0,0.5) !important;
+            z-index: 1000 !important;
+        }
+        .mobile-overlay.active {
+            display: block !important;
+        }
+
+        /* Prevent body scroll WITHOUT shifting layout */
+        body.no-scroll {
+            overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
+        }
+    }
+
+    /* Hero text always visible */
+    .hero h1, .hero p, .hero-subtitle, .hero-buttons {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    [data-aos]:not(.aos-animate) {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+        <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+            <img src="assets/images/logo/logo.png" alt="Magnificent Furnitures Logo" style="height: 55px;" onerror="this.style.display='none'">
+            <div>
+                <h1 style="margin: 0; font-size: 1.5rem; line-height: 1.2;">Magnificent <span style="color: #D4A017;">Furnitures</span></h1>
+                <p style="margin: 0; font-size: 0.75rem;">Limited</p>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks" role="menubar">
+            <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+            <li class="dropdown" role="none">
+                <a href="products.html" class="dropdown-toggle" role="menuitem" aria-haspopup="true" aria-expanded="false">Products ▼</a>
+                <ul class="dropdown-menu" role="menu" aria-label="Product categories">
+                    <li role="none"><a href="products.html?category=office-chairs" role="menuitem">Office Chairs</a></li>
+                    <li role="none"><a href="products.html?category=office-desks" role="menuitem">Office Desks</a></li>
+                    <li role="none"><a href="products.html?category=dining-tables" role="menuitem">Dining Tables</a></li>
+                    <li role="none"><a href="products.html?category=workstations" role="menuitem">Workstations</a></li>
+                    <li role="none"><a href="products.html?category=school-furniture" role="menuitem">School Furniture</a></li>
+                    <li role="none"><a href="products.html?category=bar-stools" role="menuitem">Bar Stools</a></li>
+                    <li role="none"><a href="products.html?category=tv-stands" role="menuitem">TV Stands</a></li>
+                    <li role="none"><a href="products.html?category=coffee-tables" role="menuitem">Coffee Tables</a></li>
+                    <li role="none"><a href="products.html" role="menuitem">All Categories →</a></li>
+                </ul>
+            </li>
+            <li role="none"><a href="about.html" role="menuitem">About</a></li>
+            <li role="none"><a href="contact.html" role="menuitem">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- 404 Error Section -->
+<section class="error-404" aria-labelledby="error-title">
+    <div class="container">
+        <div class="error-content">
+            <div class="error-code" data-aos="zoom-in" data-aos-duration="1000">404</div>
+            <h1 class="error-title" id="error-title" data-aos="fade-up" data-aos-delay="100">Page Not Found</h1>
+            <p class="error-message" data-aos="fade-up" data-aos-delay="200">Oops! The page you are looking for doesn't exist, has been moved, or is temporarily unavailable.</p>
+            
+            <!-- Search Recovery Section -->
+            <div class="error-search" data-aos="fade-up" data-aos-delay="300">
+                <h3>🔍 Search for furniture</h3>
+                <div class="error-search-box">
+                    <input type="text" id="errorSearchInput" placeholder="Search products... e.g., Executive Chair, Dining Table" aria-label="Search products">
+                    <button class="btn btn-primary" id="errorSearchBtn">Search</button>
+                </div>
+            </div>
+            
+            <div class="error-actions" data-aos="fade-up" data-aos-delay="400">
+                <a href="index.html" class="btn btn-primary">🏠 Back to Home</a>
+                <a href="products.html" class="btn btn-outline">🛋️ Browse All Products</a>
+                <a href="contact.html" class="btn btn-outline">📞 Contact Us</a>
+            </div>
+            
+            <!-- WhatsApp Help Section -->
+            <div class="whatsapp-help" data-aos="fade-up" data-aos-delay="500">
+                <p>Can't find what you're looking for?</p>
+                <a href="https://wa.me/254726100242?text=Hi%2C%20I%20was%20trying%20to%20find%20a%20product%20but%20got%20lost%20on%20your%20website.%20Please%20help%20me%20find%20it." 
+                   class="btn btn-whatsapp" target="_blank">
+                    💬 Get Help on WhatsApp
+                </a>
+            </div>
+            
+            <div class="suggested-links" data-aos="fade-up" data-aos-delay="600">
+                <h3>Popular Categories</h3>
+                <div class="suggested-grid">
+                    <a href="products.html?category=office-chairs">Office Chairs</a>
+                    <a href="products.html?category=office-desks">Office Desks</a>
+                    <a href="products.html?category=dining-tables">Dining Tables</a>
+                    <a href="products.html?category=school-furniture">School Furniture</a>
+                    <a href="products.html?category=workstations">Workstations</a>
+                    <a href="products.html?category=bar-stools">Bar Stools</a>
+                    <a href="products.html?category=tv-stands">TV Stands</a>
+                    <a href="products.html?category=coffee-tables">Coffee Tables</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Magnificent <span>Furnitures</span></h3>
+                <p>Quality furniture for home and office since <strong>2015</strong></p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                    <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                    <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                    <li><a href="products.html?category=school-furniture">School Furniture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>📞 0726 100242</p>
+                <p>📧 info@magnificentfurnitures.co.ke</p>
+                <p>📍 Nairobi, Kenya</p>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="https://wa.me/254726100242" target="_blank" style="color: #25D366; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        💬 WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank" style="color: #1877F2; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        📘 Facebook
+                    </a>
+                    <a href="#" target="_blank" style="color: #E4405F; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        📷 Instagram
+                    </a>
+                    <a href="#" target="_blank" style="color: #000000; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        🎵 TikTok
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank" style="color: #D4A017; text-decoration: none;">Kiara Web Solutions</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Core Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+    
+    // Search functionality for 404 page
+    (function() {
+        const searchInput = document.getElementById('errorSearchInput');
+        const searchBtn = document.getElementById('errorSearchBtn');
+        
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = 'products.html?search=' + encodeURIComponent(query);
+            }
+        }
+        
+        if (searchBtn && searchInput) {
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        }
+    })();
+</script>
+
+
+<!-- MOBILE NAV PANEL -->
+<div class="nav-links-mobile" id="mobileNavPanel">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="mob-dropdown">
+            <a href="#" class="mob-dropdown-toggle">Products <span class="mob-arrow">▼</span></a>
+            <ul class="mob-submenu">
+                <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                <li><a href="products.html?category=workstations">Workstations</a></li>
+                <li><a href="products.html?category=school-furniture">School Furniture</a></li>
+                <li><a href="products.html?category=bar-stools">Bar Stools</a></li>
+                <li><a href="products.html?category=tv-stands">TV Stands</a></li>
+                <li><a href="products.html?category=coffee-tables">Coffee Tables</a></li>
+                <li><a href="products.html">All Products →</a></li>
+            </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<script>
+(function() {
+    var btn = document.getElementById('mobileMenuBtn');
+    var panel = document.getElementById('mobileNavPanel');
+    var overlay = document.getElementById('mobileOverlay');
+    var scrollY = 0;
+
+    if (!btn || !panel || !overlay) return;
+
+    function openMenu() {
+        scrollY = window.scrollY;
+        panel.classList.add('active');
+        overlay.classList.add('active');
+        document.body.classList.add('no-scroll');
+        document.body.style.top = '-' + scrollY + 'px';
+        btn.innerHTML = '&#10005;';
+        btn.style.cssText += 'font-size:20px;align-items:center;justify-content:center;';
+    }
+
+    function closeMenu() {
+        panel.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+        btn.innerHTML = '<span></span><span></span><span></span>';
+        btn.style.fontSize = '';
+        btn.style.alignItems = '';
+        btn.style.justifyContent = '';
+    }
+
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        panel.classList.contains('active') ? closeMenu() : openMenu();
+    });
+
+    overlay.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+    });
+
+    // Products dropdown toggle
+    var dropdownToggles = panel.querySelectorAll('.mob-dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var parent = toggle.closest('.mob-dropdown');
+            if (parent) {
+                parent.classList.toggle('open');
+            }
+        });
+    });
+
+    // Close menu on regular link click
+    var links = panel.querySelectorAll('a:not(.mob-dropdown-toggle)');
+    links.forEach(function(link) {
+        link.addEventListener('click', function() {
+            closeMenu();
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

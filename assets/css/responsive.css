@@ -1,0 +1,554 @@
+/* ============================================
+   MAGNIFICENT FURNITURES LIMITED - RESPONSIVE CSS
+   Mobile-First Breakpoints
+   ============================================ */
+
+/* ---------- BREAKPOINTS ----------
+   Mobile: 320px - 480px
+   Tablet: 481px - 768px
+   Laptop: 769px - 1024px
+   Desktop: 1025px - 1200px
+   Wide: 1201px+
+   ============================================ */
+
+/* ---------- MOBILE MENU (EXACTLY LIKE JOYSISTERLOCKS) ---------- */
+@media (max-width: 768px) {
+    
+    /* Hide desktop navigation */
+    .nav-links {
+        display: none;
+    }
+    
+    /* Hamburger button - right side */
+    .mobile-menu-btn {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        background: none;
+        border: none;
+        z-index: 1002;
+        padding: 8px;
+        margin: 0;
+        position: relative;
+        right: 0;
+        margin-left: auto;
+    }
+    
+    .mobile-menu-btn span {
+        width: 26px;
+        height: 2px;
+        background: var(--accent-color);
+        margin: 3px 0;
+        transition: var(--transition);
+        border-radius: 2px;
+    }
+    
+    /* Mobile menu panel - 30% width like joysisterlocks */
+    .nav-links-mobile {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 30%;
+        min-width: 200px;
+        max-width: 260px;
+        height: auto;
+        max-height: 100vh;
+        background: var(--bg-white);
+        z-index: 1001;
+        padding: 70px 20px 30px 20px;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.3s ease, opacity 0.3s ease;
+        overflow-y: auto;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
+        border-radius: 0 0 0 20px;
+    }
+    
+    .nav-links-mobile.active {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    .nav-links-mobile ul {
+        list-style: none;
+        text-align: left;
+    }
+    
+    .nav-links-mobile li {
+        margin: 15px 0;
+    }
+    
+    .nav-links-mobile a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-size: 16px;
+        font-weight: 500;
+        transition: var(--transition);
+        display: block;
+        padding: 8px 0;
+    }
+    
+    .nav-links-mobile a:hover,
+    .nav-links-mobile a.active {
+        color: var(--accent-color);
+    }
+    
+    /* Mobile dropdown in mobile menu */
+    .nav-links-mobile .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        display: none;
+        width: 100%;
+        background: var(--bg-light);
+        padding-left: 15px;
+    }
+    
+    .nav-links-mobile .dropdown.active .dropdown-menu {
+        display: block;
+    }
+    
+    .nav-links-mobile .dropdown-toggle:after {
+        content: ' ▼';
+        font-size: 0.7rem;
+    }
+    
+    /* Overlay - full page coverage */
+    .mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0.3s ease, opacity 0.3s ease;
+    }
+    
+    .mobile-overlay.active {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    /* Body scroll lock when menu is open */
+    .no-scroll {
+        overflow: hidden;
+    }
+}
+
+/* ---------- MOBILE (up to 480px) ---------- */
+@media (max-width: 480px) {
+    
+    /* Container */
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* Typography */
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+    }
+    
+    h2:after {
+        width: 50px;
+        margin: 15px auto 0;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+        padding: 60px 0;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+    }
+    
+    /* Search Section */
+    .search-box {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .search-input {
+        width: 100%;
+    }
+    
+    .btn-search {
+        width: 100%;
+    }
+    
+    /* Trust Indicators */
+    .trust-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .trust-item {
+        justify-content: flex-start;
+    }
+    
+    /* Category Grid */
+    .category-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .category-card {
+        max-width: 100%;
+    }
+    
+    /* Products Grid */
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Features Grid */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .feature {
+        padding: 25px;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        text-align: center;
+    }
+    
+    .footer-column h3, 
+    .footer-column h4 {
+        margin-bottom: 15px;
+    }
+    
+    .footer-column ul li {
+        margin-bottom: 8px;
+    }
+    
+    .social-link {
+        margin: 0 10px;
+    }
+    
+    /* Map */
+    .map iframe {
+        height: 300px;
+    }
+    
+    /* Buttons */
+    .btn {
+        padding: 12px 25px;
+    }
+    
+    /* Product Cards */
+    .product-image {
+        height: 220px;
+    }
+    
+    .product-buttons {
+        flex-direction: column;
+    }
+    
+    .product-buttons .btn-sm {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Floating WhatsApp */
+    .floating-wa {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 1.6rem;
+    }
+    
+    /* Location Section */
+    .location {
+        padding: 40px 0;
+    }
+    
+    .address {
+        font-size: 1rem;
+        padding: 15px;
+    }
+    
+    .hours {
+        padding: 15px;
+    }
+}
+
+/* ---------- TABLET (481px - 768px) ---------- */
+@media (min-width: 481px) and (max-width: 768px) {
+    
+    /* Container */
+    .container {
+        padding: 0 20px;
+    }
+    
+    /* Typography */
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    /* Hero */
+    .hero {
+        padding: 80px 0;
+    }
+    
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    /* Grids */
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    /* Search */
+    .search-box {
+        max-width: 500px;
+    }
+}
+
+/* ---------- LAPTOP (769px - 1024px) ---------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+    
+    /* Container */
+    .container {
+        padding: 0 25px;
+    }
+    
+    /* Typography */
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    /* Grids */
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .trust-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    /* Hero */
+    .hero {
+        padding: 100px 0;
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+}
+
+/* ---------- DESKTOP (1025px - 1200px) ---------- */
+@media (min-width: 1025px) and (max-width: 1200px) {
+    
+    /* Container */
+    .container {
+        padding: 0 30px;
+    }
+    
+    /* Grids */
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* ---------- WIDE SCREEN (1201px+) ---------- */
+@media (min-width: 1201px) {
+    
+    .category-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ---------- LANDSCAPE MODE (for mobile) ---------- */
+@media (max-width: 768px) and (orientation: landscape) {
+    
+    .hero {
+        padding: 50px 0;
+    }
+    
+    .hero h1 {
+        font-size: 1.6rem;
+    }
+    
+    .category-grid,
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .nav-links-mobile {
+        padding-top: 60px;
+    }
+    
+    .nav-links-mobile li a {
+        padding: 10px 0;
+    }
+}
+
+/* ---------- PRINT STYLES ---------- */
+@media print {
+    
+    .navbar,
+    .hero-buttons,
+    .search-section,
+    .trust-indicators,
+    .floating-wa,
+    .footer,
+    .btn,
+    .pagination {
+        display: none;
+    }
+    
+    body {
+        font-size: 12pt;
+        color: black;
+        background: white;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    .product-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    
+    a {
+        text-decoration: none;
+        color: black;
+    }
+}
+
+/* ---------- TOUCH DEVICE OPTIMIZATIONS ---------- */
+@media (hover: none) and (pointer: coarse) {
+    
+    .btn,
+    .category-card,
+    .product-card,
+    .nav-links li a {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .btn:active,
+    .category-card:active,
+    .product-card:active {
+        transform: scale(0.98);
+    }
+    
+    .nav-links-mobile li a,
+    .dropdown-menu li a,
+    .social-link {
+        padding: 12px 0;
+    }
+}
+
+/* ---------- HIGH CONTRAST MODE ---------- */
+@media (prefers-contrast: high) {
+    
+    .btn-primary,
+    .btn-whatsapp {
+        border: 2px solid currentColor;
+    }
+    
+    .product-card,
+    .category-card {
+        border: 1px solid black;
+    }
+}

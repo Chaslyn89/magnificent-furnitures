@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Magnificent Furnitures Limited - Quality Furniture in Kenya</title>
+    <meta name="description" content="Browse our extensive collection of quality furniture in Nairobi, Kenya. Office chairs, desks, dining tables, school furniture, and more. 30+ models per category.">
+    <meta name="keywords" content="furniture Kenya, office furniture Nairobi, home furniture, dining tables, school furniture">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Products | Magnificent Furnitures Limited">
+    <meta property="og:description" content="Browse our extensive collection of quality furniture in Nairobi, Kenya. 30+ models per category.">
+    <meta property="og:image" content="assets/images/hero/showroom.jpg">
+    <meta property="og:url" content="https://magnificentfurnitures.co.ke/products.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon - Emoji fallback -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🪑%3C/text%3E%3C/svg%3E">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* Products Page Specific Styles */
+        .products-header {
+            background: var(--bg-light);
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .products-header h1 {
+            margin-bottom: 10px;
+        }
+        
+        .products-header p {
+            color: var(--text-light);
+        }
+        
+        .catalog-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            padding: 60px 0;
+        }
+        
+        /* Sidebar Filters */
+        .filters-sidebar {
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .filter-header h3 {
+            margin-bottom: 0;
+            font-size: 1.2rem;
+        }
+        
+        .clear-filters {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        
+        .filter-group {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+        
+        .filter-group:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .filter-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .filter-options input[type="checkbox"],
+        .filter-options input[type="radio"] {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+        
+        .price-range {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .price-range input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.85rem;
+        }
+        
+        .apply-price-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        
+        /* Sort Bar */
+        .sort-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .results-count {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .sort-select {
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            background: var(--bg-white);
+            cursor: pointer;
+        }
+        
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
+        }
+        
+        .no-results .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .pagination button {
+            padding: 10px 16px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-white);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .pagination button:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--text-dark);
+        }
+        
+        .pagination button.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: var(--text-dark);
+        }
+        
+        .pagination button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Mobile Filters Toggle */
+        .mobile-filters-toggle {
+            display: none;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .mobile-filters-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+        }
+        
+        .mobile-filters-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100%;
+            background: var(--bg-white);
+            z-index: 1001;
+            padding: 20px;
+            overflow-y: auto;
+            transition: right 0.3s ease;
+        }
+        
+        .mobile-filters-panel.open {
+            right: 0;
+        }
+        
+        .close-filters {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            float: right;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .catalog-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-sidebar {
+                display: none;
+            }
+            
+            .mobile-filters-toggle {
+                display: block;
+            }
+        }
+    </style>
+    <style>
+    /* ===== MOBILE MENU FINAL FIX ===== */
+    @media (max-width: 768px) {
+        ul.nav-links { display: none !important; }
+
+        .mobile-menu-btn {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            width: 36px !important;
+            height: 26px !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            cursor: pointer !important;
+            z-index: 9999 !important;
+            position: relative !important;
+            margin-left: auto !important;
+        }
+        .mobile-menu-btn span {
+            display: block !important;
+            width: 26px !important;
+            height: 3px !important;
+            background-color: #D4A017 !important;
+            border-radius: 3px !important;
+            pointer-events: none !important;
+        }
+
+        /* Panel - slides from RIGHT, does NOT move the page */
+        .nav-links-mobile {
+            position: fixed !important;
+            top: 0 !important;
+            right: -320px !important;
+            width: 280px !important;
+            height: 100% !important;
+            background: #ffffff !important;
+            z-index: 1001 !important;
+            padding: 70px 0 30px 0 !important;
+            transition: right 0.3s ease !important;
+            overflow-y: auto !important;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.15) !important;
+        }
+        .nav-links-mobile.active {
+            right: 0 !important;
+        }
+
+        /* Nav items */
+        .nav-links-mobile ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .nav-links-mobile > ul > li {
+            border-bottom: 1px solid #E2E8F0 !important;
+        }
+        .nav-links-mobile a,
+        .nav-links-mobile .mob-dropdown-toggle {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 16px 25px !important;
+            color: #0F172A !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            background: none !important;
+            border: none !important;
+            width: 100% !important;
+            text-align: left !important;
+        }
+        .nav-links-mobile a:hover,
+        .nav-links-mobile .mob-dropdown-toggle:hover {
+            color: #D4A017 !important;
+            background: #F8FAFC !important;
+        }
+
+        /* Products submenu */
+        .mob-submenu {
+            display: none !important;
+            background: #F8FAFC !important;
+            padding: 0 !important;
+        }
+        .mob-dropdown.open .mob-submenu {
+            display: block !important;
+        }
+        .mob-submenu li {
+            border-top: 1px solid #E2E8F0 !important;
+        }
+        .mob-submenu a {
+            padding: 12px 25px 12px 35px !important;
+            font-size: 14px !important;
+            font-weight: 400 !important;
+        }
+
+        /* Arrow rotation */
+        .mob-arrow {
+            transition: transform 0.3s ease !important;
+            font-size: 11px !important;
+        }
+        .mob-dropdown.open .mob-arrow {
+            transform: rotate(180deg) !important;
+        }
+
+        /* Overlay - darkens page but doesnt move it */
+        .mobile-overlay {
+            display: none !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0,0,0,0.5) !important;
+            z-index: 1000 !important;
+        }
+        .mobile-overlay.active {
+            display: block !important;
+        }
+
+        /* Prevent body scroll WITHOUT shifting layout */
+        body.no-scroll {
+            overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
+        }
+    }
+
+    /* Hero text always visible */
+    .hero h1, .hero p, .hero-subtitle, .hero-buttons {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    [data-aos]:not(.aos-animate) {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+        <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+            <img src="assets/images/logo/logo.png" alt="Magnificent Furnitures Logo" style="height: 55px;" onerror="this.style.display='none'">
+            <div>
+                <h1 style="margin: 0; font-size: 1.5rem; line-height: 1.2;">Magnificent <span style="color: #D4A017;">Furnitures</span></h1>
+                <p style="margin: 0; font-size: 0.75rem;">Limited</p>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks" role="menubar">
+            <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+            <li class="dropdown" role="none">
+                <a href="products.html" class="dropdown-toggle active" role="menuitem" aria-haspopup="true" aria-expanded="false">Products ▼</a>
+                <ul class="dropdown-menu" role="menu" aria-label="Product categories" id="categoryDropdown">
+                    <!-- Categories loaded by JS -->
+                </ul>
+            </li>
+            <li role="none"><a href="about.html" role="menuitem">About</a></li>
+            <li role="none"><a href="contact.html" role="menuitem">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Products Header -->
+<section class="products-header">
+    <div class="container">
+        <h1 id="products-page-title" data-aos="fade-up">All Products</h1>
+        <p data-aos="fade-up" data-aos-delay="100">Browse our extensive collection of quality furniture for home and office</p>
+    </div>
+</section>
+
+<!-- Catalog Section -->
+<div class="container">
+    <div class="catalog-layout">
+        
+        <!-- Desktop Sidebar Filters -->
+        <aside class="filters-sidebar" id="filtersSidebar" data-aos="fade-right">
+            <div class="filter-header">
+                <h3>Filters</h3>
+                <button class="clear-filters" id="clearFiltersBtn">Clear all</button>
+            </div>
+            
+            <!-- Category Filter -->
+            <div class="filter-group">
+                <span class="filter-title">Category</span>
+                <div class="filter-options" id="categoryFilter">
+                    <!-- Categories loaded by JS -->
+                </div>
+            </div>
+            
+            <!-- Price Range Filter -->
+            <div class="filter-group">
+                <span class="filter-title">Price Range (KES)</span>
+                <div class="price-range">
+                    <input type="number" id="minPrice" placeholder="Min" step="1000">
+                    <span>-</span>
+                    <input type="number" id="maxPrice" placeholder="Max" step="1000">
+                    <button class="apply-price-btn" id="applyPriceBtn">Apply</button>
+                </div>
+            </div>
+            
+            <!-- Material Filter -->
+            <div class="filter-group">
+                <span class="filter-title">Material</span>
+                <div class="filter-options" id="materialFilter">
+                    <label><input type="checkbox" value="Mesh"> Mesh</label>
+                    <label><input type="checkbox" value="Leather"> Leather</label>
+                    <label><input type="checkbox" value="Fabric"> Fabric</label>
+                    <label><input type="checkbox" value="Wood"> Wood</label>
+                    <label><input type="checkbox" value="Metal"> Metal</label>
+                </div>
+            </div>
+            
+            <!-- Availability Filter -->
+            <div class="filter-group">
+                <span class="filter-title">Availability</span>
+                <div class="filter-options">
+                    <label><input type="checkbox" id="inStockOnly" value="instock"> In Stock Only</label>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Products Main Content -->
+        <main>
+            <!-- Mobile Filters Toggle -->
+            <button class="btn btn-outline mobile-filters-toggle" id="mobileFiltersToggle" data-aos="fade-up">
+                🔍 Show Filters
+            </button>
+            
+            <!-- Sort Bar -->
+            <div class="sort-bar" data-aos="fade-up">
+                <div class="results-count" id="resultsCount">Loading products...</div>
+                <select class="sort-select" id="sortSelect">
+                    <option value="featured">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="name-asc">Name: A to Z</option>
+                    <option value="name-desc">Name: Z to A</option>
+                </select>
+            </div>
+            
+            <!-- Products Grid -->
+            <div id="productsGrid" class="products-grid">
+                <div class="loading">Loading products...</div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+</div>
+
+<!-- Mobile Filters Panel -->
+<div class="mobile-filters-overlay" id="mobileFiltersOverlay"></div>
+<div class="mobile-filters-panel" id="mobileFiltersPanel">
+    <button class="close-filters" id="closeFiltersBtn">✕</button>
+    <h3>Filters</h3>
+    <div id="mobileFiltersContent"></div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Magnificent <span>Furnitures</span></h3>
+                <p>Quality furniture for home and office since <strong>2015</strong></p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul id="footerCategories"></ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>📞 0726 100242</p>
+                <p>📧 info@magnificentfurnitures.co.ke</p>
+                <p>📍 Nairobi, Kenya</p>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="https://wa.me/254726100242" target="_blank" style="color: #25D366; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        💬 WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank" style="color: #1877F2; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        📘 Facebook
+                    </a>
+                    <a href="#" target="_blank" style="color: #E4405F; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        📷 Instagram
+                    </a>
+                    <a href="#" target="_blank" style="color: #000000; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        🎵 TikTok
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank" style="color: #D4A017; text-decoration: none;">Kiara Web Solutions</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Core Scripts (with defer to ensure proper loading order) -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script defer src="assets/js/core/utils.js"></script>
+<script defer src="assets/js/core/api.js"></script>
+<script defer src="assets/js/core/store.js"></script>
+<script defer src="assets/js/core/init.js"></script>
+
+<script>
+    
+    // Page-specific products functionality
+    (function() {
+        let currentPage = 1;
+        const productsPerPage = 12;
+        let currentFilteredProducts = [];
+        let unsubscribe = null;
+        
+        // Render product cards
+        function renderProductCards(products, containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            if (!products || products.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <div class="empty-icon">🔍</div>
+                        <h3>No products found</h3>
+                        <p>Try adjusting your filters or search criteria</p>
+                        <button class="btn btn-primary" id="resetFiltersBtn">Reset Filters</button>
+                    </div>
+                `;
+                const resetBtn = document.getElementById('resetFiltersBtn');
+                if (resetBtn) {
+                    resetBtn.addEventListener('click', () => {
+                        if (window.MF.store) window.MF.store.clearFilters();
+                        updateFiltersFromUI();
+                        loadAndRenderProducts();
+                    });
+                }
+                return;
+            }
+            
+            container.innerHTML = products.map(product => `
+                <div class="product-card ${product.featured ? 'product-card-featured' : ''}" data-aos="fade-up" data-aos-delay="100">
+                    ${product.featured ? '<div class="featured-badge">FEATURED</div>' : ''}
+                    <div class="product-image">
+                        <img src="${window.MF.escapeHtml(product.thumbnail || product.images?.[0] || '')}" 
+                             alt="${window.MF.escapeHtml(product.name)}" 
+                             loading="lazy"
+                             onerror="this.onerror=null; this.src='https://placehold.co/300x260?text=No+Image'">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${window.MF.escapeHtml(product.name)}</h3>
+                        <div class="product-price">${window.MF.formatCurrency(product.price)}</div>
+                        <div class="product-specs">${window.MF.escapeHtml(product.shortDescription || product.categoryName || '')}</div>
+                        <div class="product-buttons">
+                            <a href="product.html?slug=${product.slug}" class="btn-sm btn-outline-sm">View Details</a>
+                            <a href="https://wa.me/254726100242?text=${encodeURIComponent(`Hello Magnificent Furnitures,\n\nI am interested in:\n\n${product.name}\nPrice: ${window.MF.formatCurrency(product.price)}\n\nPlease send me more details.`)}" 
+                               class="btn-sm btn-whatsapp-sm" target="_blank">WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Update results count
+        function updateResultsCount(count) {
+            const countEl = document.getElementById('resultsCount');
+            if (countEl) {
+                countEl.textContent = `Showing ${count} product${count !== 1 ? 's' : ''}`;
+            }
+        }
+        
+        // Render pagination
+        function renderPagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / productsPerPage);
+            const paginationEl = document.getElementById('pagination');
+            if (!paginationEl) return;
+            
+            if (totalPages <= 1) {
+                paginationEl.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            
+            // Previous button
+            html += `<button class="pagination-prev ${currentPage === 1 ? 'disabled' : ''}" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
+            
+            // Page numbers
+            for (let i = 1; i <= Math.min(totalPages, 5); i++) {
+                html += `<button class="pagination-page ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+            }
+            
+            if (totalPages > 5) {
+                html += `<span>...</span>`;
+                html += `<button class="pagination-page" data-page="${totalPages}">${totalPages}</button>`;
+            }
+            
+            // Next button
+            html += `<button class="pagination-next ${currentPage === totalPages ? 'disabled' : ''}" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>`;
+            
+            paginationEl.innerHTML = html;
+            
+            // Add event listeners
+            document.querySelectorAll('.pagination-page').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const page = parseInt(btn.dataset.page);
+                    if (page && page !== currentPage) {
+                        currentPage = page;
+                        loadAndRenderProducts();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+            });
+            
+            document.querySelector('.pagination-prev')?.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadAndRenderProducts();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+            
+            document.querySelector('.pagination-next')?.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    loadAndRenderProducts();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+        
+        // Load and render products
+        async function loadAndRenderProducts() {
+            const grid = document.getElementById('productsGrid');
+            if (grid) grid.innerHTML = '<div class="loading">Loading products...</div>';
+            
+            // Wait for store to have products
+            if (!window.MF.store || window.MF.store.products.length === 0) {
+                setTimeout(() => loadAndRenderProducts(), 500);
+                return;
+            }
+            
+            const filtered = window.MF.store.getFilteredProducts();
+            currentFilteredProducts = filtered;
+            
+            const start = (currentPage - 1) * productsPerPage;
+            const paginated = filtered.slice(start, start + productsPerPage);
+            
+            updateResultsCount(filtered.length);
+            renderProductCards(paginated, 'productsGrid');
+            renderPagination(filtered.length);
+        }
+        
+        // Update filters from UI
+        function updateFiltersFromUI() {
+            if (!window.MF.store) return;
+            
+            const selectedMaterials = Array.from(document.querySelectorAll('#materialFilter input:checked')).map(cb => cb.value);
+            const inStockOnly = document.getElementById('inStockOnly')?.checked || false;
+            
+            window.MF.store.updateFilters({
+                materials: selectedMaterials,
+                inStockOnly: inStockOnly
+            });
+            
+            currentPage = 1;
+            loadAndRenderProducts();
+        }
+        
+        // Load categories into filter dropdowns
+        async function loadCategoriesUI() {
+            // Wait for MF to be ready
+            if (!window.MF.fetchCategories) {
+                setTimeout(() => loadCategoriesUI(), 500);
+                return;
+            }
+            
+            const categories = await window.MF.fetchCategories();
+            
+            // Category dropdown in navbar
+            const dropdown = document.getElementById('categoryDropdown');
+            if (dropdown) {
+                dropdown.innerHTML = categories.filter(c => c.isActive).slice(0, 8).map(cat => `
+                    <li role="none"><a href="products.html?category=${cat.slug}" role="menuitem">${window.MF.escapeHtml(cat.name)}</a></li>
+                `).join('') + `
+                    <li role="none"><a href="products.html" role="menuitem">All Categories →</a></li>
+                `;
+            }
+            
+            // Category filter in sidebar
+            const categoryFilter = document.getElementById('categoryFilter');
+            if (categoryFilter && window.MF.store) {
+                categoryFilter.innerHTML = `
+                    <label><input type="radio" name="category" value="all" ${!window.MF.store.filters.category ? 'checked' : ''}> All Categories</label>
+                    ${categories.filter(c => c.isActive).map(cat => `
+                        <label><input type="radio" name="category" value="${cat.slug}" ${window.MF.store.filters.category === cat.slug ? 'checked' : ''}> ${window.MF.escapeHtml(cat.name)} (${cat.count}+)</label>
+                    `).join('')}
+                `;
+                
+                // Add event listeners
+                categoryFilter.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        if (!window.MF.store) return;
+                        if (radio.value === 'all') {
+                            window.MF.store.updateFilters({ category: null });
+                        } else {
+                            window.MF.store.updateFilters({ category: radio.value });
+                        }
+                        currentPage = 1;
+                        loadAndRenderProducts();
+                    });
+                });
+            }
+            
+            // Footer categories
+            const footerCategories = document.getElementById('footerCategories');
+            if (footerCategories) {
+                footerCategories.innerHTML = categories.filter(c => c.isActive && c.featured).slice(0, 4).map(cat => `
+                    <li><a href="products.html?category=${cat.slug}">${window.MF.escapeHtml(cat.name)}</a></li>
+                `).join('');
+            }
+        }
+        
+        // Initialize page
+        async function initProductsPage() {
+            // Wait for MF.store to be ready
+            if (!window.MF.store) {
+                setTimeout(() => initProductsPage(), 500);
+                return;
+            }
+            
+            await loadCategoriesUI();
+            
+            // Set up event listeners
+            const sortSelect = document.getElementById('sortSelect');
+            if (sortSelect) {
+                sortSelect.addEventListener('change', () => {
+                    if (!window.MF.store) return;
+                    window.MF.store.setSortBy(sortSelect.value);
+                    currentPage = 1;
+                    loadAndRenderProducts();
+                });
+            }
+            
+            const clearBtn = document.getElementById('clearFiltersBtn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    if (!window.MF.store) return;
+                    window.MF.store.clearFilters();
+                    document.querySelectorAll('#materialFilter input').forEach(cb => cb.checked = false);
+                    if (document.getElementById('inStockOnly')) document.getElementById('inStockOnly').checked = false;
+                    document.querySelectorAll('#categoryFilter input[type="radio"]').forEach(radio => {
+                        if (radio.value === 'all') radio.checked = true;
+                    });
+                    document.getElementById('minPrice').value = '';
+                    document.getElementById('maxPrice').value = '';
+                    currentPage = 1;
+                    loadAndRenderProducts();
+                });
+            }
+            
+            const applyPriceBtn = document.getElementById('applyPriceBtn');
+            if (applyPriceBtn) {
+                applyPriceBtn.addEventListener('click', () => {
+                    if (!window.MF.store) return;
+                    const min = parseInt(document.getElementById('minPrice')?.value) || null;
+                    const max = parseInt(document.getElementById('maxPrice')?.value) || null;
+                    window.MF.store.updateFilters({ minPrice: min, maxPrice: max });
+                    currentPage = 1;
+                    loadAndRenderProducts();
+                });
+            }
+            
+            document.querySelectorAll('#materialFilter input').forEach(cb => {
+                cb.addEventListener('change', updateFiltersFromUI);
+            });
+            
+            const inStockCheckbox = document.getElementById('inStockOnly');
+            if (inStockCheckbox) {
+                inStockCheckbox.addEventListener('change', updateFiltersFromUI);
+            }
+            
+            // Mobile filters
+            const mobileToggle = document.getElementById('mobileFiltersToggle');
+            const mobilePanel = document.getElementById('mobileFiltersPanel');
+            const mobileOverlay = document.getElementById('mobileFiltersOverlay');
+            const closeBtn = document.getElementById('closeFiltersBtn');
+            const mobileContent = document.getElementById('mobileFiltersContent');
+            
+            if (mobileToggle && mobilePanel && mobileOverlay && mobileContent) {
+                const desktopFilters = document.querySelector('.filters-sidebar');
+                if (desktopFilters && !mobileContent.hasChildNodes()) {
+                    const clone = desktopFilters.cloneNode(true);
+                    clone.id = '';
+                    clone.classList.add('mobile-filters-copy');
+                    mobileContent.appendChild(clone);
+                }
+                
+                mobileToggle.addEventListener('click', () => {
+                    mobilePanel.classList.add('open');
+                    mobileOverlay.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    
+                    const mobileMinPrice = mobileContent.querySelector('#minPrice');
+                    const mobileMaxPrice = mobileContent.querySelector('#maxPrice');
+                    if (mobileMinPrice) mobileMinPrice.value = document.getElementById('minPrice')?.value || '';
+                    if (mobileMaxPrice) mobileMaxPrice.value = document.getElementById('maxPrice')?.value || '';
+                });
+                
+                const closeFilters = () => {
+                    mobilePanel.classList.remove('open');
+                    mobileOverlay.style.display = 'none';
+                    document.body.style.overflow = '';
+                };
+                
+                if (closeBtn) closeBtn.addEventListener('click', closeFilters);
+                mobileOverlay.addEventListener('click', closeFilters);
+            }
+            
+            // Subscribe to store changes (with safety check)
+            if (window.MF.store && window.MF.store.subscribe) {
+                if (unsubscribe) unsubscribe();
+                unsubscribe = window.MF.store.subscribe(() => {
+                    loadAndRenderProducts();
+                });
+            }
+            
+            // Initial load
+            loadAndRenderProducts();
+        }
+        
+        // Start when DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initProductsPage);
+        } else {
+            initProductsPage();
+        }
+    })();
+</script>
+
+
+<!-- MOBILE NAV PANEL -->
+<div class="nav-links-mobile" id="mobileNavPanel">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="mob-dropdown">
+            <a href="#" class="mob-dropdown-toggle">Products <span class="mob-arrow">▼</span></a>
+            <ul class="mob-submenu">
+                <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                <li><a href="products.html?category=workstations">Workstations</a></li>
+                <li><a href="products.html?category=school-furniture">School Furniture</a></li>
+                <li><a href="products.html?category=bar-stools">Bar Stools</a></li>
+                <li><a href="products.html?category=tv-stands">TV Stands</a></li>
+                <li><a href="products.html?category=coffee-tables">Coffee Tables</a></li>
+                <li><a href="products.html">All Products →</a></li>
+            </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<script>
+(function() {
+    var btn = document.getElementById('mobileMenuBtn');
+    var panel = document.getElementById('mobileNavPanel');
+    var overlay = document.getElementById('mobileOverlay');
+    var scrollY = 0;
+
+    if (!btn || !panel || !overlay) return;
+
+    function openMenu() {
+        scrollY = window.scrollY;
+        panel.classList.add('active');
+        overlay.classList.add('active');
+        document.body.classList.add('no-scroll');
+        document.body.style.top = '-' + scrollY + 'px';
+        btn.innerHTML = '&#10005;';
+        btn.style.cssText += 'font-size:20px;align-items:center;justify-content:center;';
+    }
+
+    function closeMenu() {
+        panel.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+        btn.innerHTML = '<span></span><span></span><span></span>';
+        btn.style.fontSize = '';
+        btn.style.alignItems = '';
+        btn.style.justifyContent = '';
+    }
+
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        panel.classList.contains('active') ? closeMenu() : openMenu();
+    });
+
+    overlay.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+    });
+
+    // Products dropdown toggle
+    var dropdownToggles = panel.querySelectorAll('.mob-dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var parent = toggle.closest('.mob-dropdown');
+            if (parent) {
+                parent.classList.toggle('open');
+            }
+        });
+    });
+
+    // Close menu on regular link click
+    var links = panel.querySelectorAll('a:not(.mob-dropdown-toggle)');
+    links.forEach(function(link) {
+        link.addEventListener('click', function() {
+            closeMenu();
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

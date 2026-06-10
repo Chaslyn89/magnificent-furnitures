@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnificent Furnitures - CMS Admin</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Custom branding styles -->
+    <link rel="stylesheet" href="custom.css">
+    
+    <style>
+        /* Loading and error states */
+        .admin-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #F8FAFC;
+        }
+        
+        .admin-loading .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #E2E8F0;
+            border-top-color: #D4A017;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .admin-loading p {
+            color: #475569;
+            font-size: 0.9rem;
+        }
+        
+        .admin-loading.error {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .admin-loading.error .error-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .admin-loading.error h3 {
+            color: #DC2626;
+            margin-bottom: 10px;
+        }
+        
+        .admin-loading.error p {
+            color: #6B7280;
+            margin-bottom: 20px;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #D4A017;
+        }
+        
+        .admin-header h1 {
+            margin: 0;
+            color: white;
+            font-size: 1.5rem;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .admin-header h1 span {
+            color: #D4A017;
+        }
+        
+        .admin-header p {
+            margin: 5px 0 0;
+            color: #94A3B8;
+            font-size: 0.8rem;
+        }
+        
+        #nc-root {
+            min-height: calc(100vh - 100px);
+        }
+    </style>
+</head>
+<body class="mf-admin">
+    
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <h1>Magnificent <span>Furnitures</span></h1>
+        <p>Content Management System</p>
+    </header>
+    
+    <!-- CMS Mount Point with Fallback -->
+    <div id="nc-root">
+        <div class="admin-loading" id="loadingState">
+            <div class="spinner"></div>
+            <p>Loading CMS...</p>
+        </div>
+        <div class="admin-loading error" id="errorState" style="display: none;">
+            <div class="error-icon">⚠️</div>
+            <h3>CMS Failed to Load</h3>
+            <p>Unable to initialize the content management system.</p>
+            <button onclick="window.location.reload()" style="padding: 10px 20px; background: #D4A017; color: #0F172A; border: none; border-radius: 8px; cursor: pointer;">Retry</button>
+        </div>
+    </div>
+    
+    <!-- Decap CMS Script (Pinned Version - No caret) -->
+    <script src="https://unpkg.com/decap-cms@3.1.0/dist/decap-cms.js"></script>
+    
+    <script>
+        // CMS Initialization with config check
+        (function() {
+            const loadingEl = document.getElementById('loadingState');
+            const errorEl = document.getElementById('errorState');
+            let timeoutId;
+            
+            // Check if config.yml exists and is valid
+            async function checkConfig() {
+                try {
+                    const response = await fetch('/admin/config.yml');
+                    if (!response.ok) {
+                        throw new Error(`Config not found (${response.status})`);
+                    }
+                    const content = await response.text();
+                    if (!content.includes('backend:') || !content.includes('collections:')) {
+                        throw new Error('Invalid config.yml structure');
+                    }
+                    console.log('✅ CMS config.yml validated');
+                    return true;
+                } catch (error) {
+                    console.error('❌ Config check failed:', error);
+                    showError('Configuration file not found or invalid. Please ensure /admin/config.yml exists.');
+                    return false;
+                }
+            }
+            
+            function showError(message) {
+                if (loadingEl) loadingEl.style.display = 'none';
+                if (errorEl) {
+                    errorEl.style.display = 'flex';
+                    const errorMsg = errorEl.querySelector('p');
+                    if (errorMsg) errorMsg.textContent = message || 'Unable to initialize CMS. Please check configuration.';
+                }
+            }
+            
+            function showLoading() {
+                if (loadingEl) loadingEl.style.display = 'flex';
+                if (errorEl) errorEl.style.display = 'none';
+            }
+            
+            function hideLoading() {
+                if (loadingEl) loadingEl.style.display = 'none';
+            }
+            
+            // Set timeout for CMS loading (10 seconds)
+            timeoutId = setTimeout(() => {
+                const cmsRoot = document.getElementById('nc-root');
+                // Check if CMS has initialized (Decap replaces #nc-root content)
+                if (cmsRoot && cmsRoot.children.length <= 2) {
+                    showError('CMS initialization timed out. Check your network connection and refresh.');
+                }
+            }, 10000);
+            
+            // Verify config before proceeding
+            checkConfig().then(configValid => {
+                if (configValid) {
+                    // Clear timeout on success (CMS will handle rendering)
+                    setTimeout(() => {
+                        clearTimeout(timeoutId);
+                        hideLoading();
+                    }, 2000);
+                }
+            });
+            
+            // Optional: Listen for CMS events (if needed)
+            window.CMS_MANUAL_INIT = false;
+        })();
+    </script>
+    
+    <!-- Security Note: Ensure Netlify Identity + Git Gateway is enabled -->
+    <!-- 
+        DEPLOYMENT CHECKLIST:
+        1. Enable Netlify Identity in Netlify Dashboard
+        2. Enable Git Gateway
+        3. Set up invite-only or external provider access
+        4. Configure /admin/config.yml with correct backend
+        5. Test login before going live
+    -->
+</body>
+</html>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- ==================== MAIN PAGES ==================== -->
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/about.html</loc>
+        <changefreq>monthly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/contact.html</loc>
+        <changefreq>monthly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products.html</loc>
+        <changefreq>daily</changefreq>
+    </url>
+
+    <!-- ==================== PRODUCT CATEGORIES (Clean URLs) ==================== -->
+    
+    <!-- Office Furniture -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/office-chairs</loc>
+        <changefreq>daily</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/office-desks</loc>
+        <changefreq>daily</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/filing-cabinets</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/workstations</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <!-- Home & Dining -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/dining-tables</loc>
+        <changefreq>daily</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/coffee-tables</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/tv-stands</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/dressing-tables</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <!-- Commercial & Hospitality -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/restaurant-chairs</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/bar-stools</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/conference-tables</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/salon-equipment</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <!-- Institutional & Educational -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/school-furniture</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/kindergarten-furniture</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <!-- Other Categories -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/foldable-chairs</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/safe-boxes</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/products/plastic-chairs</loc>
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <!-- ==================== PRODUCT PAGES (MOST IMPORTANT FOR SEO) ==================== -->
+    
+    <!-- Office Chairs -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/executive-mesh-chair</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/office-chairs/executive-mesh-1.jpg</image:loc>
+            <image:title>Executive Mesh Chair</image:title>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/high-back-executive-leather</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/office-chairs/leather-executive-1.jpg</image:loc>
+            <image:title>High Back Executive Leather Chair</image:title>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/mid-back-mesh-task-chair</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/office-chairs/task-mesh-1.jpg</image:loc>
+            <image:title>Mid-Back Mesh Task Chair</image:title>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/visitors-chair</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/office-chairs/visitors-chair-1.jpg</image:loc>
+            <image:title>Visitors Chair - Fabric Upholstered</image:title>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/gaming-racing-chair</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/office-chairs/gaming-chair-1.jpg</image:loc>
+            <image:title>Gaming Racing Chair - Ergonomic</image:title>
+        </image:image>
+    </url>
+
+    <!-- Office Desks (Example) -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/executive-wood-desk</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/office-desks/executive-desk.jpg</image:loc>
+            <image:title>Executive Wood Desk</image:title>
+        </image:image>
+    </url>
+
+    <!-- Dining Tables (Example) -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/modern-dining-table-6-seater</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/dining-tables/modern-dining-table.jpg</image:loc>
+            <image:title>Modern Dining Table - 6 Seater</image:title>
+        </image:image>
+    </url>
+
+    <!-- School Furniture (Example) -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/student-desk-chair-set</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/school-furniture/student-desk.jpg</image:loc>
+            <image:title>Student Desk and Chair Set</image:title>
+        </image:image>
+    </url>
+
+    <!-- TV Stands (Example) -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/modern-tv-stand</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/tv-stands/modern-tv-stand.jpg</image:loc>
+            <image:title>Modern TV Stand with Storage</image:title>
+        </image:image>
+    </url>
+
+    <!-- Coffee Tables (Example) -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/wooden-coffee-table</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/coffee-tables/wooden-coffee-table.jpg</image:loc>
+            <image:title>Wooden Coffee Table</image:title>
+        </image:image>
+    </url>
+
+    <!-- Workstations (Example) -->
+    <url>
+        <loc>https://magnificentfurnitures.co.ke/product/modular-workstation</loc>
+        <changefreq>weekly</changefreq>
+        <image:image>
+            <image:loc>https://magnificentfurnitures.co.ke/assets/images/products/workstations/modular-workstation.jpg</image:loc>
+            <image:title>Modular Workstation with Drawers</image:title>
+        </image:image>
+    </url>
+
+</urlset>

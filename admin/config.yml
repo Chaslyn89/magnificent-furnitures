@@ -1,0 +1,167 @@
+# ============================================
+# DECAP CMS CONFIGURATION
+# Magnificent Furnitures Limited
+# ============================================
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Media files storage
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+# Slug formatting
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
+# Site URL for branding
+site_url: https://magnificentfurnitures.co.ke
+display_url: https://magnificentfurnitures.co.ke
+
+# Logo for admin branding
+logo_url: /assets/images/logo/logo.png
+
+# ============================================
+# COLLECTIONS
+# ============================================
+
+collections:
+  # ---------- PRODUCTS ----------
+  - name: "products"
+    label: "Products"
+    label_singular: "Product"
+    description: "Manage all furniture products across categories"
+    folder: "data"
+    create: true
+    delete: true
+    identifier_field: "id"
+    slug: "{{slug}}"
+    preview_path: "product.html?slug={{slug}}"
+    preview_path_date_field: "date"
+    fields:
+      - { label: "Product ID", name: "id", widget: "string", required: true, pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens only'] }
+      - { label: "Slug", name: "slug", widget: "string", required: true, pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens only'] }
+      - { label: "Product Name", name: "name", widget: "string", required: true }
+      - { label: "Short Name", name: "shortName", widget: "string", required: false }
+      - { label: "SKU", name: "sku", widget: "string", required: true }
+      - { label: "Price (KES)", name: "price", widget: "number", required: true, value_type: "int", min: 0 }
+      - { label: "Old Price (Sale)", name: "oldPrice", widget: "number", required: false, value_type: "int", min: 0 }
+      - { label: "Currency", name: "currency", widget: "hidden", default: "KES" }
+      - { label: "Featured Product", name: "featured", widget: "boolean", default: false }
+      - { label: "In Stock", name: "inStock", widget: "boolean", default: true }
+      - { label: "Stock Quantity", name: "stockQuantity", widget: "number", required: false, value_type: "int", default: 0 }
+      - { label: "Main Image", name: "thumbnail", widget: "image", required: true }
+      - { label: "Gallery Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" }, required: false }
+      - { label: "Description", name: "description", widget: "markdown", required: true }
+      - { label: "Short Description", name: "shortDescription", widget: "text", required: true, pattern: ['^.{0,150}$', 'Maximum 150 characters'] }
+      - { label: "Category", name: "categorySlug", widget: "select", options:
+          - { label: "Office Chairs", value: "office-chairs" }
+          - { label: "Office Desks", value: "office-desks" }
+          - { label: "Filing Cabinets", value: "filing-cabinets" }
+          - { label: "Dining Tables", value: "dining-tables" }
+          - { label: "Foldable Chairs", value: "foldable-chairs" }
+          - { label: "Safe Boxes", value: "safe-boxes" }
+          - { label: "Restaurant Chairs", value: "restaurant-chairs" }
+          - { label: "Bar Stools", value: "bar-stools" }
+          - { label: "Conference Tables", value: "conference-tables" }
+          - { label: "Plastic Chairs", value: "plastic-chairs" }
+          - { label: "Dressing Tables", value: "dressing-tables" }
+          - { label: "Salon Equipment", value: "salon-equipment" }
+          - { label: "TV Stands", value: "tv-stands" }
+          - { label: "Coffee Tables", value: "coffee-tables" }
+          - { label: "School Furniture", value: "school-furniture" }
+          - { label: "Kindergarten Furniture", value: "kindergarten-furniture" }
+          - { label: "Workstations", value: "workstations" } }
+      - label: "Specifications"
+        name: "specifications"
+        widget: "object"
+        collapsed: true
+        fields:
+          - { label: "Material", name: "material", widget: "string", required: false }
+          - { label: "Frame Material", name: "frameMaterial", widget: "string", required: false }
+          - { label: "Color", name: "color", widget: "string", required: false }
+          - { label: "Color Options", name: "colorOptions", widget: "list", field: { label: "Color", name: "color", widget: "string" }, required: false }
+          - { label: "Dimensions", name: "dimensions", widget: "string", required: false }
+          - { label: "Seat Height", name: "seatHeight", widget: "string", required: false }
+          - { label: "Weight Capacity", name: "weightCapacity", widget: "string", required: false }
+          - { label: "Weight", name: "weight", widget: "string", required: false }
+          - { label: "Assembly", name: "assembly", widget: "string", required: false }
+          - { label: "Warranty", name: "warranty", widget: "string", required: false }
+          - { label: "Features", name: "features", widget: "list", field: { label: "Feature", name: "feature", widget: "string" }, required: false }
+      - label: "SEO Settings"
+        name: "seo"
+        widget: "object"
+        collapsed: true
+        required: false
+        fields:
+          - { label: "SEO Title", name: "seoTitle", widget: "string", required: false }
+          - { label: "SEO Description", name: "seoDescription", widget: "text", required: false, pattern: ['^.{0,160}$', 'Maximum 160 characters'] }
+          - { label: "Keywords", name: "keywords", widget: "list", field: { label: "Keyword", name: "keyword", widget: "string" }, required: false }
+      - { label: "Tags", name: "tags", widget: "list", field: { label: "Tag", name: "tag", widget: "string" }, required: false }
+      - { label: "Rating", name: "rating", widget: "number", required: false, value_type: "float", min: 0, max: 5, step: 0.1 }
+      - { label: "Reviews Count", name: "reviews", widget: "number", required: false, value_type: "int", default: 0 }
+
+  # ---------- CATEGORIES ----------
+  - name: "categories"
+    label: "Categories"
+    label_singular: "Category"
+    description: "Manage product categories"
+    folder: "data"
+    file: "categories.json"
+    create: false
+    delete: false
+    identifier_field: "id"
+    fields:
+      - label: "Categories List"
+        name: "categories"
+        widget: "list"
+        summary: "{{fields.name}}"
+        fields:
+          - { label: "Category ID", name: "id", widget: "string", required: true }
+          - { label: "Slug", name: "slug", widget: "string", required: true }
+          - { label: "Category Name", name: "name", widget: "string", required: true }
+          - { label: "Display Name", name: "displayName", widget: "string", required: true }
+          - { label: "Icon", name: "icon", widget: "string", required: false, default: "🪑" }
+          - { label: "Category Image", name: "image", widget: "image", required: false }
+          - { label: "Description", name: "description", widget: "text", required: true }
+          - { label: "SEO Title", name: "seoTitle", widget: "string", required: false }
+          - { label: "SEO Description", name: "seoDescription", widget: "text", required: false }
+          - { label: "Keywords", name: "keywords", widget: "list", field: { label: "Keyword", name: "keyword", widget: "string" }, required: false }
+          - { label: "Product Count", name: "count", widget: "number", required: true, value_type: "int", default: 30 }
+          - { label: "Featured Category", name: "featured", widget: "boolean", default: false }
+          - { label: "Active", name: "isActive", widget: "boolean", default: true }
+
+  # ---------- SITE SETTINGS ----------
+  - name: "settings"
+    label: "Site Settings"
+    label_singular: "Setting"
+    description: "Manage global site settings"
+    folder: "data"
+    file: "settings.json"
+    create: true
+    delete: false
+    identifier_field: "id"
+    fields:
+      - { label: "Business Name", name: "businessName", widget: "string", required: true, default: "Magnificent Furnitures Limited" }
+      - { label: "Phone Number", name: "phone", widget: "string", required: true, default: "0726 100242" }
+      - { label: "WhatsApp Number", name: "whatsapp", widget: "string", required: true, default: "254726100242" }
+      - { label: "Email", name: "email", widget: "string", required: true, default: "info@magnificentfurnitures.co.ke" }
+      - { label: "Address", name: "address", widget: "string", required: true, default: "Nairobi, Kenya" }
+      - { label: "Google Maps Embed URL", name: "googleMapsEmbed", widget: "string", required: false }
+      - label: "Business Hours"
+        name: "businessHours"
+        widget: "object"
+        fields:
+          - { label: "Monday - Friday", name: "weekdays", widget: "string", default: "8:00 AM - 6:00 PM" }
+          - { label: "Saturday", name: "saturday", widget: "string", default: "8:00 AM - 6:00 PM" }
+          - { label: "Sunday", name: "sunday", widget: "string", default: "Closed" }
+      - label: "Social Media"
+        name: "social"
+        widget: "object"
+        fields:
+          - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
+          - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
+          - { label: "Twitter URL", name: "twitter", widget: "string", required: false }

@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Magnificent Furnitures Limited - Nairobi, Kenya</title>
+    <meta name="description" content="Contact Magnificent Furnitures Limited in Nairobi, Kenya. Get directions, call us, WhatsApp, or send an inquiry. Same-day delivery available in Nairobi.">
+    <meta name="keywords" content="contact Magnificent Furnitures, furniture shop Nairobi, office furniture Kenya, showroom location">
+    <meta name="author" content="Magnificent Furnitures Limited">
+    
+    <!-- Local SEO Geo Tags -->
+    <meta name="geo.region" content="KE-30">
+    <meta name="geo.placename" content="Nairobi">
+    <meta name="geo.position" content="-1.286389;36.817223">
+    <meta name="ICBM" content="-1.286389, 36.817223">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Contact Us | Magnificent Furnitures Limited | Nairobi, Kenya">
+    <meta property="og:description" content="Get in touch with Kenya's premier furniture provider. Visit our showroom, call us, or send a WhatsApp message.">
+    <meta property="og:image" content="assets/images/hero/showroom.jpg">
+    <meta property="og:url" content="https://magnificentfurnitures.co.ke/contact.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact Magnificent Furnitures Limited",
+      "description": "Contact page for Magnificent Furnitures Limited in Nairobi, Kenya",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Magnificent Furnitures Limited",
+        "url": "https://magnificentfurnitures.co.ke",
+        "telephone": "+254726100242",
+        "email": "info@magnificentfurnitures.co.ke",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nairobi",
+          "addressCountry": "KE"
+        }
+      }
+    }
+    </script>
+    
+    <style>
+        /* FAQ Accordion Styles */
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 20px;
+            background: var(--bg-white);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .faq-question:hover {
+            background: var(--bg-light);
+        }
+        .faq-question .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-item.active .faq-question .faq-icon {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: var(--bg-light);
+        }
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px 20px;
+            max-height: 300px;
+        }
+        
+        /* Delivery Badge - No Background */
+        .delivery-badge {
+            background: transparent;
+            color: var(--text-dark);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+            display: inline-block;
+            width: auto;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+        }
+        .delivery-badge span {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+        .delivery-badge small {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: normal;
+        }
+        
+        /* Customer Reviews Section */
+        .reviews-section {
+            padding: 60px 0;
+            background: var(--bg-light);
+        }
+        .reviews-section h2 {
+            margin-bottom: 40px;
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .review-card {
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .review-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+        .review-stars {
+            color: #FFD700;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .review-text {
+            font-style: italic;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .review-author {
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        .review-location {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .review-date {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+        
+        /* Leave Review Button */
+        .leave-review-btn {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        /* Direction Buttons */
+        .direction-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .btn-direction {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .btn-direction:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        .btn-google {
+            background: #4285F4;
+        }
+        .btn-google:hover {
+            background: #3367D6;
+        }
+        
+        .error-message {
+            color: #EF4444;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+        .error-message.visible {
+            display: block;
+        }
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: #EF4444;
+        }
+    </style>
+    <style>
+    /* ===== MOBILE MENU FINAL FIX ===== */
+    @media (max-width: 768px) {
+        ul.nav-links { display: none !important; }
+
+        .mobile-menu-btn {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            width: 36px !important;
+            height: 26px !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            cursor: pointer !important;
+            z-index: 9999 !important;
+            position: relative !important;
+            margin-left: auto !important;
+        }
+        .mobile-menu-btn span {
+            display: block !important;
+            width: 26px !important;
+            height: 3px !important;
+            background-color: #D4A017 !important;
+            border-radius: 3px !important;
+            pointer-events: none !important;
+        }
+
+        /* Panel - slides from RIGHT, does NOT move the page */
+        .nav-links-mobile {
+            position: fixed !important;
+            top: 0 !important;
+            right: -320px !important;
+            width: 280px !important;
+            height: 100% !important;
+            background: #ffffff !important;
+            z-index: 1001 !important;
+            padding: 70px 0 30px 0 !important;
+            transition: right 0.3s ease !important;
+            overflow-y: auto !important;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.15) !important;
+        }
+        .nav-links-mobile.active {
+            right: 0 !important;
+        }
+
+        /* Nav items */
+        .nav-links-mobile ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .nav-links-mobile > ul > li {
+            border-bottom: 1px solid #E2E8F0 !important;
+        }
+        .nav-links-mobile a,
+        .nav-links-mobile .mob-dropdown-toggle {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 16px 25px !important;
+            color: #0F172A !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            background: none !important;
+            border: none !important;
+            width: 100% !important;
+            text-align: left !important;
+        }
+        .nav-links-mobile a:hover,
+        .nav-links-mobile .mob-dropdown-toggle:hover {
+            color: #D4A017 !important;
+            background: #F8FAFC !important;
+        }
+
+        /* Products submenu */
+        .mob-submenu {
+            display: none !important;
+            background: #F8FAFC !important;
+            padding: 0 !important;
+        }
+        .mob-dropdown.open .mob-submenu {
+            display: block !important;
+        }
+        .mob-submenu li {
+            border-top: 1px solid #E2E8F0 !important;
+        }
+        .mob-submenu a {
+            padding: 12px 25px 12px 35px !important;
+            font-size: 14px !important;
+            font-weight: 400 !important;
+        }
+
+        /* Arrow rotation */
+        .mob-arrow {
+            transition: transform 0.3s ease !important;
+            font-size: 11px !important;
+        }
+        .mob-dropdown.open .mob-arrow {
+            transform: rotate(180deg) !important;
+        }
+
+        /* Overlay - darkens page but doesnt move it */
+        .mobile-overlay {
+            display: none !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0,0,0,0.5) !important;
+            z-index: 1000 !important;
+        }
+        .mobile-overlay.active {
+            display: block !important;
+        }
+
+        /* Prevent body scroll WITHOUT shifting layout */
+        body.no-scroll {
+            overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
+        }
+    }
+
+    /* Hero text always visible */
+    .hero h1, .hero p, .hero-subtitle, .hero-buttons {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    [data-aos]:not(.aos-animate) {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+        <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+            <img src="assets/images/logo/logo.png" alt="Magnificent Furnitures Logo" style="height: 55px;" onerror="this.style.display='none'">
+            <div>
+                <h1 style="margin: 0; font-size: 1.5rem; line-height: 1.2;">Magnificent <span style="color: #D4A017;">Furnitures</span></h1>
+                <p style="margin: 0; font-size: 0.75rem;">Limited</p>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks" role="menubar">
+            <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+            <li class="dropdown" role="none">
+                <a href="products.html" class="dropdown-toggle" role="menuitem" aria-haspopup="true" aria-expanded="false">Products ▼</a>
+                <ul class="dropdown-menu" role="menu" aria-label="Product categories">
+                    <li role="none"><a href="products.html?category=office-chairs" role="menuitem">Office Chairs</a></li>
+                    <li role="none"><a href="products.html?category=office-desks" role="menuitem">Office Desks</a></li>
+                    <li role="none"><a href="products.html?category=dining-tables" role="menuitem">Dining Tables</a></li>
+                    <li role="none"><a href="products.html?category=workstations" role="menuitem">Workstations</a></li>
+                    <li role="none"><a href="products.html?category=school-furniture" role="menuitem">School Furniture</a></li>
+                    <li role="none"><a href="products.html?category=bar-stools" role="menuitem">Bar Stools</a></li>
+                    <li role="none"><a href="products.html?category=tv-stands" role="menuitem">TV Stands</a></li>
+                    <li role="none"><a href="products.html?category=coffee-tables" role="menuitem">Coffee Tables</a></li>
+                    <li role="none"><a href="products.html" role="menuitem">All Categories →</a></li>
+                </ul>
+            </li>
+            <li role="none"><a href="about.html" role="menuitem">About</a></li>
+            <li role="none"><a href="contact.html" class="active" role="menuitem" aria-current="page">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header" aria-labelledby="page-header-title">
+    <div class="container">
+        <h1 id="page-header-title" data-aos="fade-up">Contact Us</h1>
+        <p data-aos="fade-up" data-aos-delay="100">We'd love to hear from you. Reach out for inquiries, bulk orders, or to visit our showroom.</p>
+    </div>
+</section>
+
+<!-- Delivery Badge (No Background) -->
+<div class="container" style="text-align: center;" data-aos="fade-up" data-aos-delay="200">
+    <div class="delivery-badge">
+        <span>🚚</span> Same-Day Delivery in Nairobi <br>
+        <small>Order before 3 PM • Delivery fee: KES 500 - KES 1,500 (depending on location)</small>
+    </div>
+</div>
+
+<!-- Contact Info & Form -->
+<section class="contact-section" aria-labelledby="contact-heading">
+    <div class="container">
+        <div class="contact-grid">
+            
+            <!-- Contact Information -->
+            <div class="contact-info" data-aos="fade-right">
+                <h2 id="contact-heading">Get in Touch</h2>
+                
+                <div class="info-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="info-icon" aria-hidden="true">📍</div>
+                    <div class="info-content">
+                        <h3>Visit Our Showroom</h3>
+                        <p>Nairobi, Kenya</p>
+                        <div class="direction-buttons">
+                            <a href="https://maps.google.com/?q=Magnificent+Furnitures+Ltd+Nairobi" target="_blank" rel="noopener" class="btn-direction btn-google">
+                                🗺️ Open in Google Maps
+                            </a>
+                            <a href="https://www.google.com/maps/dir//Magnificent+Furnitures+Ltd+Nairobi" target="_blank" rel="noopener" class="btn-direction">
+                                📍 Get Directions
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-item" data-aos="fade-up" data-aos-delay="150">
+                    <div class="info-icon" aria-hidden="true">📞</div>
+                    <div class="info-content">
+                        <h3>Call Us</h3>
+                        <p><a href="tel:+254726100242">0726 100242</a></p>
+                        <p class="hours-note">Mon-Sat: 8:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+                
+                <div class="info-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="info-icon" aria-hidden="true">💬</div>
+                    <div class="info-content">
+                        <h3>WhatsApp</h3>
+                        <p><a href="https://wa.me/254726100242" target="_blank" rel="noopener">Chat with us on WhatsApp →</a></p>
+                    </div>
+                </div>
+                
+                <div class="info-item" data-aos="fade-up" data-aos-delay="250">
+                    <div class="info-icon" aria-hidden="true">✉️</div>
+                    <div class="info-content">
+                        <h3>Email</h3>
+                        <p><a href="mailto:info@magnificentfurnitures.co.ke">info@magnificentfurnitures.co.ke</a></p>
+                    </div>
+                </div>
+                
+                <div class="business-hours" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Business Hours</h3>
+                    <ul>
+                        <li><span>Monday - Friday:</span> <span>8:00 AM - 6:00 PM</span></li>
+                        <li><span>Saturday:</span> <span>8:00 AM - 6:00 PM</span></li>
+                        <li><span>Sunday:</span> <span>Closed</span></li>
+                        <li><span>Public Holidays:</span> <span>Closed</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="contact-form-container" data-aos="fade-left">
+                <h2 data-aos="fade-up">Send Us a Message</h2>
+                <form class="contact-form" data-whatsapp-form data-clear-on-submit id="contactForm" data-aos="fade-up" data-aos-delay="100">
+                    <fieldset>
+                        <legend style="position: absolute; opacity: 0; width: 1px; height: 1px;">Contact Information</legend>
+                        
+                        <div class="form-row">
+                            <div class="form-group" id="name-group">
+                                <label for="name" class="form-label">Your Name *</label>
+                                <input type="text" id="name" name="name" class="form-control" required>
+                                <div class="error-message" id="name-error">Please enter your name</div>
+                            </div>
+                            <div class="form-group" id="email-group">
+                                <label for="email" class="form-label">Email (optional – for follow-up)</label>
+                                <input type="email" id="email" name="email" class="form-control">
+                                <div class="error-message" id="email-error">Please enter a valid email</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group" id="phone-group">
+                                <label for="phone" class="form-label">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" class="form-control" required>
+                                <div class="error-message" id="phone-error">Please enter a valid phone number</div>
+                            </div>
+                            <div class="form-group" id="product-group">
+                                <label for="product" class="form-label">Product Interested In</label>
+                                <input type="text" id="product" name="product" class="form-control" placeholder="e.g., Office Chair, Dining Table">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="message-group">
+                            <label for="message" class="form-label">Message *</label>
+                            <textarea id="message" name="message" class="form-control" rows="5" required placeholder="Tell us about your furniture needs..."></textarea>
+                            <div class="error-message" id="message-error">Please enter your message</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Send via WhatsApp →</button>
+                        </div>
+                        
+                        <div id="form-success" class="alert alert-success" style="display: none; margin-top: 15px;">
+                            ✓ Message ready! You'll be redirected to WhatsApp.
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Google Maps Section -->
+<section class="map-section" aria-labelledby="map-heading">
+    <div class="container">
+        <h2 id="map-heading" data-aos="fade-up">Find Us</h2>
+        <div class="map-container" data-aos="fade-up" data-aos-delay="100">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8184878545267!2d36.883616200000006!3d-1.2827256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f138e2b0deea3%3A0x927fd26e25002bfa!2sMagnificent%20furnitures%20ltd!5e0!3m2!1sen!2ske!4v1780773993572!5m2!1sen!2ske" 
+                width="100%" 
+                height="400" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Magnificent Furnitures Location Map">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<!-- Customer Reviews Section -->
+<section class="reviews-section" aria-labelledby="reviews-heading">
+    <div class="container">
+        <h2 id="reviews-heading" data-aos="fade-up">What Our Customers Say</h2>
+        <div class="reviews-grid">
+            
+            <!-- Review 1 - April 2025 -->
+            <div class="review-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"The office chair I bought is extremely comfortable. Same-day delivery was on time! The quality exceeded my expectations."</p>
+                <div class="review-author">Amanda L.</div>
+                <div class="review-location">📍 Utawala, Nairobi</div>
+                <div class="review-date">April 2025</div>
+            </div>
+            
+            <!-- Review 2 - November 2025 -->
+            <div class="review-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"Best furniture quality in Nairobi. The dining table set is stunning and durable. My family loves it!"</p>
+                <div class="review-author">Samuel K.</div>
+                <div class="review-location">📍 Westlands, Nairobi</div>
+                <div class="review-date">November 2025</div>
+            </div>
+            
+            <!-- Review 3 - January 2026 -->
+            <div class="review-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"Delivery to Mombasa took only 3 days. Very impressed with the service and communication throughout."</p>
+                <div class="review-author">James M.</div>
+                <div class="review-location">📍 Mombasa</div>
+                <div class="review-date">January 2026</div>
+            </div>
+            
+            <!-- Review 4 - March 2026 -->
+            <div class="review-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"Customer service was excellent. They helped me choose the perfect desk for my home office. Highly recommend!"</p>
+                <div class="review-author">Grace W.</div>
+                <div class="review-location">📍 Kilimani, Nairobi</div>
+                <div class="review-date">March 2026</div>
+            </div>
+            
+            <!-- Review 5 - May 2026 -->
+            <div class="review-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                <p class="review-text">"The school desks were exactly what we needed for our institution. Great prices and fast delivery to Thika!"</p>
+                <div class="review-author">Peter O.</div>
+                <div class="review-location">📍 Thika</div>
+                <div class="review-date">May 2026</div>
+            </div>
+        </div>
+        
+        <!-- Leave a Review Button -->
+        <div class="leave-review-btn" data-aos="fade-up" data-aos-delay="500">
+            <a href="https://wa.me/254726100242?text=Hello%20Magnificent%20Furnitures%2C%0A%0AI%20would%20like%20to%20leave%20a%20review%20about%20my%20recent%20purchase%3A%0A%0AName%3A%20%0ALocation%3A%20%0ARating%3A%20%2A%2A%2A%2A%2A%0AReview%3A%20%0A%0AThank%20you%21" 
+               class="btn btn-outline" target="_blank">
+                ✍️ Leave a Review
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section (Expanded - 7 Questions) -->
+<section class="faq-section" aria-labelledby="faq-heading">
+    <div class="container">
+        <h2 id="faq-heading" data-aos="fade-up">Frequently Asked Questions</h2>
+        <div class="faq-grid" id="faqContainer">
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                <div class="faq-question">
+                    <span>🚚 Do you deliver outside Nairobi?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we offer nationwide delivery across Kenya. Delivery fees vary by location. Contact us for a quote.</p>
+                </div>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="faq-question">
+                    <span>⏱️ How long does delivery take?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p><strong>Within Nairobi:</strong> Same-day delivery (order before 3 PM). Delivery fee: KES 500 - KES 1,500 depending on location.<br>
+                    <strong>Outside Nairobi:</strong> 2-5 business days.</p>
+                </div>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="faq-question">
+                    <span>🔧 Do you offer assembly services?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, free assembly within Nairobi for all furniture purchases.</p>
+                </div>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="faq-question">
+                    <span>📝 What is your warranty policy?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>1-year warranty on all products against manufacturing defects.</p>
+                </div>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                <div class="faq-question">
+                    <span>🔄 Can I return a product?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, within 7 days of delivery if unused and in original packaging.</p>
+                </div>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                <div class="faq-question">
+                    <span>🛠️ Do you make custom furniture?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we accept custom orders. Lead time is 10-14 days depending on the design.</p>
+                </div>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="600">
+                <div class="faq-question">
+                    <span>💳 What payment methods do you accept?</span>
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We accept M-Pesa, bank transfer, and cash on delivery (for select locations).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Magnificent <span>Furnitures</span></h3>
+                <p>Quality furniture for home and office since <strong>2015</strong></p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul id="footerCategories">
+                    <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                    <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                    <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                    <li><a href="products.html?category=school-furniture">School Furniture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>📞 0726 100242</p>
+                <p>📧 info@magnificentfurnitures.co.ke</p>
+                <p>📍 Nairobi, Kenya</p>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="https://wa.me/254726100242" target="_blank" style="color: #25D366; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        💬 WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank" style="color: #1877F2; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        📘 Facebook
+                    </a>
+                    <a href="#" target="_blank" style="color: #E4405F; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        📷 Instagram
+                    </a>
+                    <a href="#" target="_blank" style="color: #000000; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        🎵 TikTok
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank" style="color: #D4A017; text-decoration: none;">Kiara Web Solutions</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/whatsapp.js"></script>
+
+<script>
+    
+    // FAQ Accordion Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Form validation
+        const form = document.getElementById('contactForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                
+                const name = document.getElementById('name');
+                const nameError = document.getElementById('name-error');
+                if (!name.value.trim()) {
+                    nameError.classList.add('visible');
+                    document.getElementById('name-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    nameError.classList.remove('visible');
+                    document.getElementById('name-group').classList.remove('error');
+                }
+                
+                const phone = document.getElementById('phone');
+                const phoneError = document.getElementById('phone-error');
+                const phoneRegex = /^(07\d{8}|2547\d{8}|\+2547\d{8})$/;
+                if (!phone.value.trim() || !phoneRegex.test(phone.value.replace(/\s/g, ''))) {
+                    phoneError.classList.add('visible');
+                    document.getElementById('phone-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    phoneError.classList.remove('visible');
+                    document.getElementById('phone-group').classList.remove('error');
+                }
+                
+                const message = document.getElementById('message');
+                const messageError = document.getElementById('message-error');
+                if (!message.value.trim()) {
+                    messageError.classList.add('visible');
+                    document.getElementById('message-group').classList.add('error');
+                    isValid = false;
+                } else {
+                    messageError.classList.remove('visible');
+                    document.getElementById('message-group').classList.remove('error');
+                }
+                
+                const email = document.getElementById('email');
+                const emailError = document.getElementById('email-error');
+                if (email.value.trim()) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email.value)) {
+                        emailError.classList.add('visible');
+                        document.getElementById('email-group').classList.add('error');
+                        isValid = false;
+                    } else {
+                        emailError.classList.remove('visible');
+                        document.getElementById('email-group').classList.remove('error');
+                    }
+                }
+                
+                if (isValid) {
+                    const submitEvent = new Event('submit', { bubbles: true });
+                    form.dispatchEvent(submitEvent);
+                }
+            });
+        }
+    });
+</script>
+
+
+<!-- MOBILE NAV PANEL -->
+<div class="nav-links-mobile" id="mobileNavPanel">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="mob-dropdown">
+            <a href="#" class="mob-dropdown-toggle">Products <span class="mob-arrow">▼</span></a>
+            <ul class="mob-submenu">
+                <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                <li><a href="products.html?category=workstations">Workstations</a></li>
+                <li><a href="products.html?category=school-furniture">School Furniture</a></li>
+                <li><a href="products.html?category=bar-stools">Bar Stools</a></li>
+                <li><a href="products.html?category=tv-stands">TV Stands</a></li>
+                <li><a href="products.html?category=coffee-tables">Coffee Tables</a></li>
+                <li><a href="products.html">All Products →</a></li>
+            </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<script>
+(function() {
+    var btn = document.getElementById('mobileMenuBtn');
+    var panel = document.getElementById('mobileNavPanel');
+    var overlay = document.getElementById('mobileOverlay');
+    var scrollY = 0;
+
+    if (!btn || !panel || !overlay) return;
+
+    function openMenu() {
+        scrollY = window.scrollY;
+        panel.classList.add('active');
+        overlay.classList.add('active');
+        document.body.classList.add('no-scroll');
+        document.body.style.top = '-' + scrollY + 'px';
+        btn.innerHTML = '&#10005;';
+        btn.style.cssText += 'font-size:20px;align-items:center;justify-content:center;';
+    }
+
+    function closeMenu() {
+        panel.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+        btn.innerHTML = '<span></span><span></span><span></span>';
+        btn.style.fontSize = '';
+        btn.style.alignItems = '';
+        btn.style.justifyContent = '';
+    }
+
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        panel.classList.contains('active') ? closeMenu() : openMenu();
+    });
+
+    overlay.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+    });
+
+    // Products dropdown toggle
+    var dropdownToggles = panel.querySelectorAll('.mob-dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var parent = toggle.closest('.mob-dropdown');
+            if (parent) {
+                parent.classList.toggle('open');
+            }
+        });
+    });
+
+    // Close menu on regular link click
+    var links = panel.querySelectorAll('a:not(.mob-dropdown-toggle)');
+    links.forEach(function(link) {
+        link.addEventListener('click', function() {
+            closeMenu();
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

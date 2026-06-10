@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Product... | Magnificent Furnitures Limited</title>
+    <meta name="description" content="View product details, specifications, and pricing. Quality furniture in Nairobi, Kenya.">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Dynamic meta tags will be injected by JavaScript -->
+    <meta property="og:title" content="Magnificent Furnitures Limited">
+    <meta property="og:description" content="Quality furniture in Nairobi, Kenya">
+    <meta property="og:type" content="product">
+    <meta property="og:image" content="assets/images/hero/showroom.jpg">
+    <meta property="og:url" content="https://magnificentfurnitures.co.ke/product.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* Skeleton Loader Styles */
+        .skeleton-product {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .skeleton-images {
+            flex: 1;
+            min-width: 250px;
+        }
+        .skeleton-info {
+            flex: 1;
+            min-width: 250px;
+        }
+        .skeleton-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 12px;
+        }
+        .skeleton-line {
+            height: 20px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .skeleton-line.title {
+            width: 70%;
+            height: 32px;
+        }
+        .skeleton-line.price {
+            width: 40%;
+            height: 28px;
+        }
+        .skeleton-line.long {
+            width: 100%;
+        }
+        .skeleton-line.medium {
+            width: 80%;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Error State */
+        .error-state {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .error-state .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        .retry-btn {
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+        
+        /* Sticky WhatsApp CTA (mobile only) */
+        .sticky-wa-cta {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: var(--whatsapp-color);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            z-index: 100;
+            display: none;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.3s ease;
+            cursor: pointer;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .sticky-wa-cta.visible {
+            display: block;
+        }
+        @media (min-width: 768px) {
+            .sticky-wa-cta {
+                display: none !important;
+            }
+        }
+        
+        /* Product Detail Layout */
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        .product-gallery {
+            position: sticky;
+            top: 100px;
+        }
+        .product-main-image {
+            width: 100%;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: var(--bg-light);
+        }
+        .product-main-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        .product-thumbnails {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        .thumbnail.active {
+            border-color: var(--accent-color);
+        }
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .product-category {
+            margin-bottom: 15px;
+        }
+        .product-category a {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .product-title-detail {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .product-sku {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+        .product-price-detail {
+            margin-bottom: 20px;
+        }
+        .current-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        .old-price {
+            font-size: 1.2rem;
+            text-decoration: line-through;
+            color: var(--text-light);
+            margin-right: 15px;
+        }
+        .discount-badge {
+            background: #EF4444;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-left: 10px;
+        }
+        .product-stock {
+            margin-bottom: 20px;
+        }
+        .in-stock {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+        .out-of-stock {
+            color: #EF4444;
+            font-weight: 600;
+        }
+        .product-description {
+            margin-bottom: 30px;
+        }
+        .product-description h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .product-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .product-actions .btn {
+            flex: 1;
+            text-align: center;
+        }
+        
+        /* Specifications Table */
+        .specs-section {
+            margin-bottom: 40px;
+        }
+        .specs-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-white);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+        }
+        .specs-table tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+        .specs-table tr:last-child {
+            border-bottom: none;
+        }
+        .spec-label {
+            padding: 12px 20px;
+            font-weight: 600;
+            width: 200px;
+            background: var(--bg-light);
+        }
+        .spec-value {
+            padding: 12px 20px;
+            color: var(--text-light);
+        }
+        
+        /* Features List */
+        .features-section {
+            margin-bottom: 40px;
+        }
+        .features-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        .features-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .features-list li {
+            padding: 8px 0;
+            color: var(--text-light);
+        }
+        .features-list li:before {
+            content: "✓";
+            color: var(--accent-color);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        /* Quick Quote Button */
+        .quick-quote {
+            margin: 20px 0;
+        }
+        .quick-quote .btn-whatsapp {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+        
+        /* Related Products */
+        .related-products {
+            padding: 60px 0;
+            background: var(--bg-light);
+        }
+        .related-products h2 {
+            margin-bottom: 40px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-detail-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .product-gallery {
+                position: static;
+            }
+            .product-title-detail {
+                font-size: 1.5rem;
+            }
+            .current-price {
+                font-size: 1.5rem;
+            }
+            .spec-label {
+                width: 120px;
+                padding: 10px 15px;
+            }
+            .spec-value {
+                padding: 10px 15px;
+            }
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <style>
+    /* ===== MOBILE MENU FINAL FIX ===== */
+    @media (max-width: 768px) {
+        ul.nav-links { display: none !important; }
+
+        .mobile-menu-btn {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            width: 36px !important;
+            height: 26px !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            cursor: pointer !important;
+            z-index: 9999 !important;
+            position: relative !important;
+            margin-left: auto !important;
+        }
+        .mobile-menu-btn span {
+            display: block !important;
+            width: 26px !important;
+            height: 3px !important;
+            background-color: #D4A017 !important;
+            border-radius: 3px !important;
+            pointer-events: none !important;
+        }
+
+        /* Panel - slides from RIGHT, does NOT move the page */
+        .nav-links-mobile {
+            position: fixed !important;
+            top: 0 !important;
+            right: -320px !important;
+            width: 280px !important;
+            height: 100% !important;
+            background: #ffffff !important;
+            z-index: 1001 !important;
+            padding: 70px 0 30px 0 !important;
+            transition: right 0.3s ease !important;
+            overflow-y: auto !important;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.15) !important;
+        }
+        .nav-links-mobile.active {
+            right: 0 !important;
+        }
+
+        /* Nav items */
+        .nav-links-mobile ul {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .nav-links-mobile > ul > li {
+            border-bottom: 1px solid #E2E8F0 !important;
+        }
+        .nav-links-mobile a,
+        .nav-links-mobile .mob-dropdown-toggle {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 16px 25px !important;
+            color: #0F172A !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            background: none !important;
+            border: none !important;
+            width: 100% !important;
+            text-align: left !important;
+        }
+        .nav-links-mobile a:hover,
+        .nav-links-mobile .mob-dropdown-toggle:hover {
+            color: #D4A017 !important;
+            background: #F8FAFC !important;
+        }
+
+        /* Products submenu */
+        .mob-submenu {
+            display: none !important;
+            background: #F8FAFC !important;
+            padding: 0 !important;
+        }
+        .mob-dropdown.open .mob-submenu {
+            display: block !important;
+        }
+        .mob-submenu li {
+            border-top: 1px solid #E2E8F0 !important;
+        }
+        .mob-submenu a {
+            padding: 12px 25px 12px 35px !important;
+            font-size: 14px !important;
+            font-weight: 400 !important;
+        }
+
+        /* Arrow rotation */
+        .mob-arrow {
+            transition: transform 0.3s ease !important;
+            font-size: 11px !important;
+        }
+        .mob-dropdown.open .mob-arrow {
+            transform: rotate(180deg) !important;
+        }
+
+        /* Overlay - darkens page but doesnt move it */
+        .mobile-overlay {
+            display: none !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0,0,0,0.5) !important;
+            z-index: 1000 !important;
+        }
+        .mobile-overlay.active {
+            display: block !important;
+        }
+
+        /* Prevent body scroll WITHOUT shifting layout */
+        body.no-scroll {
+            overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
+        }
+    }
+
+    /* Hero text always visible */
+    .hero h1, .hero p, .hero-subtitle, .hero-buttons {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    [data-aos]:not(.aos-animate) {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar" aria-label="Main navigation">
+    <div class="container">
+        <div class="logo" style="display: flex; align-items: center; gap: 12px;">
+            <img src="assets/images/logo/logo.png" alt="Magnificent Furnitures Logo" style="height: 55px;" onerror="this.style.display='none'">
+            <div>
+                <h1 style="margin: 0; font-size: 1.5rem; line-height: 1.2;">Magnificent <span style="color: #D4A017;">Furnitures</span></h1>
+                <p style="margin: 0; font-size: 0.75rem;">Limited</p>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks" role="menubar">
+            <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+            <li class="dropdown" role="none">
+                <a href="products.html" class="dropdown-toggle" role="menuitem" aria-haspopup="true" aria-expanded="false">Products ▼</a>
+                <ul class="dropdown-menu" role="menu" aria-label="Product categories">
+                    <li role="none"><a href="products.html?category=office-chairs" role="menuitem">Office Chairs</a></li>
+                    <li role="none"><a href="products.html?category=office-desks" role="menuitem">Office Desks</a></li>
+                    <li role="none"><a href="products.html?category=dining-tables" role="menuitem">Dining Tables</a></li>
+                    <li role="none"><a href="products.html?category=workstations" role="menuitem">Workstations</a></li>
+                    <li role="none"><a href="products.html?category=school-furniture" role="menuitem">School Furniture</a></li>
+                    <li role="none"><a href="products.html?category=bar-stools" role="menuitem">Bar Stools</a></li>
+                    <li role="none"><a href="products.html?category=tv-stands" role="menuitem">TV Stands</a></li>
+                    <li role="none"><a href="products.html?category=coffee-tables" role="menuitem">Coffee Tables</a></li>
+                    <li role="none"><a href="products.html" role="menuitem">All Categories →</a></li>
+                </ul>
+            </li>
+            <li role="none"><a href="about.html" role="menuitem">About</a></li>
+            <li role="none"><a href="contact.html" role="menuitem">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Breadcrumb Container -->
+<div class="breadcrumb" id="breadcrumbContainer">
+    <div class="container">
+        <ul class="breadcrumb-list" id="breadcrumbList">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li id="breadcrumbCategory">Loading...</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Product Detail Container -->
+<div class="container" id="productDetailContainer" data-aos="fade-up">
+    
+    <!-- Skeleton Loader -->
+    <div id="skeletonLoader">
+        <div class="skeleton-product">
+            <div class="skeleton-images">
+                <div class="skeleton-image"></div>
+            </div>
+            <div class="skeleton-info">
+                <div class="skeleton-line title"></div>
+                <div class="skeleton-line price"></div>
+                <div class="skeleton-line medium"></div>
+                <div class="skeleton-line long"></div>
+                <div class="skeleton-line long"></div>
+                <div class="skeleton-line medium"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Error State -->
+    <div id="errorState" style="display: none;">
+        <div class="error-state">
+            <div class="empty-icon">⚠️</div>
+            <h2>Product Not Found</h2>
+            <p>The product you're looking for doesn't exist or failed to load.</p>
+            <button class="btn btn-primary retry-btn" id="retryBtn">Try Again</button>
+            <a href="products.html" class="btn btn-outline">Browse All Products</a>
+        </div>
+    </div>
+    
+    <!-- Product Content (Your existing layout - populated by JS) -->
+    <div id="productContent" style="display: none;">
+        <!-- Product detail grid will be injected here by product.js -->
+    </div>
+</div>
+
+<!-- Related Products Section -->
+<section class="related-products" id="relatedProductsSection" style="display: none;">
+    <div class="container">
+        <h2 data-aos="fade-up">You Might Also Like</h2>
+        <div class="products-grid" id="relatedProductsGrid">
+            <!-- Related products loaded by JavaScript -->
+        </div>
+    </div>
+</section>
+
+<!-- Sticky WhatsApp CTA (mobile only) -->
+<div class="sticky-wa-cta" id="stickyWaCta">
+    💬 Request Quote on WhatsApp
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Magnificent <span>Furnitures</span></h3>
+                <p>Quality furniture for home and office since <strong>2015</strong></p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul id="footerCategories">
+                    <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                    <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                    <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                    <li><a href="products.html?category=school-furniture">School Furniture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <p>📞 0726 100242</p>
+                <p>📧 info@magnificentfurnitures.co.ke</p>
+                <p>📍 Nairobi, Kenya</p>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="https://wa.me/254726100242" target="_blank" style="color: #25D366; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        💬 WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank" style="color: #1877F2; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        📘 Facebook
+                    </a>
+                    <a href="#" target="_blank" style="color: #E4405F; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        📷 Instagram
+                    </a>
+                    <a href="#" target="_blank" style="color: #000000; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        🎵 TikTok
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">
+                Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank" style="color: #D4A017; text-decoration: none;">Kiara Web Solutions</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts with defer -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script defer src="assets/js/main.js"></script>
+<script defer src="assets/js/products.js"></script>
+<script defer src="assets/js/product.js"></script>
+<script defer src="assets/js/whatsapp.js"></script>
+
+<script>
+    
+    // Sticky CTA scroll handler and click handler
+    (function() {
+        const stickyCta = document.getElementById('stickyWaCta');
+        if (stickyCta) {
+            window.addEventListener('scroll', function() {
+                if (window.innerWidth <= 768) {
+                    const scrolled = window.pageYOffset;
+                    if (scrolled > 300) {
+                        stickyCta.classList.add('visible');
+                    } else {
+                        stickyCta.classList.remove('visible');
+                    }
+                }
+            });
+            
+            stickyCta.addEventListener('click', function() {
+                if (typeof window.triggerProductWhatsApp === 'function') {
+                    window.triggerProductWhatsApp();
+                }
+            });
+        }
+        
+        // Retry button handler
+        const retryBtn = document.getElementById('retryBtn');
+        if (retryBtn) {
+            retryBtn.addEventListener('click', function() {
+                window.location.reload();
+            });
+        }
+    })();
+</script>
+
+
+<!-- MOBILE NAV PANEL -->
+<div class="nav-links-mobile" id="mobileNavPanel">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="mob-dropdown">
+            <a href="#" class="mob-dropdown-toggle">Products <span class="mob-arrow">▼</span></a>
+            <ul class="mob-submenu">
+                <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                <li><a href="products.html?category=workstations">Workstations</a></li>
+                <li><a href="products.html?category=school-furniture">School Furniture</a></li>
+                <li><a href="products.html?category=bar-stools">Bar Stools</a></li>
+                <li><a href="products.html?category=tv-stands">TV Stands</a></li>
+                <li><a href="products.html?category=coffee-tables">Coffee Tables</a></li>
+                <li><a href="products.html">All Products →</a></li>
+            </ul>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+</div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<script>
+(function() {
+    var btn = document.getElementById('mobileMenuBtn');
+    var panel = document.getElementById('mobileNavPanel');
+    var overlay = document.getElementById('mobileOverlay');
+    var scrollY = 0;
+
+    if (!btn || !panel || !overlay) return;
+
+    function openMenu() {
+        scrollY = window.scrollY;
+        panel.classList.add('active');
+        overlay.classList.add('active');
+        document.body.classList.add('no-scroll');
+        document.body.style.top = '-' + scrollY + 'px';
+        btn.innerHTML = '&#10005;';
+        btn.style.cssText += 'font-size:20px;align-items:center;justify-content:center;';
+    }
+
+    function closeMenu() {
+        panel.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+        btn.innerHTML = '<span></span><span></span><span></span>';
+        btn.style.fontSize = '';
+        btn.style.alignItems = '';
+        btn.style.justifyContent = '';
+    }
+
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        panel.classList.contains('active') ? closeMenu() : openMenu();
+    });
+
+    overlay.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+    });
+
+    // Products dropdown toggle
+    var dropdownToggles = panel.querySelectorAll('.mob-dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var parent = toggle.closest('.mob-dropdown');
+            if (parent) {
+                parent.classList.toggle('open');
+            }
+        });
+    });
+
+    // Close menu on regular link click
+    var links = panel.querySelectorAll('a:not(.mob-dropdown-toggle)');
+    links.forEach(function(link) {
+        link.addEventListener('click', function() {
+            closeMenu();
+        });
+    });
+})();
+</script>
+
+</body>
+</html>
