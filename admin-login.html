@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Magnificent Furnitures</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-client.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #F8FAFC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-container .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .login-container .logo h1 {
+            font-size: 1.8rem;
+            color: #0F172A;
+        }
+        .login-container .logo h1 span {
+            color: #D4A017;
+        }
+        .login-container .logo p {
+            color: #475569;
+            font-size: 0.9rem;
+        }
+        .login-container h2 {
+            text-align: center;
+            color: #0F172A;
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+        .login-container .subtitle {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #0F172A;
+            font-size: 0.9rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #D4A017;
+            outline: none;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #D4A017;
+            color: #0F172A;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #F5C542;
+        }
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .error {
+            background: #FEE2E2;
+            color: #DC2626;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 0.9rem;
+        }
+        .success {
+            background: #DCFCE7;
+            color: #16A34A;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 0.9rem;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link a {
+            color: #475569;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link a:hover {
+            color: #D4A017;
+        }
+        .loading-text {
+            display: none;
+            text-align: center;
+            color: #475569;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>Magnificent <span>Furnitures</span></h1>
+            <p>Admin Panel</p>
+        </div>
+
+        <div class="error" id="errorMessage"></div>
+        <div class="success" id="successMessage"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="admin@magnificentfurnitures.co.ke" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn" id="loginBtn">Log In</button>
+            <div class="loading-text" id="loadingText">Logging in...</div>
+        </form>
+
+        <div class="back-link">
+            <a href="index.html">← Back to website</a>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // LOGIN FORM
+        // ============================================
+        const loginForm = document.getElementById('loginForm');
+        const errorDiv = document.getElementById('errorMessage');
+        const successDiv = document.getElementById('successMessage');
+        const loadingText = document.getElementById('loadingText');
+        const loginBtn = document.getElementById('loginBtn');
+
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Clear previous messages
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            loadingText.style.display = 'block';
+            loginBtn.disabled = true;
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                // Sign in with Supabase
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    loadingText.style.display = 'none';
+                    loginBtn.disabled = false;
+                    errorDiv.textContent = error.message || 'Login failed. Please try again.';
+                    errorDiv.style.display = 'block';
+                    return;
+                }
+
+                if (data && data.user) {
+                    // Check if user is an admin
+                    const { data: adminData, error: adminError } = await supabaseClient
+                        .from('admins')
+                        .select('*')
+                        .eq('email', data.user.email)
+                        .single();
+
+                    if (adminError || !adminData) {
+                        loadingText.style.display = 'none';
+                        loginBtn.disabled = false;
+                        errorDiv.textContent = 'You do not have admin access. Contact the administrator.';
+                        errorDiv.style.display = 'block';
+                        // Sign out if not admin
+                        await supabaseClient.auth.signOut();
+                        return;
+                    }
+
+                    // Admin logged in successfully
+                    loadingText.style.display = 'none';
+                    loginBtn.disabled = false;
+                    successDiv.textContent = 'Login successful! Redirecting...';
+                    successDiv.style.display = 'block';
+
+                    // Store admin info
+                    sessionStorage.setItem('admin_email', data.user.email);
+                    sessionStorage.setItem('admin_name', adminData.name || 'Admin');
+
+                    // Redirect to dashboard
+                    setTimeout(() => {
+                        window.location.href = 'admin-dashboard.html';
+                    }, 1000);
+                }
+
+            } catch (error) {
+                loadingText.style.display = 'none';
+                loginBtn.disabled = false;
+                errorDiv.textContent = 'An unexpected error occurred. Please try again.';
+                errorDiv.style.display = 'block';
+                console.error('Login error:', error);
+            }
+        });
+
+        // Check if already logged in
+        async function checkAuth() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session && session.user) {
+                // Check if admin
+                const { data: adminData } = await supabaseClient
+                    .from('admins')
+                    .select('*')
+                    .eq('email', session.user.email)
+                    .single();
+
+                if (adminData) {
+                    sessionStorage.setItem('admin_email', session.user.email);
+                    sessionStorage.setItem('admin_name', adminData.name || 'Admin');
+                    window.location.href = 'admin-dashboard.html';
+                }
+            }
+        }
+
+        checkAuth();
+    </script>
+</body>
+</html>
