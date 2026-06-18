@@ -153,15 +153,6 @@
             width: 100% !important;
         }
     }
-
-    .hero h1, .hero p, .hero-subtitle, .hero-buttons {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-    [data-aos]:not(.aos-animate) {
-        opacity: 1 !important;
-        transform: none !important;
-    }
     
     /* Logo link styling */
     .logo a {
@@ -417,21 +408,110 @@
     <a href="https://wa.me/254726100242" class="whatsapp-float" target="_blank">💬</a>
 </div>
 
+<!-- Core Scripts -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="assets/js/products.js"></script>
+<script src="assets/js/core/utils.js"></script>
+<script src="assets/js/core/api.js"></script>
+<script src="assets/js/core/store.js"></script>
+<script src="assets/js/core/init.js"></script>
 <script src="assets/js/whatsapp.js"></script>
 <script src="assets/js/search.js"></script>
+
 <script>
     // Initialize AOS
     AOS.init({ duration: 800, once: true });
-    
-    // Load featured products on homepage
-    document.addEventListener('DOMContentLoaded', function() {
-        if (typeof loadFeaturedProducts === 'function') {
-            loadFeaturedProducts();
-        }
+
+    // Load featured products using api.js
+    async function loadFeaturedProducts() {
+        const container = document.getElementById('featured-products');
         
-        // Homepage search functionality
+        try {
+            // Wait for MF to be ready
+            if (!window.MF || !window.MF.fetchAllProducts) {
+                setTimeout(loadFeaturedProducts, 500);
+                return;
+            }
+
+            const allProducts = await window.MF.fetchAllProducts();
+            const featured = allProducts.filter(p => p.featured === true);
+            const displayProducts = featured.length > 0 ? featured.slice(0, 6) : allProducts.slice(0, 6);
+
+            if (displayProducts.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <p>No featured products available. Check back soon!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = displayProducts.map(product => `
+                <div class="product-card ${product.featured ? 'product-card-featured' : ''}" data-aos="fade-up" data-aos-delay="100">
+                    ${product.featured ? '<div class="featured-badge">FEATURED</div>' : ''}
+                    <div class="product-image">
+                        <img src="${window.MF.escapeHtml(product.thumbnail || product.images?.[0] || '')}" 
+                             alt="${window.MF.escapeHtml(product.name)}" 
+                             loading="lazy"
+                             onerror="this.onerror=null; this.src='https://placehold.co/300x260?text=No+Image'">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${window.MF.escapeHtml(product.name)}</h3>
+                        <div class="product-price">${window.MF.formatCurrency(product.price)}</div>
+                        <div class="product-specs">${window.MF.escapeHtml(product.shortDescription || product.categoryName || '')}</div>
+                        <div class="product-buttons">
+                            <a href="product.html?slug=${product.slug}" class="btn-sm btn-outline-sm">View Details</a>
+                            <a href="https://wa.me/254726100242?text=${encodeURIComponent(`Hello Magnificent Furnitures,\n\nI am interested in:\n\n${product.name}\nPrice: ${window.MF.formatCurrency(product.price)}\n\nPlease send me more details.`)}" 
+                               class="btn-sm btn-whatsapp-sm" target="_blank">WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+        } catch (error) {
+            console.error('Error loading featured products:', error);
+            container.innerHTML = `
+                <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <p>Error loading products. Please refresh the page.</p>
+                </div>
+            `;
+        }
+    }
+
+    // Load categories for the category grid
+    async function loadCategoryGrid() {
+        const grid = document.getElementById('categoryGrid');
+        
+        try {
+            if (!window.MF || !window.MF.fetchCategories) {
+                setTimeout(loadCategoryGrid, 500);
+                return;
+            }
+
+            const categories = await window.MF.fetchCategories();
+            const displayCats = categories.filter(c => c.isActive).slice(0, 6);
+
+            if (displayCats.length === 0) {
+                grid.innerHTML = '<p>No categories available.</p>';
+                return;
+            }
+
+            grid.innerHTML = displayCats.map(cat => `
+                <a href="products.html?category=${cat.slug}" class="category-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="category-icon">${cat.icon || '🪑'}</div>
+                    <h3>${window.MF.escapeHtml(cat.name)}</h3>
+                    <p>${cat.count}+ models</p>
+                    <span class="category-arrow">View →</span>
+                </a>
+            `).join('');
+
+        } catch (error) {
+            console.error('Error loading categories:', error);
+            grid.innerHTML = '<p>Error loading categories. Please refresh.</p>';
+        }
+    }
+
+    // Homepage search functionality
+    document.addEventListener('DOMContentLoaded', function() {
         const searchBtn = document.getElementById('homepageSearchBtn');
         const searchInput = document.getElementById('homepageSearch');
         
@@ -452,6 +532,10 @@
                 }
             });
         }
+
+        // Load featured products and categories
+        loadFeaturedProducts();
+        loadCategoryGrid();
     });
 </script>
 

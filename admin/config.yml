@@ -29,90 +29,76 @@ logo_url: /assets/images/logo/logo.png
 # ============================================
 
 collections:
-  # ---------- PRODUCTS ----------
+  # ---------- PRODUCTS (SINGLE JSON FILE) ----------
   - name: "products"
     label: "Products"
     label_singular: "Product"
-    description: "Manage all furniture products across categories"
+    description: "Manage all furniture products"
     folder: "data"
-    create: true
-    delete: true
+    file: "products.json"
+    create: false
+    delete: false
     identifier_field: "id"
-    slug: "{{slug}}"
-    preview_path: "product.html?slug={{slug}}"
-    preview_path_date_field: "date"
     fields:
-      - { label: "Product ID", name: "id", widget: "string", required: true, pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens only'] }
-      - { label: "Slug", name: "slug", widget: "string", required: true, pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens only'] }
-      - { label: "Product Name", name: "name", widget: "string", required: true }
-      - { label: "Short Name", name: "shortName", widget: "string", required: false }
-      - { label: "SKU", name: "sku", widget: "string", required: true }
-      - { label: "Price (KES)", name: "price", widget: "number", required: true, value_type: "int", min: 0 }
-      - { label: "Old Price (Sale)", name: "oldPrice", widget: "number", required: false, value_type: "int", min: 0 }
-      - { label: "Currency", name: "currency", widget: "hidden", default: "KES" }
-      - { label: "Featured Product", name: "featured", widget: "boolean", default: false }
-      - { label: "In Stock", name: "inStock", widget: "boolean", default: true }
-      - { label: "Stock Quantity", name: "stockQuantity", widget: "number", required: false, value_type: "int", default: 0 }
-      - { label: "Main Image", name: "thumbnail", widget: "image", required: true }
-      - { label: "Gallery Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" }, required: false }
-      - { label: "Description", name: "description", widget: "markdown", required: true }
-      - { label: "Short Description", name: "shortDescription", widget: "text", required: true, pattern: ['^.{0,150}$', 'Maximum 150 characters'] }
-      - { label: "Category", name: "categorySlug", widget: "select", options:
-          - { label: "Office Chairs", value: "office-chairs" }
-          - { label: "Office Desks", value: "office-desks" }
-          - { label: "Filing Cabinets", value: "filing-cabinets" }
-          - { label: "Dining Tables", value: "dining-tables" }
-          - { label: "Foldable Chairs", value: "foldable-chairs" }
-          - { label: "Safe Boxes", value: "safe-boxes" }
-          - { label: "Restaurant Chairs", value: "restaurant-chairs" }
-          - { label: "Bar Stools", value: "bar-stools" }
-          - { label: "Conference Tables", value: "conference-tables" }
-          - { label: "Plastic Chairs", value: "plastic-chairs" }
-          - { label: "Dressing Tables", value: "dressing-tables" }
-          - { label: "Salon Equipment", value: "salon-equipment" }
-          - { label: "TV Stands", value: "tv-stands" }
-          - { label: "Coffee Tables", value: "coffee-tables" }
-          - { label: "School Furniture", value: "school-furniture" }
-          - { label: "Kindergarten Furniture", value: "kindergarten-furniture" }
-          - { label: "Workstations", value: "workstations" } }
-      - label: "Specifications"
-        name: "specifications"
-        widget: "object"
-        collapsed: true
+      - label: "Products List"
+        name: "products"
+        widget: "list"
+        summary: "{{fields.name}}"
         fields:
-          - { label: "Material", name: "material", widget: "string", required: false }
-          - { label: "Frame Material", name: "frameMaterial", widget: "string", required: false }
-          - { label: "Color", name: "color", widget: "string", required: false }
-          - { label: "Color Options", name: "colorOptions", widget: "list", field: { label: "Color", name: "color", widget: "string" }, required: false }
-          - { label: "Dimensions", name: "dimensions", widget: "string", required: false }
-          - { label: "Seat Height", name: "seatHeight", widget: "string", required: false }
-          - { label: "Weight Capacity", name: "weightCapacity", widget: "string", required: false }
-          - { label: "Weight", name: "weight", widget: "string", required: false }
-          - { label: "Assembly", name: "assembly", widget: "string", required: false }
-          - { label: "Warranty", name: "warranty", widget: "string", required: false }
-          - { label: "Features", name: "features", widget: "list", field: { label: "Feature", name: "feature", widget: "string" }, required: false }
-      - label: "SEO Settings"
-        name: "seo"
-        widget: "object"
-        collapsed: true
-        required: false
-        fields:
-          - { label: "SEO Title", name: "seoTitle", widget: "string", required: false }
-          - { label: "SEO Description", name: "seoDescription", widget: "text", required: false, pattern: ['^.{0,160}$', 'Maximum 160 characters'] }
-          - { label: "Keywords", name: "keywords", widget: "list", field: { label: "Keyword", name: "keyword", widget: "string" }, required: false }
-      - { label: "Tags", name: "tags", widget: "list", field: { label: "Tag", name: "tag", widget: "string" }, required: false }
-      - { label: "Rating", name: "rating", widget: "number", required: false, value_type: "float", min: 0, max: 5, step: 0.1 }
-      - { label: "Reviews Count", name: "reviews", widget: "number", required: false, value_type: "int", default: 0 }
+          - { label: "Product ID", name: "id", widget: "string", required: true, pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens only'] }
+          - { label: "Slug", name: "slug", widget: "string", required: true, pattern: ['^[a-z0-9-]+$', 'Lowercase letters, numbers, hyphens only'] }
+          - { label: "Product Name", name: "name", widget: "string", required: true }
+          - { label: "Short Name", name: "shortName", widget: "string", required: false }
+          - { label: "SKU", name: "sku", widget: "string", required: true }
+          - { label: "Price (KES)", name: "price", widget: "number", required: true, value_type: "int", min: 0 }
+          - { label: "Old Price (Sale)", name: "oldPrice", widget: "number", required: false, value_type: "int", min: 0 }
+          - { label: "Currency", name: "currency", widget: "hidden", default: "KES" }
+          - { label: "Featured Product", name: "featured", widget: "boolean", default: false }
+          - { label: "In Stock", name: "inStock", widget: "boolean", default: true }
+          - { label: "Stock Quantity", name: "stockQuantity", widget: "number", required: false, value_type: "int", default: 0 }
+          - { label: "Main Image", name: "thumbnail", widget: "image", required: true }
+          - { label: "Gallery Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" }, required: false }
+          - { label: "Description", name: "description", widget: "markdown", required: true }
+          - { label: "Short Description", name: "shortDescription", widget: "text", required: true, pattern: ['^.{0,150}$', 'Maximum 150 characters'] }
+          - { label: "Category", name: "categorySlug", widget: "string", required: true }
+          - label: "Specifications"
+            name: "specifications"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Material", name: "material", widget: "string", required: false }
+              - { label: "Frame Material", name: "frameMaterial", widget: "string", required: false }
+              - { label: "Color", name: "color", widget: "string", required: false }
+              - { label: "Color Options", name: "colorOptions", widget: "list", field: { label: "Color", name: "color", widget: "string" }, required: false }
+              - { label: "Dimensions", name: "dimensions", widget: "string", required: false }
+              - { label: "Seat Height", name: "seatHeight", widget: "string", required: false }
+              - { label: "Weight Capacity", name: "weightCapacity", widget: "string", required: false }
+              - { label: "Weight", name: "weight", widget: "string", required: false }
+              - { label: "Assembly", name: "assembly", widget: "string", required: false }
+              - { label: "Warranty", name: "warranty", widget: "string", required: false }
+              - { label: "Features", name: "features", widget: "list", field: { label: "Feature", name: "feature", widget: "string" }, required: false }
+          - label: "SEO Settings"
+            name: "seo"
+            widget: "object"
+            collapsed: true
+            required: false
+            fields:
+              - { label: "SEO Title", name: "seoTitle", widget: "string", required: false }
+              - { label: "SEO Description", name: "seoDescription", widget: "text", required: false, pattern: ['^.{0,160}$', 'Maximum 160 characters'] }
+              - { label: "Keywords", name: "keywords", widget: "list", field: { label: "Keyword", name: "keyword", widget: "string" }, required: false }
+          - { label: "Tags", name: "tags", widget: "list", field: { label: "Tag", name: "tag", widget: "string" }, required: false }
+          - { label: "Rating", name: "rating", widget: "number", required: false, value_type: "float", min: 0, max: 5, step: 0.1 }
+          - { label: "Reviews Count", name: "reviews", widget: "number", required: false, value_type: "int", default: 0 }
 
-  # ---------- CATEGORIES ----------
+  # ---------- CATEGORIES (EDITABLE) ----------
   - name: "categories"
     label: "Categories"
     label_singular: "Category"
-    description: "Manage product categories"
+    description: "Manage product categories - Add, edit, or delete categories"
     folder: "data"
     file: "categories.json"
-    create: false
-    delete: false
+    create: true
+    delete: true
     identifier_field: "id"
     fields:
       - label: "Categories List"
