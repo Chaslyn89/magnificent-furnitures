@@ -25,6 +25,15 @@
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18262265670"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-18262265670');
+    </script>
+    
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
@@ -56,308 +65,306 @@
     </script>
     
     <style>
-        /* FAQ Accordion Styles */
-        .faq-item {
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-md);
-            margin-bottom: 15px;
-            overflow: hidden;
+        /* ===== CONTACT PAGE STYLES ===== */
+        .page-header {
+            background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)), url('assets/images/hero/showroom.jpg') center/cover no-repeat;
+            color: #fff;
+            padding: 80px 0;
+            text-align: center;
         }
-        .faq-question {
-            padding: 20px;
-            background: var(--bg-white);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-        .faq-question:hover {
-            background: var(--bg-light);
-        }
-        .faq-question .faq-icon {
-            transition: transform 0.3s ease;
-        }
-        .faq-item.active .faq-question .faq-icon {
-            transform: rotate(180deg);
-        }
-        .faq-answer {
-            padding: 0 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-            background: var(--bg-light);
-        }
-        .faq-item.active .faq-answer {
-            padding: 0 20px 20px 20px;
-            max-height: 300px;
-        }
-        
-        /* Delivery Badge - No Background */
+        .page-header h1 { color: #fff !important; font-size: 2.2rem; margin-bottom: 15px; }
+        .page-header p { color: rgba(255,255,255,0.85) !important; font-size: 1.1rem; }
+
         .delivery-badge {
             background: transparent;
             color: var(--text-dark);
             padding: 12px 25px;
             border-radius: 50px;
             text-align: center;
-            margin-bottom: 30px;
+            margin: 30px auto;
             font-weight: 600;
             display: inline-block;
-            width: auto;
             font-size: 0.9rem;
             border: 1px solid var(--border-color);
         }
-        .delivery-badge span {
-            font-size: 1.2rem;
-            margin-right: 8px;
-        }
-        .delivery-badge small {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            font-weight: normal;
-        }
-        
-        /* Customer Reviews Section */
-        .reviews-section {
-            padding: 60px 0;
-            background: var(--bg-light);
-        }
-        .reviews-section h2 {
-            margin-bottom: 40px;
-        }
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-        .review-card {
-            background: var(--bg-white);
-            border-radius: var(--border-radius-lg);
-            padding: 25px;
-            box-shadow: var(--shadow-md);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .review-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: var(--shadow-xl);
-        }
-        .review-stars {
-            color: #FFD700;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-        }
-        .review-text {
-            font-style: italic;
-            color: var(--text-dark);
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        .review-author {
-            font-weight: 700;
-            color: var(--accent-color);
-            margin-bottom: 5px;
-        }
-        .review-location {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .review-date {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-top: 8px;
-        }
-        
-        /* Leave Review Button */
-        .leave-review-btn {
-            text-align: center;
-            margin-top: 40px;
-        }
-        
-        /* Direction Buttons */
-        .direction-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
+        .delivery-badge span { font-size: 1.2rem; margin-right: 8px; }
+        .delivery-badge small { font-size: 0.8rem; color: var(--text-light); font-weight: normal; }
+
+        .contact-section { padding: 60px 0; background: #fff; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+
+        .contact-info h2 { text-align: left; }
+        .contact-info h2:after { margin: 15px 0 0; }
+
+        .info-item { display: flex; gap: 15px; margin-bottom: 25px; padding: 20px; background: #F8FAFC; border-radius: 12px; transition: transform 0.3s; }
+        .info-item:hover { transform: translateX(5px); }
+        .info-icon { font-size: 1.8rem; flex-shrink: 0; }
+        .info-content h3 { font-size: 1rem; margin-bottom: 4px; }
+        .info-content p { color: #475569; margin: 0; }
+        .info-content a { color: #D4A017; text-decoration: none; }
+        .info-content a:hover { text-decoration: underline; }
+        .hours-note { font-size: 0.8rem; color: #94A3B8; margin-top: 2px; }
+
+        .direction-buttons { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
         .btn-direction {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: var(--primary-color);
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px; background: #0F172A; color: white;
+            border-radius: 40px; text-decoration: none; font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+        .btn-direction:hover { background: #D4A017; transform: translateY(-2px); color: #0F172A; }
+        .btn-google { background: #4285F4; }
+        .btn-google:hover { background: #3367D6; color: white; }
+
+        .business-hours { background: #F8FAFC; padding: 20px; border-radius: 12px; margin-top: 20px; }
+        .business-hours h3 { margin-bottom: 15px; }
+        .business-hours ul { list-style: none; padding: 0; margin: 0; }
+        .business-hours li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #E2E8F0; }
+        .business-hours li:last-child { border-bottom: none; }
+
+        .contact-form-container { background: #F8FAFC; padding: 30px; border-radius: 16px; }
+        .contact-form-container h2 { text-align: left; }
+        .contact-form-container h2:after { margin: 15px 0 0; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 4px; color: #0F172A; font-size: 0.9rem; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 10px 14px; border: 2px solid #E2E8F0; border-radius: 8px;
+            font-size: 0.95rem; transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: #D4A017; outline: none; }
+        .error-message { color: #EF4444; font-size: 0.8rem; margin-top: 4px; display: none; }
+        .form-group.error input, .form-group.error textarea { border-color: #EF4444; }
+        .btn-block { width: 100%; }
+
+        .map-section { padding: 60px 0; background: #F8FAFC; }
+        .map-container { border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+        .reviews-section { padding: 60px 0; background: #fff; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .review-card { background: #F8FAFC; border-radius: 12px; padding: 25px; transition: transform 0.3s; }
+        .review-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .review-stars { color: #FFD700; font-size: 1.1rem; margin-bottom: 10px; }
+        .review-text { font-style: italic; color: #0F172A; line-height: 1.6; margin-bottom: 12px; }
+        .review-author { font-weight: 700; color: #D4A017; }
+        .review-location { font-size: 0.8rem; color: #475569; }
+        .review-date { font-size: 0.75rem; color: #94A3B8; margin-top: 6px; }
+
+        .faq-section { padding: 60px 0; background: #F8FAFC; }
+        .faq-grid { max-width: 800px; margin: 0 auto; }
+        .faq-item { border: 1px solid #E2E8F0; border-radius: 12px; margin-bottom: 12px; overflow: hidden; background: #fff; }
+        .faq-question {
+            padding: 18px 20px; cursor: pointer; display: flex; justify-content: space-between;
+            align-items: center; font-weight: 600; transition: background 0.3s;
+        }
+        .faq-question:hover { background: #F8FAFC; }
+        .faq-icon { transition: transform 0.3s; font-size: 0.8rem; }
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+        .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s; }
+        .faq-item.active .faq-answer { padding: 0 20px 20px 20px; max-height: 300px; }
+
+        /* ===== FLOATING WHATSAPP ===== */
+        .floating-wa {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
+        }
+        .whatsapp-float {
+            width: 58px;
+            height: 58px;
+            background: #25D366;
             color: white;
-            border-radius: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: var(--transition);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+            transition: all 0.3s ease;
+            position: relative;
         }
-        .btn-direction:hover {
-            background: var(--accent-color);
-            transform: translateY(-2px);
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            background: #1ebe5a;
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
         }
-        .btn-google {
-            background: #4285F4;
-        }
-        .btn-google:hover {
-            background: #3367D6;
-        }
-        
-        .error-message {
-            color: #EF4444;
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: none;
-        }
-        .error-message.visible {
+        .wa-icon {
+            width: 30px;
+            height: 30px;
             display: block;
         }
-        .form-group.error input,
-        .form-group.error textarea {
-            border-color: #EF4444;
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffffff;
+            color: #334155;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
         }
-    </style>
-    <style>
-    /* ===== MOBILE MENU FINAL FIX ===== */
-    @media (max-width: 768px) {
-        ul.nav-links { display: none !important; }
-
-        .mobile-menu-btn {
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-between !important;
-            width: 36px !important;
-            height: 26px !important;
-            padding: 0 !important;
-            background: transparent !important;
-            border: none !important;
-            cursor: pointer !important;
-            z-index: 9999 !important;
-            position: relative !important;
-            margin-left: auto !important;
-        }
-        .mobile-menu-btn span {
-            display: block !important;
-            width: 26px !important;
-            height: 3px !important;
-            background-color: #D4A017 !important;
-            border-radius: 3px !important;
-            pointer-events: none !important;
+        .floating-wa:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
         }
 
-        /* Panel - slides from RIGHT, does NOT move the page */
-        .nav-links-mobile {
-            position: fixed !important;
-            top: 0 !important;
-            right: -320px !important;
-            width: 280px !important;
-            height: 100% !important;
-            background: #ffffff !important;
-            z-index: 1001 !important;
-            padding: 70px 0 30px 0 !important;
-            transition: right 0.3s ease !important;
-            overflow-y: auto !important;
-            box-shadow: -4px 0 20px rgba(0,0,0,0.15) !important;
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            background: #D4A017;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 160, 23, 0.4);
+            transition: all 0.3s ease;
         }
-        .nav-links-mobile.active {
-            right: 0 !important;
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 160, 23, 0.6);
+            background: #b88912;
         }
-
-        /* Nav items */
-        .nav-links-mobile ul {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        .nav-links-mobile > ul > li {
-            border-bottom: 1px solid #E2E8F0 !important;
-        }
-        .nav-links-mobile a,
-        .nav-links-mobile .mob-dropdown-toggle {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            padding: 16px 25px !important;
-            color: #0F172A !important;
-            font-size: 15px !important;
-            font-weight: 500 !important;
-            text-decoration: none !important;
-            cursor: pointer !important;
-            background: none !important;
-            border: none !important;
-            width: 100% !important;
-            text-align: left !important;
-        }
-        .nav-links-mobile a:hover,
-        .nav-links-mobile .mob-dropdown-toggle:hover {
-            color: #D4A017 !important;
-            background: #F8FAFC !important;
+        .back-to-top.visible {
+            display: flex;
         }
 
-        /* Products submenu */
-        .mob-submenu {
+        /* ===== FOOTER (5 COLUMNS) ===== */
+        .footer {
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 60px 0 25px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-column h3, .footer-column h4 { color: #ffffff; margin-bottom: 20px; font-size: 1.1rem; }
+        .footer-column h3 span { color: #D4A017; }
+        .footer-column p { color: #94A3B8; font-size: 0.9rem; line-height: 1.6; }
+        .footer-column ul { list-style: none; padding: 0; margin: 0; }
+        .footer-column ul li { margin-bottom: 10px; }
+        .footer-column ul li a { color: #94A3B8; text-decoration: none; transition: color 0.3s; font-size: 0.9rem; }
+        .footer-column ul li a:hover { color: #D4A017; }
+        .footer-column .social-links { display: flex; flex-direction: column; gap: 10px; }
+        .footer-column .social-links a { color: #94A3B8; text-decoration: none; transition: color 0.3s; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; }
+        .footer-column .social-links a:hover { color: #D4A017; }
+        .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid #1E293B; font-size: 0.85rem; color: #64748B; }
+        .footer-bottom a { color: #D4A017; text-decoration: none; }
+
+        /* ===== MOBILE MENU ===== */
+        .nav-links-mobile, #mobileNavPanel, .mobile-overlay, #mobileOverlay {
             display: none !important;
-            background: #F8FAFC !important;
-            padding: 0 !important;
         }
-        .mob-dropdown.open .mob-submenu {
-            display: block !important;
-        }
-        .mob-submenu li {
-            border-top: 1px solid #E2E8F0 !important;
-        }
-        .mob-submenu a {
-            padding: 12px 25px 12px 35px !important;
-            font-size: 14px !important;
-            font-weight: 400 !important;
-        }
-
-        /* Arrow rotation */
-        .mob-arrow {
-            transition: transform 0.3s ease !important;
-            font-size: 11px !important;
-        }
-        .mob-dropdown.open .mob-arrow {
-            transform: rotate(180deg) !important;
-        }
-
-        /* Overlay - darkens page but doesnt move it */
-        .mobile-overlay {
-            display: none !important;
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            background: rgba(0,0,0,0.5) !important;
-            z-index: 1000 !important;
-        }
-        .mobile-overlay.active {
+        .nav-links-mobile.active, #mobileNavPanel.active, .mobile-overlay.active, #mobileOverlay.active {
             display: block !important;
         }
 
-        /* Prevent body scroll WITHOUT shifting layout */
-        body.no-scroll {
-            overflow: hidden !important;
-            position: fixed !important;
-            width: 100% !important;
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); gap: 30px; }
         }
-    }
-
-    /* Hero text always visible */
-    .hero h1, .hero p, .hero-subtitle, .hero-buttons {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-    [data-aos]:not(.aos-animate) {
-        opacity: 1 !important;
-        transform: none !important;
-    }
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr; text-align: center; gap: 25px; }
+            .footer-column .social-links { align-items: center; }
+            .floating-wa { right: 18px; bottom: 18px; }
+            .whatsapp-float { width: 54px; height: 54px; }
+            .whatsapp-tooltip { display: none; }
+            .back-to-top { bottom: 85px; right: 20px; width: 40px; height: 40px; font-size: 1.2rem; }
+            .form-row { grid-template-columns: 1fr; }
+            .page-header { padding: 50px 0; }
+            .page-header h1 { font-size: 1.6rem; }
+            .contact-form-container { padding: 20px; }
+            .info-item { padding: 15px; }
+            .reviews-grid { grid-template-columns: 1fr; }
+            ul.nav-links { display: none !important; }
+            .mobile-menu-btn {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                width: 36px !important;
+                height: 26px !important;
+                padding: 0 !important;
+                background: transparent !important;
+                border: none !important;
+                cursor: pointer !important;
+                z-index: 9999 !important;
+                position: relative !important;
+                margin-left: auto !important;
+            }
+            .mobile-menu-btn span {
+                display: block !important;
+                width: 26px !important;
+                height: 3px !important;
+                background-color: #D4A017 !important;
+                border-radius: 3px !important;
+                pointer-events: none !important;
+            }
+            .nav-links-mobile {
+                position: fixed !important;
+                top: 0 !important;
+                right: -320px !important;
+                width: 280px !important;
+                height: 100% !important;
+                background: #ffffff !important;
+                z-index: 1001 !important;
+                padding: 70px 0 30px 0 !important;
+                transition: right 0.3s ease !important;
+                overflow-y: auto !important;
+                box-shadow: -4px 0 20px rgba(0,0,0,0.15) !important;
+            }
+            .nav-links-mobile.active { right: 0 !important; }
+            .nav-links-mobile ul { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+            .nav-links-mobile > ul > li { border-bottom: 1px solid #E2E8F0 !important; }
+            .nav-links-mobile a, .nav-links-mobile .mob-dropdown-toggle {
+                display: flex !important; justify-content: space-between !important;
+                align-items: center !important; padding: 16px 25px !important;
+                color: #0F172A !important; font-size: 15px !important; font-weight: 500 !important;
+                text-decoration: none !important; cursor: pointer !important;
+                background: none !important; border: none !important;
+                width: 100% !important; text-align: left !important;
+            }
+            .nav-links-mobile a:hover, .nav-links-mobile .mob-dropdown-toggle:hover {
+                color: #D4A017 !important; background: #F8FAFC !important;
+            }
+            .mob-submenu { display: none !important; background: #F8FAFC !important; padding: 0 !important; }
+            .mob-dropdown.open .mob-submenu { display: block !important; }
+            .mob-submenu li { border-top: 1px solid #E2E8F0 !important; }
+            .mob-submenu a { padding: 12px 25px 12px 35px !important; font-size: 14px !important; font-weight: 400 !important; }
+            .mob-arrow { transition: transform 0.3s ease !important; font-size: 11px !important; }
+            .mob-dropdown.open .mob-arrow { transform: rotate(180deg) !important; }
+            .mobile-overlay { display: none !important; position: fixed !important; inset: 0 !important; background: rgba(0,0,0,0.5) !important; z-index: 1000 !important; }
+            .mobile-overlay.active { display: block !important; }
+            body.no-scroll { overflow: hidden !important; position: fixed !important; width: 100% !important; }
+        }
+        @media (max-width: 480px) {
+            .floating-wa { right: 15px; bottom: 15px; }
+            .whatsapp-float { width: 48px; height: 48px; }
+            .back-to-top { bottom: 75px; right: 15px; width: 36px; height: 36px; font-size: 1rem; }
+            .page-header h1 { font-size: 1.3rem; }
+            .direction-buttons { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
@@ -407,7 +414,7 @@
     </div>
 </section>
 
-<!-- Delivery Badge (No Background) -->
+<!-- Delivery Badge -->
 <div class="container" style="text-align: center;" data-aos="fade-up" data-aos-delay="200">
     <div class="delivery-badge">
         <span>🚚</span> Same-Day Delivery in Nairobi <br>
@@ -415,12 +422,11 @@
     </div>
 </div>
 
-<!-- Contact Info & Form -->
+<!-- Contact Section -->
 <section class="contact-section" aria-labelledby="contact-heading">
     <div class="container">
         <div class="contact-grid">
-            
-            <!-- Contact Information -->
+            <!-- Contact Info -->
             <div class="contact-info" data-aos="fade-right">
                 <h2 id="contact-heading">Get in Touch</h2>
                 
@@ -430,12 +436,8 @@
                         <h3>Visit Our Showroom</h3>
                         <p>Nairobi, Kenya</p>
                         <div class="direction-buttons">
-                            <a href="https://maps.google.com/?q=Magnificent+Furnitures+Ltd+Nairobi" target="_blank" rel="noopener" class="btn-direction btn-google">
-                                🗺️ Open in Google Maps
-                            </a>
-                            <a href="https://www.google.com/maps/dir//Magnificent+Furnitures+Ltd+Nairobi" target="_blank" rel="noopener" class="btn-direction">
-                                📍 Get Directions
-                            </a>
+                            <a href="https://maps.google.com/?q=Magnificent+Furnitures+Ltd+Nairobi" target="_blank" rel="noopener" class="btn-direction btn-google">🗺️ Open in Google Maps</a>
+                            <a href="https://www.google.com/maps/dir//Magnificent+Furnitures+Ltd+Nairobi" target="_blank" rel="noopener" class="btn-direction">📍 Get Directions</a>
                         </div>
                     </div>
                 </div>
@@ -479,56 +481,48 @@
             <!-- Contact Form -->
             <div class="contact-form-container" data-aos="fade-left">
                 <h2 data-aos="fade-up">Send Us a Message</h2>
-                <form class="contact-form" data-whatsapp-form data-clear-on-submit id="contactForm" data-aos="fade-up" data-aos-delay="100">
-                    <fieldset>
-                        <legend style="position: absolute; opacity: 0; width: 1px; height: 1px;">Contact Information</legend>
-                        
-                        <div class="form-row">
-                            <div class="form-group" id="name-group">
-                                <label for="name" class="form-label">Your Name *</label>
-                                <input type="text" id="name" name="name" class="form-control" required>
-                                <div class="error-message" id="name-error">Please enter your name</div>
-                            </div>
-                            <div class="form-group" id="email-group">
-                                <label for="email" class="form-label">Email (optional – for follow-up)</label>
-                                <input type="email" id="email" name="email" class="form-control">
-                                <div class="error-message" id="email-error">Please enter a valid email</div>
-                            </div>
+                <form class="contact-form" id="contactForm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="form-row">
+                        <div class="form-group" id="name-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required>
+                            <div class="error-message" id="name-error">Please enter your name</div>
                         </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group" id="phone-group">
-                                <label for="phone" class="form-label">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" class="form-control" required>
-                                <div class="error-message" id="phone-error">Please enter a valid phone number</div>
-                            </div>
-                            <div class="form-group" id="product-group">
-                                <label for="product" class="form-label">Product Interested In</label>
-                                <input type="text" id="product" name="product" class="form-control" placeholder="e.g., Office Chair, Dining Table">
-                            </div>
+                        <div class="form-group" id="email-group">
+                            <label for="email">Email (optional)</label>
+                            <input type="email" id="email" name="email">
+                            <div class="error-message" id="email-error">Please enter a valid email</div>
                         </div>
-                        
-                        <div class="form-group" id="message-group">
-                            <label for="message" class="form-label">Message *</label>
-                            <textarea id="message" name="message" class="form-control" rows="5" required placeholder="Tell us about your furniture needs..."></textarea>
-                            <div class="error-message" id="message-error">Please enter your message</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group" id="phone-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                            <div class="error-message" id="phone-error">Please enter a valid phone number</div>
                         </div>
-                        
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Send via WhatsApp →</button>
+                        <div class="form-group" id="product-group">
+                            <label for="product">Product Interested In</label>
+                            <input type="text" id="product" name="product" placeholder="e.g., Office Chair, Dining Table">
                         </div>
-                        
-                        <div id="form-success" class="alert alert-success" style="display: none; margin-top: 15px;">
-                            ✓ Message ready! You'll be redirected to WhatsApp.
-                        </div>
-                    </fieldset>
+                    </div>
+                    <div class="form-group" id="message-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Tell us about your furniture needs..."></textarea>
+                        <div class="error-message" id="message-error">Please enter your message</div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Send via WhatsApp →</button>
+                    </div>
+                    <div id="form-success" class="alert alert-success" style="display: none; margin-top: 15px; color: #16A34A; text-align: center;">
+                        ✓ Message ready! You'll be redirected to WhatsApp.
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Google Maps Section -->
+<!-- Google Maps -->
 <section class="map-section" aria-labelledby="map-heading">
     <div class="container">
         <h2 id="map-heading" data-aos="fade-up">Find Us</h2>
@@ -547,13 +541,11 @@
     </div>
 </section>
 
-<!-- Customer Reviews Section -->
+<!-- Customer Reviews -->
 <section class="reviews-section" aria-labelledby="reviews-heading">
     <div class="container">
         <h2 id="reviews-heading" data-aos="fade-up">What Our Customers Say</h2>
         <div class="reviews-grid">
-            
-            <!-- Review 1 - April 2025 -->
             <div class="review-card" data-aos="fade-up" data-aos-delay="0">
                 <div class="review-stars">⭐⭐⭐⭐⭐</div>
                 <p class="review-text">"The office chair I bought is extremely comfortable. Same-day delivery was on time! The quality exceeded my expectations."</p>
@@ -561,8 +553,6 @@
                 <div class="review-location">📍 Utawala, Nairobi</div>
                 <div class="review-date">April 2025</div>
             </div>
-            
-            <!-- Review 2 - November 2025 -->
             <div class="review-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="review-stars">⭐⭐⭐⭐⭐</div>
                 <p class="review-text">"Best furniture quality in Nairobi. The dining table set is stunning and durable. My family loves it!"</p>
@@ -570,8 +560,6 @@
                 <div class="review-location">📍 Westlands, Nairobi</div>
                 <div class="review-date">November 2025</div>
             </div>
-            
-            <!-- Review 3 - January 2026 -->
             <div class="review-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="review-stars">⭐⭐⭐⭐⭐</div>
                 <p class="review-text">"Delivery to Mombasa took only 3 days. Very impressed with the service and communication throughout."</p>
@@ -579,8 +567,6 @@
                 <div class="review-location">📍 Mombasa</div>
                 <div class="review-date">January 2026</div>
             </div>
-            
-            <!-- Review 4 - March 2026 -->
             <div class="review-card" data-aos="fade-up" data-aos-delay="300">
                 <div class="review-stars">⭐⭐⭐⭐⭐</div>
                 <p class="review-text">"Customer service was excellent. They helped me choose the perfect desk for my home office. Highly recommend!"</p>
@@ -588,8 +574,6 @@
                 <div class="review-location">📍 Kilimani, Nairobi</div>
                 <div class="review-date">March 2026</div>
             </div>
-            
-            <!-- Review 5 - May 2026 -->
             <div class="review-card" data-aos="fade-up" data-aos-delay="400">
                 <div class="review-stars">⭐⭐⭐⭐⭐</div>
                 <p class="review-text">"The school desks were exactly what we needed for our institution. Great prices and fast delivery to Thika!"</p>
@@ -598,238 +582,51 @@
                 <div class="review-date">May 2026</div>
             </div>
         </div>
-        
-        <!-- Leave a Review Button -->
         <div class="leave-review-btn" data-aos="fade-up" data-aos-delay="500">
             <a href="https://wa.me/254726100242?text=Hello%20Magnificent%20Furnitures%2C%0A%0AI%20would%20like%20to%20leave%20a%20review%20about%20my%20recent%20purchase%3A%0A%0AName%3A%20%0ALocation%3A%20%0ARating%3A%20%2A%2A%2A%2A%2A%0AReview%3A%20%0A%0AThank%20you%21" 
-               class="btn btn-outline" target="_blank">
-                ✍️ Leave a Review
-            </a>
+               class="btn btn-outline" target="_blank">✍️ Leave a Review</a>
         </div>
     </div>
 </section>
 
-<!-- FAQ Section (Expanded - 7 Questions) -->
+<!-- FAQ Section -->
 <section class="faq-section" aria-labelledby="faq-heading">
     <div class="container">
         <h2 id="faq-heading" data-aos="fade-up">Frequently Asked Questions</h2>
         <div class="faq-grid" id="faqContainer">
             <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
-                <div class="faq-question">
-                    <span>🚚 Do you deliver outside Nairobi?</span>
-                    <span class="faq-icon">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes, we offer nationwide delivery across Kenya. Delivery fees vary by location. Contact us for a quote.</p>
-                </div>
+                <div class="faq-question"><span>🚚 Do you deliver outside Nairobi?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer"><p>Yes, we offer nationwide delivery across Kenya. Delivery fees vary by location. Contact us for a quote.</p></div>
             </div>
             <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
-                <div class="faq-question">
-                    <span>⏱️ How long does delivery take?</span>
-                    <span class="faq-icon">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p><strong>Within Nairobi:</strong> Same-day delivery (order before 3 PM). Delivery fee: KES 500 - KES 1,500 depending on location.<br>
-                    <strong>Outside Nairobi:</strong> 2-5 business days.</p>
-                </div>
+                <div class="faq-question"><span>⏱️ How long does delivery take?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer"><p><strong>Within Nairobi:</strong> Same-day delivery (order before 3 PM). Delivery fee: KES 500 - KES 1,500.<br><strong>Outside Nairobi:</strong> 2-5 business days.</p></div>
             </div>
             <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
-                <div class="faq-question">
-                    <span>🔧 Do you offer assembly services?</span>
-                    <span class="faq-icon">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes, free assembly within Nairobi for all furniture purchases.</p>
-                </div>
+                <div class="faq-question"><span>🔧 Do you offer assembly services?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer"><p>Yes, free assembly within Nairobi for all furniture purchases.</p></div>
             </div>
             <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
-                <div class="faq-question">
-                    <span>📝 What is your warranty policy?</span>
-                    <span class="faq-icon">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>1-year warranty on all products against manufacturing defects.</p>
-                </div>
+                <div class="faq-question"><span>📝 What is your warranty policy?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer"><p>1-year warranty on all products against manufacturing defects.</p></div>
             </div>
             <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
-                <div class="faq-question">
-                    <span>🔄 Can I return a product?</span>
-                    <span class="faq-icon">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes, within 7 days of delivery if unused and in original packaging.</p>
-                </div>
+                <div class="faq-question"><span>🔄 Can I return a product?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer"><p>Yes, within 7 days of delivery if unused and in original packaging.</p></div>
             </div>
             <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
-                <div class="faq-question">
-                    <span>🛠️ Do you make custom furniture?</span>
-                    <span class="faq-icon">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>Yes, we accept custom orders. Lead time is 10-14 days depending on the design.</p>
-                </div>
+                <div class="faq-question"><span>🛠️ Do you make custom furniture?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer"><p>Yes, we accept custom orders. Lead time is 10-14 days depending on the design.</p></div>
             </div>
             <div class="faq-item" data-aos="fade-up" data-aos-delay="600">
-                <div class="faq-question">
-                    <span>💳 What payment methods do you accept?</span>
-                    <span class="faq-icon">▼</span>
-                </div>
-                <div class="faq-answer">
-                    <p>We accept M-Pesa, bank transfer, and cash on delivery (for select locations).</p>
-                </div>
+                <div class="faq-question"><span>💳 What payment methods do you accept?</span><span class="faq-icon">▼</span></div>
+                <div class="faq-answer"><p>We accept M-Pesa, bank transfer, and cash on delivery (for select locations).</p></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>Magnificent <span>Furnitures</span></h3>
-                <p>Quality furniture for home and office since <strong>2015</strong></p>
-            </div>
-            <div class="footer-column">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="products.html">Products</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Categories</h4>
-                <ul id="footerCategories">
-                    <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
-                    <li><a href="products.html?category=office-desks">Office Desks</a></li>
-                    <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
-                    <li><a href="products.html?category=school-furniture">School Furniture</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Contact</h4>
-                <p>📞 0726 100242</p>
-                <p>📧 info@magnificentfurnitures.co.ke</p>
-                <p>📍 Nairobi, Kenya</p>
-            </div>
-            <div class="footer-column">
-                <h4>Follow Us</h4>
-                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="https://wa.me/254726100242" target="_blank" style="color: #25D366; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        💬 WhatsApp
-                    </a>
-                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank" style="color: #1877F2; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        📘 Facebook
-                    </a>
-                    <a href="#" target="_blank" style="color: #E4405F; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        📷 Instagram
-                    </a>
-                    <a href="#" target="_blank" style="color: #000000; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        🎵 TikTok
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
-            <p style="margin-top: 10px; font-size: 0.8rem;">
-                Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank" style="color: #D4A017; text-decoration: none;">Kiara Web Solutions</a>
-            </p>
-        </div>
-    </div>
-</footer>
-
-<!-- Scripts -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="assets/js/main.js"></script>
-<script src="assets/js/whatsapp.js"></script>
-
-<script>
-    
-    // FAQ Accordion Functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        const faqItems = document.querySelectorAll('.faq-item');
-        
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item && otherItem.classList.contains('active')) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                item.classList.toggle('active');
-            });
-        });
-        
-        // Form validation
-        const form = document.getElementById('contactForm');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                let isValid = true;
-                
-                const name = document.getElementById('name');
-                const nameError = document.getElementById('name-error');
-                if (!name.value.trim()) {
-                    nameError.classList.add('visible');
-                    document.getElementById('name-group').classList.add('error');
-                    isValid = false;
-                } else {
-                    nameError.classList.remove('visible');
-                    document.getElementById('name-group').classList.remove('error');
-                }
-                
-                const phone = document.getElementById('phone');
-                const phoneError = document.getElementById('phone-error');
-                const phoneRegex = /^(07\d{8}|2547\d{8}|\+2547\d{8})$/;
-                if (!phone.value.trim() || !phoneRegex.test(phone.value.replace(/\s/g, ''))) {
-                    phoneError.classList.add('visible');
-                    document.getElementById('phone-group').classList.add('error');
-                    isValid = false;
-                } else {
-                    phoneError.classList.remove('visible');
-                    document.getElementById('phone-group').classList.remove('error');
-                }
-                
-                const message = document.getElementById('message');
-                const messageError = document.getElementById('message-error');
-                if (!message.value.trim()) {
-                    messageError.classList.add('visible');
-                    document.getElementById('message-group').classList.add('error');
-                    isValid = false;
-                } else {
-                    messageError.classList.remove('visible');
-                    document.getElementById('message-group').classList.remove('error');
-                }
-                
-                const email = document.getElementById('email');
-                const emailError = document.getElementById('email-error');
-                if (email.value.trim()) {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(email.value)) {
-                        emailError.classList.add('visible');
-                        document.getElementById('email-group').classList.add('error');
-                        isValid = false;
-                    } else {
-                        emailError.classList.remove('visible');
-                        document.getElementById('email-group').classList.remove('error');
-                    }
-                }
-                
-                if (isValid) {
-                    const submitEvent = new Event('submit', { bubbles: true });
-                    form.dispatchEvent(submitEvent);
-                }
-            });
-        }
-    });
-</script>
-
-
-<!-- MOBILE NAV PANEL -->
+<!-- MOBILE NAV PANEL (MOVED TO BEFORE FOOTER) -->
 <div class="nav-links-mobile" id="mobileNavPanel">
     <ul>
         <li><a href="index.html">Home</a></li>
@@ -853,6 +650,155 @@
 </div>
 <div class="mobile-overlay" id="mobileOverlay"></div>
 
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Magnificent <span>Furnitures</span></h3>
+                <p>Quality furniture for home and office since <strong>2015</strong>. We deliver premium furniture solutions across Kenya with guaranteed quality and best prices.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">All Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="products.html">View All Categories →</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                    <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                    <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                    <li><a href="products.html?category=workstations">Workstations</a></li>
+                    <li><a href="products.html">All Categories →</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li>📞 <a href="tel:0726100242">0726 100242</a></li>
+                    <li>📧 <a href="mailto:info@magnificentfurnitures.co.ke">info@magnificentfurnitures.co.ke</a></li>
+                    <li>📍 Nairobi, Kenya</li>
+                    <li>🕒 Mon-Sat: 8AM - 6PM</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="https://wa.me/254726100242" target="_blank">💬 WhatsApp</a>
+                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank">📘 Facebook</a>
+                    <a href="#" target="_blank">📷 Instagram</a>
+                    <a href="#" target="_blank">🎵 TikTok</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank">Kiara Web Solutions</a></p>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating WhatsApp Button -->
+<div class="floating-wa">
+    <a href="https://wa.me/254726100242?text=Hello%20Magnificent%20Furnitures,%20I%20need%20more%20information"
+       class="whatsapp-float"
+       target="_blank"
+       aria-label="Chat on WhatsApp">
+        <svg class="wa-icon" viewBox="0 0 32 32">
+            <path fill="white" d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8A13 13 0 0016 29c7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.5c-2 0-3.9-.5-5.6-1.5l-.4-.2-4 .9.9-3.8-.2-.4A10.7 10.7 0 015.3 16C5.3 10.1 10.1 5.3 16 5.3S26.7 10.1 26.7 16 21.9 26.5 16 26.5z"/>
+            <path fill="white" d="M22.2 18.7c-.3-.2-1.8-.9-2-.9-.3-.1-.5-.1-.7.2-.2.3-.8.9-1 .9-.2.1-.4.1-.7 0-.3-.2-1.2-.4-2.3-1.4-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.2.3-.4.4-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.2 3.4 5.4 4.8.8.4 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.5z"/>
+        </svg>
+        <span class="whatsapp-tooltip">Chat with us</span>
+    </a>
+</div>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTopBtn" title="Back to Top">↑</button>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+
+    // Back to Top Button
+    var backToTopBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    });
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            item.classList.toggle('active');
+        });
+    });
+
+    // Form validation
+    const form = document.getElementById('contactForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            const name = document.getElementById('name');
+            const nameError = document.getElementById('name-error');
+            if (!name.value.trim()) {
+                nameError.classList.add('visible');
+                document.getElementById('name-group').classList.add('error');
+                isValid = false;
+            } else {
+                nameError.classList.remove('visible');
+                document.getElementById('name-group').classList.remove('error');
+            }
+
+            const phone = document.getElementById('phone');
+            const phoneError = document.getElementById('phone-error');
+            const phoneRegex = /^(07\d{8}|2547\d{8}|\+2547\d{8})$/;
+            if (!phone.value.trim() || !phoneRegex.test(phone.value.replace(/\s/g, ''))) {
+                phoneError.classList.add('visible');
+                document.getElementById('phone-group').classList.add('error');
+                isValid = false;
+            } else {
+                phoneError.classList.remove('visible');
+                document.getElementById('phone-group').classList.remove('error');
+            }
+
+            const message = document.getElementById('message');
+            const messageError = document.getElementById('message-error');
+            if (!message.value.trim()) {
+                messageError.classList.add('visible');
+                document.getElementById('message-group').classList.add('error');
+                isValid = false;
+            } else {
+                messageError.classList.remove('visible');
+                document.getElementById('message-group').classList.remove('error');
+            }
+
+            if (isValid) {
+                const waMessage = `Hello Magnificent Furnitures,%0A%0AName: ${name.value}%0APhone: ${phone.value}%0AEmail: ${document.getElementById('email').value || 'N/A'}%0AProduct: ${document.getElementById('product').value || 'N/A'}%0A%0AMessage: ${message.value}`;
+                window.open(`https://wa.me/254726100242?text=${waMessage}`, '_blank');
+                document.getElementById('form-success').style.display = 'block';
+                form.reset();
+                setTimeout(() => { document.getElementById('form-success').style.display = 'none'; }, 5000);
+            }
+        });
+    }
+</script>
+
+<!-- Mobile Menu JavaScript -->
 <script>
 (function() {
     var btn = document.getElementById('mobileMenuBtn');
@@ -895,7 +841,6 @@
         if (e.key === 'Escape') closeMenu();
     });
 
-    // Products dropdown toggle
     var dropdownToggles = panel.querySelectorAll('.mob-dropdown-toggle');
     dropdownToggles.forEach(function(toggle) {
         toggle.addEventListener('click', function(e) {
@@ -908,7 +853,6 @@
         });
     });
 
-    // Close menu on regular link click
     var links = panel.querySelectorAll('a:not(.mob-dropdown-toggle)');
     links.forEach(function(link) {
         link.addEventListener('click', function() {

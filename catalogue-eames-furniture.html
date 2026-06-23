@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnificent Furnitures - Eames Furniture Catalogue 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .product-card {
+                page-break-inside: avoid;
+            }
+        }
+
+        .catalogue {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+        }
+
+        .cover {
+            background: white;
+            text-align: center;
+            padding: 80px 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .logo-container img {
+            max-width: 80px;
+            height: auto;
+        }
+
+        .logo-container h1 {
+            font-size: 42px;
+            color: #1a472a;
+            margin: 0;
+        }
+
+        .logo-container h2 {
+            font-size: 24px;
+            color: #555;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        .cover .tagline {
+            font-size: 20px;
+            color: #333;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #1a472a;
+            display: inline-block;
+        }
+
+        .cover .year {
+            margin-top: 50px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .cover .contact {
+            margin-top: 60px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #444;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .category-header {
+            background: #1a472a;
+            color: white;
+            padding: 15px 25px;
+            margin: 0 0 25px 0;
+            border-radius: 8px;
+        }
+
+        .category-header h2 {
+            font-size: 28px;
+            margin: 0;
+        }
+
+        .category-header p {
+            margin: 5px 0 0 0;
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #fafafa;
+        }
+
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-name {
+            font-size: 15px;
+            font-weight: bold;
+            color: #1a472a;
+            margin-bottom: 6px;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #c0392b;
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            font-size: 11px;
+            color: #777;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="catalogue">
+        <div class="cover">
+            <div class="logo-container">
+                <img src="assets/images/logo/logo.png" alt="Magnificent Furnitures Logo">
+                <div>
+                    <h1>MAGNIFICENT FURNITURES</h1>
+                    <h2>Limited</h2>
+                </div>
+            </div>
+            <div class="tagline">Quality Furniture That Transforms Your Space</div>
+            <div class="year">Eames Furniture Catalogue 2026</div>
+            <div class="contact">
+                📞 0726 100242 &nbsp;&nbsp;|&nbsp;&nbsp;
+                📧 info@magnificentfurnitures.co.ke &nbsp;&nbsp;|&nbsp;&nbsp;
+                📍 Nairobi, Kenya
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="category-header">
+                <h2>🪑 Eames Furniture</h2>
+                <p>Iconic Eames style chairs, tables, and sets for modern spaces | 37 Models</p>
+            </div>
+            <div class="product-grid" id="eames-furniture"></div>
+        </div>
+    </div>
+
+    <script>
+        const basePath = "assets/images/products/eames-furniture/";
+
+        const eamesProducts = [
+            { name: "Black Padded Eames Chair", price: "5,500", desc: "Brand new black padded eames chairs. Comfortable and stylish for home or office.", img: "eames-01-black-padded-5500.jpg" },
+            { name: "Transparent Eames Chair", price: "7,000", desc: "Brand new transparent eames chairs. Modern and elegant design.", img: "eames-02-transparent-7000.jpg" },
+            { name: "White Padded Eames Chair", price: "5,500", desc: "Brand new white padded eames chairs. Clean and comfortable design.", img: "eames-03-white-padded-5500.jpg" },
+            { name: "Eames Set", price: "16,000", desc: "Brand new eames set. Complete furniture set for modern spaces.", img: "eames-04-set-16000.jpg" },
+            { name: "Eames Study Table", price: "8,500", desc: "Brand new eames study tables. Perfect for home office or study room.", img: "eames-05-study-table-8500.jpg" },
+            { name: "White Eames Set", price: "16,000", desc: "Brand new white eames set. Elegant white finish for modern spaces.", img: "eames-06-white-set-16000.jpg" },
+            { name: "White Eames Set (Premium)", price: "22,000", desc: "Brand new white eames set. Premium white finish with extra pieces.", img: "eames-07-white-set-22000.jpg" },
+            { name: "Rectangular Eames Set", price: "28,000", desc: "Brand new rectangular eames set. Spacious rectangular design.", img: "eames-08-rect-set-28000.jpg" },
+            { name: "Leather Eames Chair", price: "6,000", desc: "Brand new leather eames chairs. Premium leather finish for comfort and style.", img: "eames-09-leather-6000.jpg" },
+            { name: "Eames Set (Budget)", price: "14,500", desc: "Brand new eames set. Affordable complete furniture set.", img: "eames-10-set-14500.jpg" },
+            { name: "Leather Counter Eames Chair", price: "7,500", desc: "Brand new leather counter eames chairs. Perfect for bar and counter seating.", img: "eames-11-leather-counter-7500.jpg" },
+            { name: "Eames Table ET-6454", price: "?", desc: "Brand new eames table ET-6454. Stylish and durable design.", img: "eames-12-table-et6454.jpg" },
+            { name: "Circular Eames Table", price: "12,500", desc: "Brand new circular eames table. Perfect round shape for gatherings.", img: "eames-13-circular-table-12500.jpg" },
+            { name: "Plastic Counter Eames Chair", price: "6,500", desc: "Brand new plastic counter eames chairs. Durable and affordable.", img: "eames-14-plastic-counter-6500.jpg" },
+            { name: "Foldable Eames Chair", price: "4,500", desc: "Brand new foldable eames chairs. Space-saving and portable.", img: "eames-15-foldable-4500.jpg" },
+            { name: "Leather Eames Chair PH-4522", price: "?", desc: "Brand new leather eames chair PH-4522. Premium quality.", img: "eames-16-leather-ph4522.jpg" },
+            { name: "Kitenge Eames Chair TR-889", price: "?", desc: "Brand new kitenge eames chair TR-889. Unique African fabric design.", img: "eames-17-kitenge-tr889.jpg" },
+            { name: "Medium Kitenge Eames Chair", price: "?", desc: "Brand new medium kitenge eames chair. Colorful African fabric.", img: "eames-18-medium-kitenge.jpg" },
+            { name: "Clear Tables Eames Set", price: "15,000", desc: "Brand new clear tables eames set. Modern transparent design.", img: "eames-19-clear-set-15000.jpg" },
+            { name: "Green WPC Set", price: "21,000", desc: "Brand new green WPC set. Eco-friendly wood plastic composite.", img: "eames-20-green-wpc-21000.jpg" },
+            { name: "Clear Eames Set", price: "15,000", desc: "Brand new clear eames set. Modern transparent design.", img: "eames-21-clear-set-15000.jpg" },
+            { name: "Black Leather Eames Chair", price: "6,500", desc: "Brand new black leather eames chairs. Classic black leather finish.", img: "eames-22-black-leather-6500.jpg" },
+            { name: "Gold Eames Table", price: "8,500", desc: "Brand new gold eames table. Elegant gold finish.", img: "eames-23-gold-table-8500.jpg" },
+            { name: "White Eames Table", price: "9,500", desc: "Brand new white eames table. Clean white finish.", img: "eames-24-white-table-9500.jpg" },
+            { name: "Eames Set DR-7886", price: "16,500", desc: "Brand new eames set DR-7886. Complete furniture set.", img: "eames-25-set-dr7886-16500.jpg" },
+            { name: "Pure White Eames Set ED-6665", price: "20,500", desc: "Brand new pure white eames set ED-6665. Premium all-white design.", img: "eames-26-pure-white-20500.jpg" },
+            { name: "Black Eames Set RS-7776", price: "?", desc: "Brand new black eames set RS-7776. Classic black finish.", img: "eames-27-black-set-rs7776.jpg" },
+            { name: "Lux Eames Chair", price: "11,000", desc: "Brand new lux eames chair. Premium luxury design.", img: "eames-28-lux-11000.jpg" },
+            { name: "Purple Eames Set", price: "11,000", desc: "Brand new purple eames set. Vibrant purple color.", img: "eames-29-purple-set-11000.jpg" },
+            { name: "Eames Table", price: "11,500", desc: "Brand new eames table. Stylish and durable.", img: "eames-30-table-11500.jpg" },
+            { name: "Clear Eames Table", price: "7,500", desc: "Brand new clear eames table. Modern transparent design.", img: "eames-31-clear-table-7500.jpg" },
+            { name: "Eames Table", price: "8,500", desc: "Brand new eames table. Sturdy and elegant.", img: "eames-32-table-8500.jpg" },
+            { name: "Padded Eames Chair Yellow", price: "?", desc: "Brand new yellow padded eames chair. Bright and comfortable.", img: "eames-33-padded-yellow.jpg" },
+            { name: "Plastic Eames Chair", price: "2,850", desc: "Brand new plastic eames chairs. Affordable and durable.", img: "eames-34-plastic-2850.jpg" },
+            { name: "Padded Eames Chair", price: "5,500", desc: "Brand new padded eames chair. Comfortable cushion design.", img: "eames-35-padded-5500.jpg" },
+            { name: "Classic Eames Chair", price: "2,850", desc: "Brand new eames chair. Classic design affordable price.", img: "eames-36-chair-2850.jpg" },
+            { name: "Mesh Eames Chair WPC", price: "3,500", desc: "Brand new mesh eames chair WPC. Breathable mesh design.", img: "eames-37-mesh-wpc-3500.jpg" }
+        ];
+
+        function renderProducts(containerId, products) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            products.forEach(p => {
+                container.innerHTML += `
+                    <div class="product-card">
+                        <img class="product-image" src="${basePath}${p.img}" alt="${p.name}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23f5f5f5%22/%3E%3Ctext x=%22100%22 y=%22110%22 text-anchor=%22middle%22 fill=%22%23999%22%3ENo Image%3C/text%3E%3C/svg%3E'">
+                        <div class="product-info">
+                            <div class="product-name">${p.name}</div>
+                            <div class="product-price">KES ${p.price}</div>
+                            <div class="product-desc">${p.desc}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        renderProducts("eames-furniture", eamesProducts);
+    </script>
+</body>
+</html>

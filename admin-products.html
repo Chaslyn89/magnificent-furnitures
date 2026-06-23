@@ -351,6 +351,40 @@
             font-size: 0.9rem;
         }
 
+        /* Image Upload */
+        .image-upload-area {
+            border: 2px dashed #E2E8F0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #F8FAFC;
+        }
+        .image-upload-area:hover {
+            border-color: #D4A017;
+            background: #F1F5F9;
+        }
+        .image-upload-area .preview-img {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .image-upload-area .upload-icon {
+            font-size: 2rem;
+            color: #94A3B8;
+        }
+        .image-upload-area .upload-text {
+            color: #475569;
+            font-size: 0.9rem;
+        }
+        .image-upload-area .file-name {
+            color: #D4A017;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
@@ -462,8 +496,15 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="productThumbnail">Image URL</label>
-                    <input type="text" id="productThumbnail" placeholder="https://example.com/image.jpg">
+                    <label>Product Image</label>
+                    <div class="image-upload-area" id="imageUploadArea">
+                        <div class="upload-icon">📷</div>
+                        <div class="upload-text">Click or drag to upload an image</div>
+                        <input type="file" id="imageFile" accept="image/*" style="display:none;">
+                        <div id="imagePreview" style="margin-top:10px;"></div>
+                        <div class="file-name" id="fileName"></div>
+                    </div>
+                    <input type="hidden" id="productThumbnail">
                 </div>
                 <div class="form-group">
                     <label for="productShortDesc">Short Description</label>
@@ -529,7 +570,6 @@
             const select = document.getElementById('productCategory');
             const filter = document.getElementById('categoryFilter');
 
-            // Clear options (keep first option)
             select.innerHTML = '<option value="">Select a category</option>';
             filter.innerHTML = '<option value="">All Categories</option>';
 
@@ -559,7 +599,6 @@
                 return;
             }
 
-            // Build category map for display names
             const catMap = {};
             categories.forEach(c => catMap[c.slug] = c.display_name);
 
@@ -685,6 +724,85 @@
         }
 
         // ============================================
+        // IMAGE UPLOAD
+        // ============================================
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const imageFileInput = document.getElementById('imageFile');
+        const imagePreview = document.getElementById('imagePreview');
+        const fileNameDisplay = document.getElementById('fileName');
+        const thumbnailInput = document.getElementById('productThumbnail');
+
+        imageUploadArea.addEventListener('click', function() {
+            imageFileInput.click();
+        });
+
+        imageFileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                handleImageFile(file);
+            }
+        });
+
+        imageUploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#D4A017';
+            this.style.background = '#F1F5F9';
+        });
+
+        imageUploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#E2E8F0';
+            this.style.background = '#F8FAFC';
+        });
+
+        imageUploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#E2E8F0';
+            this.style.background = '#F8FAFC';
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                handleImageFile(file);
+            }
+        });
+
+        async function handleImageFile(file) {
+            // Check if image
+            if (!file.type.startsWith('image/')) {
+                alert('Please upload an image file.');
+                return;
+            }
+
+            // Check size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Image must be less than 5MB.');
+                return;
+            }
+
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.innerHTML = `<img src="${e.target.result}" class="preview-img" alt="Preview">`;
+            };
+            reader.readAsDataURL(file);
+
+            fileNameDisplay.textContent = file.name;
+
+            // Upload to Supabase
+            try {
+                const publicUrl = await uploadProductImage(file);
+                if (publicUrl) {
+                    thumbnailInput.value = publicUrl;
+                    fileNameDisplay.textContent += ' ✅ Uploaded';
+                } else {
+                    alert('Failed to upload image. Please try again.');
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                alert('Error uploading image.');
+            }
+        }
+
+        // ============================================
         // ADD / EDIT PRODUCT
         // ============================================
         const modal = document.getElementById('productModal');
@@ -700,6 +818,9 @@
             saveBtn.textContent = 'Save Product';
             form.reset();
             document.getElementById('productId').value = '';
+            imagePreview.innerHTML = '';
+            fileNameDisplay.textContent = '';
+            thumbnailInput.value = '';
             errorDiv.style.display = 'none';
             successDiv.style.display = 'none';
             modal.classList.add('active');
@@ -709,7 +830,6 @@
             modal.classList.remove('active');
         });
 
-        // Close modal on outside click
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
                 modal.classList.remove('active');
@@ -739,11 +859,21 @@
             document.getElementById('productPrice').value = product.price || '';
             document.getElementById('productOldPrice').value = product.old_price || '';
             document.getElementById('productCategory').value = product.category_slug || '';
-            document.getElementById('productThumbnail').value = product.thumbnail || '';
             document.getElementById('productShortDesc').value = product.short_description || '';
             document.getElementById('productDesc').value = product.description || '';
             document.getElementById('productFeatured').value = String(product.featured || false);
             document.getElementById('productStock').value = String(product.in_stock !== false);
+
+            // Show existing image
+            if (product.thumbnail) {
+                imagePreview.innerHTML = `<img src="${product.thumbnail}" class="preview-img" alt="Product Image">`;
+                thumbnailInput.value = product.thumbnail;
+                fileNameDisplay.textContent = 'Current image loaded';
+            } else {
+                imagePreview.innerHTML = '';
+                thumbnailInput.value = '';
+                fileNameDisplay.textContent = '';
+            }
 
             modal.classList.add('active');
         };
@@ -768,7 +898,6 @@
                 in_stock: document.getElementById('productStock').value === 'true'
             };
 
-            // Validate
             if (!productData.name || !productData.slug || !productData.price || !productData.category_slug) {
                 errorDiv.textContent = 'Please fill in all required fields.';
                 errorDiv.style.display = 'block';
@@ -779,10 +908,8 @@
             try {
                 let result;
                 if (id) {
-                    // Update existing product
                     result = await updateProduct(id, productData);
                 } else {
-                    // Add new product
                     result = await addProduct(productData);
                 }
 

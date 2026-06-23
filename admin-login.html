@@ -4,8 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - Magnificent Furnitures</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18262265670"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-18262265670');
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/js/supabase-client.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -27,6 +38,7 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 400px;
+            margin: 20px;
         }
         .login-container .logo {
             text-align: center;
@@ -133,6 +145,25 @@
             font-size: 0.9rem;
             margin-top: 10px;
         }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 25px 20px;
+                margin: 15px;
+            }
+            .login-container .logo h1 {
+                font-size: 1.4rem;
+            }
+            .form-group input {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            .btn {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -201,11 +232,11 @@
                 }
 
                 if (data && data.user) {
-                    // Check if user is an admin
+                    // Check if user is an admin - using ilike for case-insensitive
                     const { data: adminData, error: adminError } = await supabaseClient
                         .from('admins')
                         .select('*')
-                        .eq('email', data.user.email)
+                        .ilike('email', data.user.email)
                         .single();
 
                     if (adminError || !adminData) {
@@ -251,7 +282,7 @@
                 const { data: adminData } = await supabaseClient
                     .from('admins')
                     .select('*')
-                    .eq('email', session.user.email)
+                    .ilike('email', session.user.email)
                     .single();
 
                 if (adminData) {

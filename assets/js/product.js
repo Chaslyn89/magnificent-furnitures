@@ -1,428 +1,318 @@
 /* ============================================
-   MAGNIFICENT FURNITURES LIMITED - PRODUCT JS
-   Single product page - Load by slug from URL
-   Version 2.0 - With full product details display
+   MAGNIFICENT FURNITURES - PRODUCT JS
+   Single product page - Load from Supabase
    ============================================ */
 
-// ---------- GLOBAL VARIABLES ----------
 let currentProduct = null;
 
-// ---------- GET PRODUCT BY SLUG (across all categories) ----------
+// ============================================
+// GET PRODUCT BY SLUG FROM SUPABASE
+// ============================================
 async function getProductBySlug(productSlug) {
     try {
-        // First, load categories list
-        const categoriesResponse = await fetch('data/categories.json');
-        const categoriesData = await categoriesResponse.json();
-        const categories = categoriesData.categories;
+        console.log('🔍 Looking for product with slug:', productSlug);
         
-        // Search through each category's product file
-        for (const category of categories) {
-            if (!category.isActive) continue;
-            
-            try {
-                const response = await fetch(`data/${category.slug}.json`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.products && Array.isArray(data.products)) {
-                        const found = data.products.find(p => p.slug === productSlug);
-                        if (found) {
-                            // Add category info to product
-                            found.categoryId = category.id;
-                            found.categorySlug = category.slug;
-                            found.categoryName = category.name;
-                            return found;
-                        }
-                    }
-                }
-            } catch (error) {
-                console.warn(`Could not search in ${category.slug}:`, error);
-            }
+        const { data, error } = await supabaseClient
+            .from('products')
+            .select('*')
+            .eq('slug', productSlug)
+            .single();
+
+        if (error) {
+            console.error('❌ Error fetching product:', error);
+            return null;
         }
         
-        return null;
+        console.log('✅ Product found:', data);
+        return data;
     } catch (error) {
-        console.error('Error loading product:', error);
+        console.error('❌ Error loading product:', error);
         return null;
     }
 }
 
-// ---------- GET PRODUCT BY ID (fallback) ----------
-async function getProductById(productId) {
-    try {
-        const categoriesResponse = await fetch('data/categories.json');
-        const categoriesData = await categoriesResponse.json();
-        const categories = categoriesData.categories;
-        
-        for (const category of categories) {
-            if (!category.isActive) continue;
-            
-            try {
-                const response = await fetch(`data/${category.slug}.json`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.products && Array.isArray(data.products)) {
-                        const found = data.products.find(p => p.id === productId);
-                        if (found) {
-                            found.categoryId = category.id;
-                            found.categorySlug = category.slug;
-                            found.categoryName = category.name;
-                            return found;
-                        }
-                    }
-                }
-            } catch (error) {
-                console.warn(`Could not search in ${category.slug}:`, error);
-            }
-        }
-        
-        return null;
-    } catch (error) {
-        console.error('Error loading product:', error);
-        return null;
-    }
+// ============================================
+// FORMAT CURRENCY
+// ============================================
+function formatCurrency(amount) {
+    return 'KES ' + Number(amount).toLocaleString('en-KE');
 }
 
-// ---------- RENDER PRODUCT DETAIL PAGE ----------
-function renderProductDetail(product) {
+// ============================================
+// RENDER PRODUCT
+// ============================================
+function renderProduct(product) {
     if (!product) {
         showErrorPage();
         return;
     }
     
     currentProduct = product;
+    console.log('🎨 Rendering product:', product);
     
-    // Update page title and meta
-    document.title = `${product.name} | Magnificent Furnitures Limited`;
-    updateMetaTags(product);
+    // Update page title
+    document.title = product.name + ' | Magnificent Furnitures Limited';
     
-    // Render breadcrumb
-    renderBreadcrumb(product);
+    // Hide skeleton, show content
+    const skeleton = document.getElementById('skeletonLoader');
+    const content = document.getElementById('productContent');
+    const error = document.getElementById('errorState');
     
-    // Render product images
-    renderProductImages(product);
+    if (skeleton) skeleton.style.display = 'none';
+    if (error) error.style.display = 'none';
+    if (content) content.style.display = 'block';
     
-    // Render product info
-    renderProductInfo(product);
-    
-    // Render specifications
-    renderSpecifications(product);
-    
-    // Render features list
-    renderFeatures(product);
-    
-    // Setup WhatsApp button
-    setupWhatsAppButton(product);
-    
-    // Load related products
-    loadRelatedProducts(product);
-}
-
-// ---------- UPDATE META TAGS FOR SEO ----------
-function updateMetaTags(product) {
-    // Update meta description
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-        metaDescription = document.createElement('meta');
-        metaDescription.name = 'description';
-        document.head.appendChild(metaDescription);
+    // Update breadcrumb - ONLY show category in breadcrumb
+    const breadcrumb = document.getElementById('breadcrumbCategory');
+    if (breadcrumb) {
+        breadcrumb.innerHTML = '<a href="products.html?category=' + product.category_slug + '">' + (product.category_slug || 'Category') + '</a>';
     }
-    metaDescription.content = product.seoDescription || product.shortDescription || `${product.name} available at Magnificent Furnitures Limited. ${product.description?.substring(0, 160) || ''}`;
     
-    // Update meta keywords
-    let metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (!metaKeywords) {
-        metaKeywords = document.createElement('meta');
-        metaKeywords.name = 'keywords';
-        document.head.appendChild(metaKeywords);
-    }
-    metaKeywords.content = product.keywords ? product.keywords.join(', ') : `${product.name}, ${product.categoryName}, furniture Kenya`;
-    
-    // Update Open Graph tags
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    if (!ogTitle) {
-        ogTitle = document.createElement('meta');
-        ogTitle.setAttribute('property', 'og:title');
-        document.head.appendChild(ogTitle);
-    }
-    ogTitle.content = product.seoTitle || product.name;
-    
-    let ogDescription = document.querySelector('meta[property="og:description"]');
-    if (!ogDescription) {
-        ogDescription = document.createElement('meta');
-        ogDescription.setAttribute('property', 'og:description');
-        document.head.appendChild(ogDescription);
-    }
-    ogDescription.content = product.seoDescription || product.shortDescription || product.description?.substring(0, 200) || '';
-    
-    let ogImage = document.querySelector('meta[property="og:image"]');
-    if (!ogImage) {
-        ogImage = document.createElement('meta');
-        ogImage.setAttribute('property', 'og:image');
-        document.head.appendChild(ogImage);
-    }
-    ogImage.content = product.images && product.images[0] ? product.images[0] : '';
-}
-
-// ---------- RENDER BREADCRUMB ----------
-function renderBreadcrumb(product) {
-    const breadcrumbContainer = document.getElementById('breadcrumb');
-    if (!breadcrumbContainer) return;
-    
-    breadcrumbContainer.innerHTML = `
-        <ul class="breadcrumb-list">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="products.html?category=${product.categorySlug}">${product.categoryName}</a></li>
-            <li>${product.name}</li>
-        </ul>
-    `;
-}
-
-// ---------- RENDER PRODUCT IMAGES ----------
-function renderProductImages(product) {
-    const mainImageContainer = document.getElementById('product-main-image');
-    const thumbnailsContainer = document.getElementById('product-thumbnails');
-    
-    if (!mainImageContainer) return;
-    
-    const images = product.images || [product.thumbnail || 'https://placehold.co/600x400?text=No+Image'];
-    const mainImage = images[0];
-    
-    mainImageContainer.innerHTML = `
-        <img id="mainImage" src="${mainImage}" alt="${product.name}" onerror="this.src='https://placehold.co/600x400?text=Product+Image'">
-    `;
-    
-    if (thumbnailsContainer && images.length > 1) {
-        thumbnailsContainer.innerHTML = images.map((img, index) => `
-            <div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeMainImage('${img}', this)">
-                <img src="${img}" alt="${product.name} - view ${index + 1}" onerror="this.src='https://placehold.co/100x100?text=Thumb'">
-            </div>
-        `).join('');
-    } else if (thumbnailsContainer) {
-        thumbnailsContainer.innerHTML = '';
-    }
-}
-
-// ---------- CHANGE MAIN IMAGE (for thumbnail click) ----------
-window.changeMainImage = function(imageSrc, thumbnailElement) {
-    const mainImage = document.getElementById('mainImage');
-    if (mainImage) {
-        mainImage.src = imageSrc;
-        
-        // Update active thumbnail styling
-        document.querySelectorAll('.thumbnail').forEach(thumb => {
-            thumb.classList.remove('active');
-        });
-        thumbnailElement.classList.add('active');
-    }
-};
-
-// ---------- RENDER PRODUCT INFO ----------
-function renderProductInfo(product) {
-    const infoContainer = document.getElementById('product-info');
-    if (!infoContainer) return;
-    
-    const hasSale = product.oldPrice && product.oldPrice > product.price;
-    const discountPercent = hasSale ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100) : 0;
-    
-    infoContainer.innerHTML = `
-        <div class="product-category">
-            <a href="products.html?category=${product.categorySlug}">${product.categoryName}</a>
-        </div>
-        <h1 class="product-title-detail">${product.name}</h1>
-        <div class="product-sku">SKU: ${product.sku || 'N/A'}</div>
-        
-        <div class="product-price-detail">
-            ${hasSale ? `<span class="old-price">${formatCurrency(product.oldPrice)}</span>` : ''}
-            <span class="current-price">${formatCurrency(product.price)}</span>
-            ${hasSale ? `<span class="discount-badge">Save ${discountPercent}%</span>` : ''}
-        </div>
-        
-        <div class="product-stock">
-            ${product.inStock ? 
-                `<span class="in-stock">✓ In Stock (${product.stockQuantity || 'Available'})</span>` : 
-                `<span class="out-of-stock">✗ Out of Stock</span>`
-            }
-        </div>
-        
-        <div class="product-description">
-            <h3>Product Description</h3>
-            <p>${product.description || product.shortDescription || 'No description available.'}</p>
-        </div>
-        
-        <div class="product-actions">
-            <a href="https://wa.me/254726100242?text=${encodeURIComponent(getWhatsAppMessage(product))}" class="btn btn-whatsapp btn-lg" id="whatsappProductBtn" target="_blank">
-                💬 Order via WhatsApp
-            </a>
-            <button class="btn btn-outline btn-lg" onclick="window.location.href='products.html?category=${product.categorySlug}'">
-                ← Browse More ${product.categoryName}
-            </button>
-        </div>
-    `;
-}
-
-// ---------- RENDER SPECIFICATIONS ----------
-function renderSpecifications(product) {
-    const specsContainer = document.getElementById('product-specifications');
-    if (!specsContainer) return;
-    
-    if (!product.specifications || Object.keys(product.specifications).length === 0) {
-        specsContainer.innerHTML = '<p>No specifications available for this product.</p>';
+    // Build product HTML
+    const container = document.getElementById('productContent');
+    if (!container) {
+        console.error('❌ productContent element not found');
         return;
     }
     
-    // Define which specs to show and their display names
-    const specMapping = {
-        material: 'Material',
-        frameMaterial: 'Frame Material',
-        color: 'Color',
-        colorOptions: 'Available Colors',
-        dimensions: 'Dimensions',
-        seatHeight: 'Seat Height',
-        weightCapacity: 'Weight Capacity',
-        weight: 'Weight',
-        assembly: 'Assembly',
-        warranty: 'Warranty'
-    };
+    const hasSale = product.old_price && product.old_price > product.price;
+    const discountPercent = hasSale ? Math.round(((product.old_price - product.price) / product.old_price) * 100) : 0;
+    const saveAmount = hasSale ? product.old_price - product.price : 0;
     
-    let specsHtml = '<table class="specs-table">';
+    const mainImage = product.thumbnail || 'https://placehold.co/600x400?text=No+Image';
+    const images = product.images || [mainImage];
     
-    for (const [key, value] of Object.entries(product.specifications)) {
-        if (specMapping[key] && value) {
-            let displayValue = value;
-            if (key === 'colorOptions' && Array.isArray(value)) {
-                displayValue = value.join(', ');
+    // Build thumbnails HTML
+    let thumbnailsHtml = '';
+    if (images && images.length > 0) {
+        thumbnailsHtml = images.map((img, index) => `
+            <div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage('${img}', this)">
+                <img src="${img}" alt="${product.name}" onerror="this.src='https://placehold.co/100x100?text=No+Image'">
+            </div>
+        `).join('');
+    }
+    
+    // Build specs HTML - ONLY show if specs exist
+    let specsHtml = '';
+    if (product.specifications && Object.keys(product.specifications).length > 0) {
+        const specMapping = {
+            material: 'Material',
+            frameMaterial: 'Frame Material',
+            color: 'Color',
+            colorOptions: 'Available Colors',
+            dimensions: 'Dimensions',
+            seatHeight: 'Seat Height',
+            weightCapacity: 'Weight Capacity',
+            weight: 'Weight',
+            assembly: 'Assembly',
+            warranty: 'Warranty'
+        };
+        
+        let tableRows = '';
+        for (const [key, value] of Object.entries(product.specifications)) {
+            if (specMapping[key] && value) {
+                let displayValue = value;
+                if (key === 'colorOptions' && Array.isArray(value)) {
+                    displayValue = value.join(', ');
+                }
+                tableRows += `
+                    <tr>
+                        <td class="spec-label">${specMapping[key]}</td>
+                        <td class="spec-value">${displayValue}</td>
+                    </tr>
+                `;
             }
-            specsHtml += `
-                <tr>
-                    <td class="spec-label">${specMapping[key]}</td>
-                    <td class="spec-value">${displayValue}</td>
-                </tr>
+        }
+        
+        if (tableRows) {
+            specsHtml = `
+                <div class="specs-section">
+                    <h3>Specifications</h3>
+                    <table class="specs-table">${tableRows}</table>
+                </div>
             `;
         }
     }
     
-    specsHtml += '</table>';
-    specsContainer.innerHTML = specsHtml;
-}
-
-// ---------- RENDER FEATURES LIST ----------
-function renderFeatures(product) {
-    const featuresContainer = document.getElementById('product-features');
-    if (!featuresContainer) return;
-    
-    const features = product.specifications?.features || product.features || [];
-    
-    if (!features.length) {
-        featuresContainer.innerHTML = '<p>No features listed for this product.</p>';
-        return;
-    }
-    
-    featuresContainer.innerHTML = `
-        <ul class="features-list">
-            ${features.map(feature => `<li>✓ ${feature}</li>`).join('')}
-        </ul>
-    `;
-}
-
-// ---------- SETUP WHATSAPP BUTTON ----------
-function setupWhatsAppButton(product) {
-    const whatsappBtn = document.getElementById('whatsappProductBtn');
-    if (whatsappBtn) {
-        whatsappBtn.href = `https://wa.me/254726100242?text=${encodeURIComponent(getWhatsAppMessage(product))}`;
-    }
-}
-
-// ---------- GENERATE WHATSAPP MESSAGE ----------
-function getWhatsAppMessage(product) {
-    return `Hello Magnificent Furnitures,
-
-I am interested in:
-
-🏷️ Product: ${product.name}
-💰 Price: ${formatCurrency(product.price)}
-📦 SKU: ${product.sku || 'N/A'}
-
-Please send me more details including:
-- Availability
-- Delivery options
-- Payment methods
-
-Thank you!`;
-}
-
-// ---------- LOAD RELATED PRODUCTS ----------
-async function loadRelatedProducts(product) {
-    const relatedContainer = document.getElementById('related-products');
-    if (!relatedContainer) return;
-    
-    try {
-        const response = await fetch(`data/${product.categorySlug}.json`);
-        if (response.ok) {
-            const data = await response.json();
-            if (data.products && Array.isArray(data.products)) {
-                // Get 4 related products (excluding current)
-                let related = data.products.filter(p => p.id !== product.id);
-                related = related.slice(0, 4);
-                
-                if (related.length === 0) {
-                    relatedContainer.innerHTML = '<p class="text-center">No related products found.</p>';
-                    return;
-                }
-                
-                // Use the existing renderProductCards function
-                if (typeof renderProductCards === 'function') {
-                    renderProductCards(related, 'related-products');
-                } else {
-                    // Fallback rendering
-                    relatedContainer.innerHTML = related.map(p => `
-                        <div class="product-card">
-                            <div class="product-image">
-                                <img src="${p.thumbnail || p.images?.[0]}" alt="${p.name}" loading="lazy">
-                            </div>
-                            <div class="product-info">
-                                <h3 class="product-title">${p.name}</h3>
-                                <div class="product-price">${formatCurrency(p.price)}</div>
-                                <a href="product.html?slug=${p.slug}" class="btn-sm btn-outline-sm">View Details</a>
-                            </div>
-                        </div>
-                    `).join('');
-                }
-            }
-        }
-    } catch (error) {
-        console.error('Error loading related products:', error);
-        relatedContainer.innerHTML = '<p class="text-center">Unable to load related products.</p>';
-    }
-}
-
-// ---------- SHOW ERROR PAGE ----------
-function showErrorPage() {
-    const container = document.getElementById('product-detail-container');
-    if (container) {
-        container.innerHTML = `
-            <div class="empty-state" style="padding: 80px 20px; text-align: center;">
-                <div class="empty-icon">🔍</div>
-                <h2>Product Not Found</h2>
-                <p>The product you're looking for doesn't exist or has been removed.</p>
-                <a href="products.html" class="btn btn-primary mt-3">Browse All Products</a>
+    // Build features HTML - ONLY show if features exist
+    let featuresHtml = '';
+    const features = product.specifications?.features || [];
+    if (features.length > 0) {
+        featuresHtml = `
+            <div class="features-section">
+                <h3>Features</h3>
+                <ul class="features-list">${features.map(f => `<li>${f}</li>`).join('')}</ul>
             </div>
         `;
     }
+    
+    // Build WhatsApp message
+    const waMessage = `Hello Magnificent Furnitures,%0A%0AI am interested in:%0A%0A🏷️ Product: ${product.name}%0A💰 Price: ${formatCurrency(product.price)}%0A📦 SKU: ${product.sku || 'N/A'}%0A%0APlease send me more details including availability, delivery options, and payment methods.%0A%0AThank you!`;
+    
+    container.innerHTML = `
+        <div class="product-detail-grid">
+            <!-- Gallery -->
+            <div class="product-gallery">
+                <div class="product-main-image">
+                    <img id="mainImage" src="${mainImage}" alt="${product.name}" onerror="this.src='https://placehold.co/600x400?text=No+Image'">
+                </div>
+                <div class="product-thumbnails">
+                    ${thumbnailsHtml}
+                </div>
+            </div>
+            
+            <!-- Info -->
+            <div class="product-info">
+                <div class="product-category">
+                    <a href="products.html?category=${product.category_slug}">${product.category_slug || 'Category'}</a>
+                </div>
+                <h1 class="product-title-detail">${product.name}</h1>
+                <div class="product-sku">SKU: ${product.sku || 'N/A'}</div>
+                
+                <div class="product-price-detail">
+                    ${hasSale ? `<span class="old-price">${formatCurrency(product.old_price)}</span>` : ''}
+                    <span class="current-price">${formatCurrency(product.price)}</span>
+                    ${hasSale ? `<span class="discount-badge">-${discountPercent}%</span>` : ''}
+                    ${hasSale ? `<span class="save-badge">Save KES ${saveAmount.toLocaleString()}</span>` : ''}
+                </div>
+                
+                <div class="product-stock">
+                    ${product.in_stock ? 
+                        `<span class="in-stock">✅ In Stock (${product.stock_quantity || 'Available'})</span>` : 
+                        `<span class="out-of-stock">❌ Out of Stock</span>`
+                    }
+                </div>
+                
+                <div class="product-description">
+                    <h3>Product Description</h3>
+                    <p>${product.description || product.short_description || 'No description available.'}</p>
+                </div>
+                
+                <div class="product-actions">
+                    <a href="https://wa.me/254726100242?text=${waMessage}" class="btn btn-whatsapp btn-lg" target="_blank">
+                        💬 Order via WhatsApp
+                    </a>
+                    <a href="products.html?category=${product.category_slug}" class="btn btn-outline btn-lg">
+                        ← Browse More
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        ${specsHtml}
+        ${featuresHtml}
+    `;
+    
+    console.log('✅ Product rendered successfully');
+}
+
+// ============================================
+// CHANGE MAIN IMAGE
+// ============================================
+function changeImage(src, element) {
+    const mainImage = document.getElementById('mainImage');
+    if (mainImage) {
+        mainImage.src = src;
+    }
+    document.querySelectorAll('.thumbnail').forEach(thumb => {
+        thumb.classList.remove('active');
+    });
+    if (element) {
+        element.classList.add('active');
+    }
+}
+
+// ============================================
+// LOAD RELATED PRODUCTS
+// ============================================
+async function loadRelatedProducts(product) {
+    const container = document.getElementById('relatedProductsGrid');
+    if (!container) return;
+    
+    try {
+        const allProducts = await fetchAllProducts();
+        const related = allProducts
+            .filter(p => p.id !== product.id && p.category_slug === product.category_slug)
+            .slice(0, 4);
+        
+        if (related.length === 0) {
+            const section = document.getElementById('relatedProductsSection');
+            if (section) section.style.display = 'none';
+            return;
+        }
+        
+        const section = document.getElementById('relatedProductsSection');
+        if (section) section.style.display = 'block';
+        
+        container.innerHTML = related.map(p => `
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="${p.thumbnail || 'https://placehold.co/300x260?text=No+Image'}" alt="${p.name}" loading="lazy" onerror="this.src='https://placehold.co/300x260?text=No+Image'">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">${p.name}</h3>
+                    <div class="product-price">${formatCurrency(p.price)}</div>
+                    ${p.old_price ? `<span class="old-price" style="font-size:0.8rem;">${formatCurrency(p.old_price)}</span>` : ''}
+                    <a href="product.html?slug=${p.slug}" class="btn-sm btn-outline-sm" style="margin-top:10px;display:inline-block;">View Details</a>
+                </div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Error loading related products:', error);
+        const section = document.getElementById('relatedProductsSection');
+        if (section) section.style.display = 'none';
+    }
+}
+
+// ============================================
+// SHOW ERROR PAGE
+// ============================================
+function showErrorPage() {
+    const skeleton = document.getElementById('skeletonLoader');
+    const content = document.getElementById('productContent');
+    const error = document.getElementById('errorState');
+    
+    if (skeleton) skeleton.style.display = 'none';
+    if (content) content.style.display = 'none';
+    if (error) error.style.display = 'block';
+    
     document.title = 'Product Not Found | Magnificent Furnitures Limited';
 }
 
-// ---------- FORMAT CURRENCY ----------
-function formatCurrency(amount) {
-    return 'KES ' + amount.toLocaleString('en-KE');
-}
+// ============================================
+// WHATSAPP FUNCTION FOR STICKY CTA
+// ============================================
+window.triggerProductWhatsApp = function() {
+    if (currentProduct) {
+        const message = `Hello Magnificent Furnitures,%0A%0AI am interested in:%0A%0A🏷️ Product: ${currentProduct.name}%0A💰 Price: ${formatCurrency(currentProduct.price)}%0A📦 SKU: ${currentProduct.sku || 'N/A'}%0A%0APlease send me more details.%0A%0AThank you!`;
+        window.open('https://wa.me/254726100242?text=' + message, '_blank');
+    }
+};
 
-// ---------- INITIALIZE PAGE ----------
+// ============================================
+// INITIALIZE PAGE
+// ============================================
 document.addEventListener('DOMContentLoaded', async function() {
-    // Get product slug from URL
+    console.log('🔄 Product page loaded');
+    
+    // Make sure supabaseClient is available
+    if (typeof supabaseClient === 'undefined') {
+        console.error('❌ supabaseClient is not defined. Make sure supabase-client.js is loaded.');
+        showErrorPage();
+        return;
+    }
+    
     const urlParams = new URLSearchParams(window.location.search);
-    let productSlug = urlParams.get('slug');
-    let productId = urlParams.get('id');
+    const productSlug = urlParams.get('slug');
+    const productId = urlParams.get('id');
+    
+    console.log('📋 URL params:', { productSlug, productId });
+    
+    if (!productSlug && !productId) {
+        console.log('❌ No slug or ID provided');
+        showErrorPage();
+        return;
+    }
     
     let product = null;
     
@@ -432,13 +322,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         product = await getProductById(productId);
     }
     
+    console.log('📦 Product result:', product);
+    
     if (product) {
-        renderProductDetail(product);
+        renderProduct(product);
+        loadRelatedProducts(product);
     } else {
         showErrorPage();
     }
 });
 
-// ---------- EXPORT FUNCTIONS FOR GLOBAL USE ----------
-window.changeMainImage = changeMainImage;
+// Make functions available globally
+window.changeImage = changeImage;
 window.formatCurrency = formatCurrency;

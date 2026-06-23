@@ -19,6 +19,15 @@
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
     <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18262265670"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-18262265670');
+    </script>
+    
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
@@ -33,7 +42,7 @@
       "@context": "https://schema.org",
       "@type": "FurnitureStore",
       "name": "Magnificent Furnitures Limited",
-      "description": "Kenya's premier furniture provider since 2015. Quality office and home furniture with 30+ models per category.",
+      "description": "Kenya's premier furniture provider since 2015.",
       "url": "https://magnificentfurnitures.co.ke",
       "logo": "https://magnificentfurnitures.co.ke/assets/images/logo/logo.png",
       "image": "https://magnificentfurnitures.co.ke/assets/images/hero/showroom.jpg",
@@ -57,210 +66,310 @@
       ],
       "foundingDate": "2015",
       "numberOfEmployees": 25,
-      "areaServed": "Kenya",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Furniture Products",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Product",
-              "name": "Office Chairs",
-              "description": "30+ models of ergonomic office chairs"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Product",
-              "name": "Office Desks",
-              "description": "30+ models of modern office desks"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Product",
-              "name": "Dining Tables",
-              "description": "30+ models of elegant dining tables"
-            }
-          }
-        ]
-      }
+      "areaServed": "Kenya"
     }
     </script>
-<style>
-/* ====== ABOUT PAGE - COMPLETE FIX ====== */
+    
+    <style>
+        /* ===== ABOUT PAGE LAYOUT ===== */
+        .page-header {
+            background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.85)), url('assets/images/hero/showroom.jpg') center/cover no-repeat;
+            color: #fff;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .page-header h1 { color: #fff !important; font-size: 2.2rem; margin-bottom: 15px; }
+        .page-header p { color: rgba(255,255,255,0.85) !important; font-size: 1.1rem; }
 
-/* Always show content - defeat AOS hiding */
-[data-aos] { opacity: 1 !important; transform: none !important; transition: none !important; }
+        .company-story { padding: 70px 0; background: #fff; }
+        .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .story-content h2 { text-align: left; }
+        .story-content h2:after { margin: 15px 0 0; }
+        .story-content p { color: #475569; margin-bottom: 15px; line-height: 1.8; }
+        .story-image img { width: 100%; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        @media(max-width:768px){ .story-grid { grid-template-columns: 1fr; gap: 25px; } }
 
-@media (max-width: 768px) {
+        .mission-vision { background: #F8FAFC; padding: 70px 0; }
+        .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        @media(max-width:768px){ .mv-grid { grid-template-columns: 1fr; } }
+        .mission-card, .vision-card {
+            background: #fff; border-radius: 16px; padding: 40px 30px;
+            text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: transform 0.3s;
+        }
+        .mission-card:hover, .vision-card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
+        .mv-icon { color: #D4A017; margin-bottom: 20px; }
 
-    /* Hide desktop nav */
-    ul.nav-links { display: none !important; }
+        .core-values { padding: 70px 0; background: #fff; }
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; }
+        .value-card {
+            background: #F8FAFC; border-radius: 12px; padding: 30px;
+            text-align: center; transition: transform 0.3s;
+        }
+        .value-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        .value-icon { color: #D4A017; margin-bottom: 15px; }
+        .value-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .value-card p { color: #475569; font-size: 0.88rem; }
 
-    /* Hamburger button */
-    .mobile-menu-btn {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        width: 36px !important;
-        height: 26px !important;
-        background: transparent !important;
-        border: none !important;
-        cursor: pointer !important;
-        z-index: 9999 !important;
-        margin-left: auto !important;
-        padding: 0 !important;
-    }
-    .mobile-menu-btn span {
-        display: block !important;
-        width: 26px !important;
-        height: 3px !important;
-        background: #D4A017 !important;
-        border-radius: 3px !important;
-        pointer-events: none !important;
-    }
+        .why-choose-us-detailed { background: #F8FAFC; padding: 70px 0; }
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .why-item {
+            display: flex; gap: 15px; align-items: flex-start;
+            background: #fff; padding: 25px; border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: transform 0.3s;
+        }
+        .why-item:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        .why-icon { font-size: 2rem; flex-shrink: 0; }
+        .why-content h3 { font-size: 1rem; margin-bottom: 6px; }
+        .why-content p { color: #475569; font-size: 0.88rem; }
 
-    /* Slide-in panel */
-    #mobileNavPanel {
-        position: fixed !important;
-        top: 0 !important;
-        right: -100% !important;
-        width: 80% !important;
-        max-width: 300px !important;
-        height: 100vh !important;
-        background: #fff !important;
-        z-index: 9998 !important;
-        padding-top: 70px !important;
-        transition: right 0.3s ease !important;
-        overflow-y: auto !important;
-        box-shadow: -4px 0 20px rgba(0,0,0,0.2) !important;
-    }
-    #mobileNavPanel.active { right: 0 !important; }
+        .stats-section { background: #0F172A; padding: 70px 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px; text-align: center; }
+        .stat-card { padding: 10px; }
+        .stat-number { font-size: 2.8rem; font-weight: 800; color: #D4A017; display: block; margin-bottom: 8px; }
+        .stat-label { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
 
-    /* Nav items */
-    #mobileNavPanel ul { list-style: none !important; padding: 0 !important; margin: 0 !important; display: block !important; }
-    #mobileNavPanel > ul > li { border-bottom: 1px solid #eee !important; display: block !important; }
-    #mobileNavPanel a {
-        display: block !important;
-        padding: 16px 25px !important;
-        color: #0F172A !important;
-        font-size: 15px !important;
-        font-weight: 500 !important;
-        text-decoration: none !important;
-        width: 100% !important;
-    }
-    #mobileNavPanel a:hover { color: #D4A017 !important; background: #f8f9fa !important; }
+        .cta-section { padding: 70px 0; text-align: center; background: #fff; }
+        .cta-content p { color: #475569; margin-bottom: 30px; }
+        .cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 
-    /* Products toggle button */
-    .mob-toggle {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding: 16px 25px !important;
-        color: #0F172A !important;
-        font-size: 15px !important;
-        font-weight: 500 !important;
-        cursor: pointer !important;
-        background: none !important;
-        border: none !important;
-        width: 100% !important;
-        text-align: left !important;
-        border-bottom: 0 !important;
-    }
-    .mob-toggle:hover { color: #D4A017 !important; background: #f8f9fa !important; }
-    .mob-arrow { font-size: 11px !important; transition: transform 0.3s !important; }
-    .mob-open .mob-arrow { transform: rotate(180deg) !important; }
+        /* ===== FLOATING WHATSAPP BUTTON ===== */
+        .floating-wa {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
+        }
+        .whatsapp-float {
+            width: 58px;
+            height: 58px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            background: #1ebe5a;
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+        }
+        .wa-icon {
+            width: 30px;
+            height: 30px;
+            display: block;
+        }
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffffff;
+            color: #334155;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+        }
+        .floating-wa:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
 
-    /* Submenu - hidden by default */
-    .mob-sub {
-        display: none !important;
-        background: #f8f9fa !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    .mob-open .mob-sub { display: block !important; }
-    .mob-sub li { border-top: 1px solid #eee !important; display: block !important; }
-    .mob-sub a { padding: 12px 25px 12px 40px !important; font-size: 14px !important; font-weight: 400 !important; }
+        /* ===== BACK TO TOP BUTTON ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            background: #D4A017;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 160, 23, 0.4);
+            transition: all 0.3s ease;
+        }
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 160, 23, 0.6);
+            background: #b88912;
+        }
+        .back-to-top.visible {
+            display: flex;
+        }
 
-    /* Overlay */
-    #mobileOverlay {
-        display: none !important;
-        position: fixed !important;
-        inset: 0 !important;
-        background: rgba(0,0,0,0.45) !important;
-        z-index: 9997 !important;
-    }
-    #mobileOverlay.active { display: block !important; }
-}
+        /* ===== FOOTER (5 COLUMNS) ===== */
+        .footer {
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 60px 0 25px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-column h3,
+        .footer-column h4 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .footer-column h3 span {
+            color: #D4A017;
+        }
+        .footer-column p {
+            color: #94A3B8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        .footer-column ul li a {
+            color: #94A3B8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .footer-column ul li a:hover {
+            color: #D4A017;
+        }
+        .footer-column .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .footer-column .social-links a {
+            color: #94A3B8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-column .social-links a:hover {
+            color: #D4A017;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid #1E293B;
+            font-size: 0.85rem;
+            color: #64748B;
+        }
+        .footer-bottom a {
+            color: #D4A017;
+            text-decoration: none;
+        }
 
-/* ====== ABOUT PAGE LAYOUT ====== */
-.page-header {
-    background: linear-gradient(rgba(15,23,42,0.85),rgba(15,23,42,0.85)),
-                url('assets/images/hero/showroom.jpg') center/cover no-repeat;
-    color: #fff;
-    padding: 80px 0;
-    text-align: center;
-}
-.page-header h1 { color: #fff !important; font-size: 2.2rem; margin-bottom: 15px; }
-.page-header p { color: rgba(255,255,255,0.85) !important; font-size: 1.1rem; }
+        /* ===== MOBILE MENU - HIDDEN BY DEFAULT ===== */
+        .nav-links-mobile,
+        #mobileNavPanel,
+        .mobile-overlay,
+        #mobileOverlay {
+            display: none !important;
+        }
 
-.company-story { padding: 70px 0; background: #fff; }
-.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-.story-content h2 { text-align: left; }
-.story-content h2:after { margin: 15px 0 0; }
-.story-content p { color: #475569; margin-bottom: 15px; line-height: 1.8; }
-.story-image img { width: 100%; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-@media(max-width:768px){ .story-grid { grid-template-columns: 1fr; gap: 25px; } }
+        .nav-links-mobile.active,
+        #mobileNavPanel.active,
+        .mobile-overlay.active,
+        #mobileOverlay.active {
+            display: block !important;
+        }
 
-.mission-vision { background: #F8FAFC; padding: 70px 0; }
-.mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-@media(max-width:768px){ .mv-grid { grid-template-columns: 1fr; } }
-.mission-card, .vision-card {
-    background: #fff; border-radius: 16px; padding: 40px 30px;
-    text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: transform 0.3s;
-}
-.mission-card:hover, .vision-card:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(0,0,0,0.1); }
-.mv-icon { color: #D4A017; margin-bottom: 20px; }
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 25px;
+            }
+            .footer-column .social-links {
+                align-items: center;
+            }
+            .floating-wa {
+                right: 18px;
+                bottom: 18px;
+            }
+            .whatsapp-float {
+                width: 54px;
+                height: 54px;
+            }
+            .whatsapp-tooltip {
+                display: none;
+            }
+            .back-to-top {
+                bottom: 85px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .mv-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-header {
+                padding: 50px 0;
+            }
+            .page-header h1 {
+                font-size: 1.6rem;
+            }
+        }
 
-.core-values { padding: 70px 0; background: #fff; }
-.values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; }
-.value-card {
-    background: #F8FAFC; border-radius: 12px; padding: 30px;
-    text-align: center; transition: transform 0.3s;
-}
-.value-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
-.value-icon { color: #D4A017; margin-bottom: 15px; }
-.value-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
-.value-card p { color: #475569; font-size: 0.88rem; }
-
-.why-choose-us-detailed { background: #F8FAFC; padding: 70px 0; }
-.why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-.why-item {
-    display: flex; gap: 15px; align-items: flex-start;
-    background: #fff; padding: 25px; border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: transform 0.3s;
-}
-.why-item:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
-.why-icon { font-size: 2rem; flex-shrink: 0; }
-.why-content h3 { font-size: 1rem; margin-bottom: 6px; }
-.why-content p { color: #475569; font-size: 0.88rem; }
-
-.stats-section { background: #0F172A; padding: 70px 0; }
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px; text-align: center; }
-.stat-card { padding: 10px; }
-.stat-number { font-size: 2.8rem; font-weight: 800; color: #D4A017; display: block; margin-bottom: 8px; }
-.stat-label { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
-
-.cta-section { padding: 70px 0; text-align: center; background: #fff; }
-.cta-content p { color: #475569; margin-bottom: 30px; }
-.cta-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
-</style>
-
+        @media (max-width: 480px) {
+            .floating-wa {
+                right: 15px;
+                bottom: 15px;
+            }
+            .whatsapp-float {
+                width: 48px;
+                height: 48px;
+            }
+            .back-to-top {
+                bottom: 75px;
+                right: 15px;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .page-header h1 {
+                font-size: 1.3rem;
+            }
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -493,81 +602,13 @@
     </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>Magnificent <span>Furnitures</span></h3>
-                <p>Quality furniture for home and office since <strong>2015</strong></p>
-            </div>
-            <div class="footer-column">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="products.html">Products</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Categories</h4>
-                <ul>
-                    <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
-                    <li><a href="products.html?category=office-desks">Office Desks</a></li>
-                    <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
-                    <li><a href="products.html?category=school-furniture">School Furniture</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Contact</h4>
-                <p>📞 0726 100242</p>
-                <p>📧 info@magnificentfurnitures.co.ke</p>
-                <p>📍 Nairobi, Kenya</p>
-            </div>
-            <div class="footer-column">
-                <h4>Follow Us</h4>
-                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="https://wa.me/254726100242" target="_blank" style="color: #25D366; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        💬 WhatsApp
-                    </a>
-                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank" style="color: #1877F2; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        📘 Facebook
-                    </a>
-                    <a href="#" target="_blank" style="color: #E4405F; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        📷 Instagram
-                    </a>
-                    <a href="#" target="_blank" style="color: #000000; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        🎵 TikTok
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
-            <p style="margin-top: 10px; font-size: 0.8rem;">
-                Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank" style="color: #D4A017; text-decoration: none;">Kiara Web Solutions</a>
-            </p>
-        </div>
-    </div>
-</footer>
-
-<!-- Scripts -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="assets/js/main.js"></script>
-<script src="assets/js/whatsapp.js"></script>
-<script>
-    // Initialize AOS
-    
-</script>
-
-
-<!-- STATIC MOBILE NAV -->
-<div id="mobileNavPanel">
+<!-- MOBILE NAV PANEL (MOVED TO BEFORE FOOTER) -->
+<div class="nav-links-mobile" id="mobileNavPanel">
     <ul>
         <li><a href="index.html">Home</a></li>
-        <li class="mob-item">
-            <button class="mob-toggle">Products <span class="mob-arrow">▼</span></button>
-            <ul class="mob-sub">
+        <li class="mob-dropdown">
+            <a href="#" class="mob-dropdown-toggle">Products <span class="mob-arrow">▼</span></a>
+            <ul class="mob-submenu">
                 <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
                 <li><a href="products.html?category=office-desks">Office Desks</a></li>
                 <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
@@ -579,58 +620,165 @@
                 <li><a href="products.html">All Products →</a></li>
             </ul>
         </li>
-        <li><a href="about.html" style="color:#D4A017">About</a></li>
+        <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact Us</a></li>
     </ul>
 </div>
-<div id="mobileOverlay"></div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Magnificent <span>Furnitures</span></h3>
+                <p>Quality furniture for home and office since <strong>2015</strong>. We deliver premium furniture solutions across Kenya with guaranteed quality and best prices.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">All Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="products.html">View All Categories →</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                    <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                    <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                    <li><a href="products.html?category=workstations">Workstations</a></li>
+                    <li><a href="products.html">All Categories →</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li>📞 <a href="tel:0726100242">0726 100242</a></li>
+                    <li>📧 <a href="mailto:info@magnificentfurnitures.co.ke">info@magnificentfurnitures.co.ke</a></li>
+                    <li>📍 Nairobi, Kenya</li>
+                    <li>🕒 Mon-Sat: 8AM - 6PM</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="https://wa.me/254726100242" target="_blank">💬 WhatsApp</a>
+                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank">📘 Facebook</a>
+                    <a href="#" target="_blank">📷 Instagram</a>
+                    <a href="#" target="_blank">🎵 TikTok</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank">Kiara Web Solutions</a></p>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating WhatsApp Button -->
+<div class="floating-wa">
+    <a href="https://wa.me/254726100242?text=Hello%20Magnificent%20Furnitures,%20I%20need%20more%20information"
+       class="whatsapp-float"
+       target="_blank"
+       aria-label="Chat on WhatsApp">
+
+        <svg class="wa-icon" viewBox="0 0 32 32">
+            <path fill="white" d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8A13 13 0 0016 29c7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.5c-2 0-3.9-.5-5.6-1.5l-.4-.2-4 .9.9-3.8-.2-.4A10.7 10.7 0 015.3 16C5.3 10.1 10.1 5.3 16 5.3S26.7 10.1 26.7 16 21.9 26.5 16 26.5z"/>
+            <path fill="white" d="M22.2 18.7c-.3-.2-1.8-.9-2-.9-.3-.1-.5-.1-.7.2-.2.3-.8.9-1 .9-.2.1-.4.1-.7 0-.3-.2-1.2-.4-2.3-1.4-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.2.3-.4.4-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.2 3.4 5.4 4.8.8.4 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.5z"/>
+        </svg>
+
+        <span class="whatsapp-tooltip">Chat with us</span>
+    </a>
+</div>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTopBtn" title="Back to Top">↑</button>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-(function(){
+    AOS.init({ duration: 800, once: true });
+
+    // Back to Top Button
+    var backToTopBtn = document.getElementById('backToTopBtn');
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    });
+
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+
+<!-- Mobile Menu JavaScript -->
+<script>
+(function() {
     var btn = document.getElementById('mobileMenuBtn');
     var panel = document.getElementById('mobileNavPanel');
     var overlay = document.getElementById('mobileOverlay');
+    var scrollY = 0;
+
     if (!btn || !panel || !overlay) return;
 
-    // Prevent main.js from creating its own mobile nav
-    panel.classList.add('nav-links-mobile');
-
     function openMenu() {
+        scrollY = window.scrollY;
         panel.classList.add('active');
         overlay.classList.add('active');
+        document.body.classList.add('no-scroll');
+        document.body.style.top = '-' + scrollY + 'px';
         btn.innerHTML = '&#10005;';
-        btn.setAttribute('aria-expanded', 'true');
+        btn.style.cssText += 'font-size:20px;align-items:center;justify-content:center;';
     }
+
     function closeMenu() {
         panel.classList.remove('active');
         overlay.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
         btn.innerHTML = '<span></span><span></span><span></span>';
-        btn.setAttribute('aria-expanded', 'false');
+        btn.style.fontSize = '';
+        btn.style.alignItems = '';
+        btn.style.justifyContent = '';
     }
 
     btn.addEventListener('click', function(e) {
         e.stopPropagation();
         panel.classList.contains('active') ? closeMenu() : openMenu();
     });
-    overlay.addEventListener('click', closeMenu);
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
 
-    // Products toggle - uses button not anchor so no href conflict
-    panel.querySelectorAll('.mob-toggle').forEach(function(toggle) {
+    overlay.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+    });
+
+    var dropdownToggles = panel.querySelectorAll('.mob-dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
         toggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            var item = toggle.closest('.mob-item');
-            var isOpen = item.classList.contains('mob-open');
-            // Close all first
-            panel.querySelectorAll('.mob-item').forEach(function(i) { i.classList.remove('mob-open'); });
-            // Open this one if it was closed
-            if (!isOpen) item.classList.add('mob-open');
+            var parent = toggle.closest('.mob-dropdown');
+            if (parent) {
+                parent.classList.toggle('open');
+            }
         });
     });
 
-    // Close panel when any real link is clicked
-    panel.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', closeMenu);
+    var links = panel.querySelectorAll('a:not(.mob-dropdown-toggle)');
+    links.forEach(function(link) {
+        link.addEventListener('click', function() {
+            closeMenu();
+        });
     });
 })();
 </script>

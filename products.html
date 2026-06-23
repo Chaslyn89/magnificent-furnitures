@@ -15,8 +15,17 @@
     <meta property="og:url" content="https://magnificentfurnitures.co.ke/products.html">
     <meta property="og:type" content="website">
     
-    <!-- Favicon - Emoji fallback -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🪑%3C/text%3E%3C/svg%3E">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18262265670"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-18262265670');
+    </script>
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -25,6 +34,10 @@
     
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-client.js"></script>
     
     <style>
         /* Products Page Specific Styles */
@@ -280,12 +293,265 @@
                 display: block;
             }
         }
+
+        /* ===== FLOATING WHATSAPP BUTTON ===== */
+        .floating-wa {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
+        }
+
+        .whatsapp-float {
+            width: 58px;
+            height: 58px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            background: #1ebe5a;
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        .wa-icon {
+            width: 30px;
+            height: 30px;
+            display: block;
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffffff;
+            color: #334155;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+        }
+
+        .floating-wa:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ===== BACK TO TOP BUTTON ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            background: #D4A017;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 160, 23, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 160, 23, 0.6);
+            background: #b88912;
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* ===== FOOTER (5 COLUMNS) ===== */
+        .footer {
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 60px 0 25px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3,
+        .footer-column h4 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-column h3 span {
+            color: #D4A017;
+        }
+
+        .footer-column p {
+            color: #94A3B8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #94A3B8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-column ul li a:hover {
+            color: #D4A017;
+        }
+
+        .footer-column .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-column .social-links a {
+            color: #94A3B8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-column .social-links a:hover {
+            color: #D4A017;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid #1E293B;
+            font-size: 0.85rem;
+            color: #64748B;
+        }
+
+        .footer-bottom a {
+            color: #D4A017;
+            text-decoration: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 25px;
+            }
+            .footer-column .social-links {
+                align-items: center;
+            }
+            .catalog-layout {
+                grid-template-columns: 1fr;
+            }
+            .filters-sidebar {
+                display: none;
+            }
+            .mobile-filters-toggle {
+                display: block;
+            }
+            .floating-wa {
+                right: 18px;
+                bottom: 18px;
+            }
+            .whatsapp-float {
+                width: 54px;
+                height: 54px;
+            }
+            .whatsapp-tooltip {
+                display: none;
+            }
+            .back-to-top {
+                bottom: 85px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .floating-wa {
+                right: 15px;
+                bottom: 15px;
+            }
+            .whatsapp-float {
+                width: 48px;
+                height: 48px;
+            }
+            .back-to-top {
+                bottom: 75px;
+                right: 15px;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+        }
     </style>
+    
     <style>
-    /* ===== MOBILE MENU FINAL FIX ===== */
+    /* ===== MOBILE MENU (HIDDEN ON DESKTOP) ===== */
+    .nav-links-mobile,
+    #mobileNavPanel,
+    .mobile-overlay,
+    #mobileOverlay {
+        display: none !important;
+    }
+
+    .nav-links-mobile.active,
+    #mobileNavPanel.active,
+    .mobile-overlay.active,
+    #mobileOverlay.active {
+        display: block !important;
+    }
+
     @media (max-width: 768px) {
         ul.nav-links { display: none !important; }
-
         .mobile-menu-btn {
             display: flex !important;
             flex-direction: column !important;
@@ -308,8 +574,6 @@
             border-radius: 3px !important;
             pointer-events: none !important;
         }
-
-        /* Panel - slides from RIGHT, does NOT move the page */
         .nav-links-mobile {
             position: fixed !important;
             top: 0 !important;
@@ -323,19 +587,9 @@
             overflow-y: auto !important;
             box-shadow: -4px 0 20px rgba(0,0,0,0.15) !important;
         }
-        .nav-links-mobile.active {
-            right: 0 !important;
-        }
-
-        /* Nav items */
-        .nav-links-mobile ul {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        .nav-links-mobile > ul > li {
-            border-bottom: 1px solid #E2E8F0 !important;
-        }
+        .nav-links-mobile.active { right: 0 !important; }
+        .nav-links-mobile ul { list-style: none !important; padding: 0 !important; margin: 0 !important; }
+        .nav-links-mobile > ul > li { border-bottom: 1px solid #E2E8F0 !important; }
         .nav-links-mobile a,
         .nav-links-mobile .mob-dropdown-toggle {
             display: flex !important;
@@ -357,26 +611,14 @@
             color: #D4A017 !important;
             background: #F8FAFC !important;
         }
-
-        /* Products submenu */
         .mob-submenu {
             display: none !important;
             background: #F8FAFC !important;
             padding: 0 !important;
         }
-        .mob-dropdown.open .mob-submenu {
-            display: block !important;
-        }
-        .mob-submenu li {
-            border-top: 1px solid #E2E8F0 !important;
-        }
-        .mob-submenu a {
-            padding: 12px 25px 12px 35px !important;
-            font-size: 14px !important;
-            font-weight: 400 !important;
-        }
-
-        /* Arrow rotation */
+        .mob-dropdown.open .mob-submenu { display: block !important; }
+        .mob-submenu li { border-top: 1px solid #E2E8F0 !important; }
+        .mob-submenu a { padding: 12px 25px 12px 35px !important; font-size: 14px !important; font-weight: 400 !important; }
         .mob-arrow {
             transition: transform 0.3s ease !important;
             font-size: 11px !important;
@@ -384,8 +626,6 @@
         .mob-dropdown.open .mob-arrow {
             transform: rotate(180deg) !important;
         }
-
-        /* Overlay - darkens page but doesnt move it */
         .mobile-overlay {
             display: none !important;
             position: fixed !important;
@@ -396,26 +636,12 @@
             background: rgba(0,0,0,0.5) !important;
             z-index: 1000 !important;
         }
-        .mobile-overlay.active {
-            display: block !important;
-        }
-
-        /* Prevent body scroll WITHOUT shifting layout */
+        .mobile-overlay.active { display: block !important; }
         body.no-scroll {
             overflow: hidden !important;
             position: fixed !important;
             width: 100% !important;
         }
-    }
-
-    /* Hero text always visible */
-    .hero h1, .hero p, .hero-subtitle, .hero-buttons {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-    [data-aos]:not(.aos-animate) {
-        opacity: 1 !important;
-        transform: none !important;
     }
     </style>
 </head>
@@ -547,401 +773,6 @@
     <div id="mobileFiltersContent"></div>
 </div>
 
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h3>Magnificent <span>Furnitures</span></h3>
-                <p>Quality furniture for home and office since <strong>2015</strong></p>
-            </div>
-            <div class="footer-column">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="products.html">Products</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Categories</h4>
-                <ul id="footerCategories"></ul>
-            </div>
-            <div class="footer-column">
-                <h4>Contact</h4>
-                <p>📞 0726 100242</p>
-                <p>📧 info@magnificentfurnitures.co.ke</p>
-                <p>📍 Nairobi, Kenya</p>
-            </div>
-            <div class="footer-column">
-                <h4>Follow Us</h4>
-                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="https://wa.me/254726100242" target="_blank" style="color: #25D366; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        💬 WhatsApp
-                    </a>
-                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank" style="color: #1877F2; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        📘 Facebook
-                    </a>
-                    <a href="#" target="_blank" style="color: #E4405F; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        📷 Instagram
-                    </a>
-                    <a href="#" target="_blank" style="color: #000000; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                        🎵 TikTok
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
-            <p style="margin-top: 10px; font-size: 0.8rem;">
-                Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank" style="color: #D4A017; text-decoration: none;">Kiara Web Solutions</a>
-            </p>
-        </div>
-    </div>
-</footer>
-
-<!-- Core Scripts (with defer to ensure proper loading order) -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script defer src="assets/js/core/utils.js"></script>
-<script defer src="assets/js/core/api.js"></script>
-<script defer src="assets/js/core/store.js"></script>
-<script defer src="assets/js/core/init.js"></script>
-
-<script>
-    
-    // Page-specific products functionality
-    (function() {
-        let currentPage = 1;
-        const productsPerPage = 12;
-        let currentFilteredProducts = [];
-        let unsubscribe = null;
-        
-        // Render product cards
-        function renderProductCards(products, containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            
-            if (!products || products.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <div class="empty-icon">🔍</div>
-                        <h3>No products found</h3>
-                        <p>Try adjusting your filters or search criteria</p>
-                        <button class="btn btn-primary" id="resetFiltersBtn">Reset Filters</button>
-                    </div>
-                `;
-                const resetBtn = document.getElementById('resetFiltersBtn');
-                if (resetBtn) {
-                    resetBtn.addEventListener('click', () => {
-                        if (window.MF.store) window.MF.store.clearFilters();
-                        updateFiltersFromUI();
-                        loadAndRenderProducts();
-                    });
-                }
-                return;
-            }
-            
-            container.innerHTML = products.map(product => `
-                <div class="product-card ${product.featured ? 'product-card-featured' : ''}" data-aos="fade-up" data-aos-delay="100">
-                    ${product.featured ? '<div class="featured-badge">FEATURED</div>' : ''}
-                    <div class="product-image">
-                        <img src="${window.MF.escapeHtml(product.thumbnail || product.images?.[0] || '')}" 
-                             alt="${window.MF.escapeHtml(product.name)}" 
-                             loading="lazy"
-                             onerror="this.onerror=null; this.src='https://placehold.co/300x260?text=No+Image'">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">${window.MF.escapeHtml(product.name)}</h3>
-                        <div class="product-price">${window.MF.formatCurrency(product.price)}</div>
-                        <div class="product-specs">${window.MF.escapeHtml(product.shortDescription || product.categoryName || '')}</div>
-                        <div class="product-buttons">
-                            <a href="product.html?slug=${product.slug}" class="btn-sm btn-outline-sm">View Details</a>
-                            <a href="https://wa.me/254726100242?text=${encodeURIComponent(`Hello Magnificent Furnitures,\n\nI am interested in:\n\n${product.name}\nPrice: ${window.MF.formatCurrency(product.price)}\n\nPlease send me more details.`)}" 
-                               class="btn-sm btn-whatsapp-sm" target="_blank">WhatsApp</a>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        // Update results count
-        function updateResultsCount(count) {
-            const countEl = document.getElementById('resultsCount');
-            if (countEl) {
-                countEl.textContent = `Showing ${count} product${count !== 1 ? 's' : ''}`;
-            }
-        }
-        
-        // Render pagination
-        function renderPagination(totalItems) {
-            const totalPages = Math.ceil(totalItems / productsPerPage);
-            const paginationEl = document.getElementById('pagination');
-            if (!paginationEl) return;
-            
-            if (totalPages <= 1) {
-                paginationEl.innerHTML = '';
-                return;
-            }
-            
-            let html = '';
-            
-            // Previous button
-            html += `<button class="pagination-prev ${currentPage === 1 ? 'disabled' : ''}" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
-            
-            // Page numbers
-            for (let i = 1; i <= Math.min(totalPages, 5); i++) {
-                html += `<button class="pagination-page ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
-            }
-            
-            if (totalPages > 5) {
-                html += `<span>...</span>`;
-                html += `<button class="pagination-page" data-page="${totalPages}">${totalPages}</button>`;
-            }
-            
-            // Next button
-            html += `<button class="pagination-next ${currentPage === totalPages ? 'disabled' : ''}" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>`;
-            
-            paginationEl.innerHTML = html;
-            
-            // Add event listeners
-            document.querySelectorAll('.pagination-page').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const page = parseInt(btn.dataset.page);
-                    if (page && page !== currentPage) {
-                        currentPage = page;
-                        loadAndRenderProducts();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                });
-            });
-            
-            document.querySelector('.pagination-prev')?.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    loadAndRenderProducts();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-            
-            document.querySelector('.pagination-next')?.addEventListener('click', () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    loadAndRenderProducts();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-        }
-        
-        // Load and render products
-        async function loadAndRenderProducts() {
-            const grid = document.getElementById('productsGrid');
-            if (grid) grid.innerHTML = '<div class="loading">Loading products...</div>';
-            
-            // Wait for store to have products
-            if (!window.MF.store || window.MF.store.products.length === 0) {
-                setTimeout(() => loadAndRenderProducts(), 500);
-                return;
-            }
-            
-            const filtered = window.MF.store.getFilteredProducts();
-            currentFilteredProducts = filtered;
-            
-            const start = (currentPage - 1) * productsPerPage;
-            const paginated = filtered.slice(start, start + productsPerPage);
-            
-            updateResultsCount(filtered.length);
-            renderProductCards(paginated, 'productsGrid');
-            renderPagination(filtered.length);
-        }
-        
-        // Update filters from UI
-        function updateFiltersFromUI() {
-            if (!window.MF.store) return;
-            
-            const selectedMaterials = Array.from(document.querySelectorAll('#materialFilter input:checked')).map(cb => cb.value);
-            const inStockOnly = document.getElementById('inStockOnly')?.checked || false;
-            
-            window.MF.store.updateFilters({
-                materials: selectedMaterials,
-                inStockOnly: inStockOnly
-            });
-            
-            currentPage = 1;
-            loadAndRenderProducts();
-        }
-        
-        // Load categories into filter dropdowns
-        async function loadCategoriesUI() {
-            // Wait for MF to be ready
-            if (!window.MF.fetchCategories) {
-                setTimeout(() => loadCategoriesUI(), 500);
-                return;
-            }
-            
-            const categories = await window.MF.fetchCategories();
-            
-            // Category dropdown in navbar
-            const dropdown = document.getElementById('categoryDropdown');
-            if (dropdown) {
-                dropdown.innerHTML = categories.filter(c => c.isActive).slice(0, 8).map(cat => `
-                    <li role="none"><a href="products.html?category=${cat.slug}" role="menuitem">${window.MF.escapeHtml(cat.name)}</a></li>
-                `).join('') + `
-                    <li role="none"><a href="products.html" role="menuitem">All Categories →</a></li>
-                `;
-            }
-            
-            // Category filter in sidebar
-            const categoryFilter = document.getElementById('categoryFilter');
-            if (categoryFilter && window.MF.store) {
-                categoryFilter.innerHTML = `
-                    <label><input type="radio" name="category" value="all" ${!window.MF.store.filters.category ? 'checked' : ''}> All Categories</label>
-                    ${categories.filter(c => c.isActive).map(cat => `
-                        <label><input type="radio" name="category" value="${cat.slug}" ${window.MF.store.filters.category === cat.slug ? 'checked' : ''}> ${window.MF.escapeHtml(cat.name)} (${cat.count}+)</label>
-                    `).join('')}
-                `;
-                
-                // Add event listeners
-                categoryFilter.querySelectorAll('input[type="radio"]').forEach(radio => {
-                    radio.addEventListener('change', () => {
-                        if (!window.MF.store) return;
-                        if (radio.value === 'all') {
-                            window.MF.store.updateFilters({ category: null });
-                        } else {
-                            window.MF.store.updateFilters({ category: radio.value });
-                        }
-                        currentPage = 1;
-                        loadAndRenderProducts();
-                    });
-                });
-            }
-            
-            // Footer categories
-            const footerCategories = document.getElementById('footerCategories');
-            if (footerCategories) {
-                footerCategories.innerHTML = categories.filter(c => c.isActive && c.featured).slice(0, 4).map(cat => `
-                    <li><a href="products.html?category=${cat.slug}">${window.MF.escapeHtml(cat.name)}</a></li>
-                `).join('');
-            }
-        }
-        
-        // Initialize page
-        async function initProductsPage() {
-            // Wait for MF.store to be ready
-            if (!window.MF.store) {
-                setTimeout(() => initProductsPage(), 500);
-                return;
-            }
-            
-            await loadCategoriesUI();
-            
-            // Set up event listeners
-            const sortSelect = document.getElementById('sortSelect');
-            if (sortSelect) {
-                sortSelect.addEventListener('change', () => {
-                    if (!window.MF.store) return;
-                    window.MF.store.setSortBy(sortSelect.value);
-                    currentPage = 1;
-                    loadAndRenderProducts();
-                });
-            }
-            
-            const clearBtn = document.getElementById('clearFiltersBtn');
-            if (clearBtn) {
-                clearBtn.addEventListener('click', () => {
-                    if (!window.MF.store) return;
-                    window.MF.store.clearFilters();
-                    document.querySelectorAll('#materialFilter input').forEach(cb => cb.checked = false);
-                    if (document.getElementById('inStockOnly')) document.getElementById('inStockOnly').checked = false;
-                    document.querySelectorAll('#categoryFilter input[type="radio"]').forEach(radio => {
-                        if (radio.value === 'all') radio.checked = true;
-                    });
-                    document.getElementById('minPrice').value = '';
-                    document.getElementById('maxPrice').value = '';
-                    currentPage = 1;
-                    loadAndRenderProducts();
-                });
-            }
-            
-            const applyPriceBtn = document.getElementById('applyPriceBtn');
-            if (applyPriceBtn) {
-                applyPriceBtn.addEventListener('click', () => {
-                    if (!window.MF.store) return;
-                    const min = parseInt(document.getElementById('minPrice')?.value) || null;
-                    const max = parseInt(document.getElementById('maxPrice')?.value) || null;
-                    window.MF.store.updateFilters({ minPrice: min, maxPrice: max });
-                    currentPage = 1;
-                    loadAndRenderProducts();
-                });
-            }
-            
-            document.querySelectorAll('#materialFilter input').forEach(cb => {
-                cb.addEventListener('change', updateFiltersFromUI);
-            });
-            
-            const inStockCheckbox = document.getElementById('inStockOnly');
-            if (inStockCheckbox) {
-                inStockCheckbox.addEventListener('change', updateFiltersFromUI);
-            }
-            
-            // Mobile filters
-            const mobileToggle = document.getElementById('mobileFiltersToggle');
-            const mobilePanel = document.getElementById('mobileFiltersPanel');
-            const mobileOverlay = document.getElementById('mobileFiltersOverlay');
-            const closeBtn = document.getElementById('closeFiltersBtn');
-            const mobileContent = document.getElementById('mobileFiltersContent');
-            
-            if (mobileToggle && mobilePanel && mobileOverlay && mobileContent) {
-                const desktopFilters = document.querySelector('.filters-sidebar');
-                if (desktopFilters && !mobileContent.hasChildNodes()) {
-                    const clone = desktopFilters.cloneNode(true);
-                    clone.id = '';
-                    clone.classList.add('mobile-filters-copy');
-                    mobileContent.appendChild(clone);
-                }
-                
-                mobileToggle.addEventListener('click', () => {
-                    mobilePanel.classList.add('open');
-                    mobileOverlay.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                    
-                    const mobileMinPrice = mobileContent.querySelector('#minPrice');
-                    const mobileMaxPrice = mobileContent.querySelector('#maxPrice');
-                    if (mobileMinPrice) mobileMinPrice.value = document.getElementById('minPrice')?.value || '';
-                    if (mobileMaxPrice) mobileMaxPrice.value = document.getElementById('maxPrice')?.value || '';
-                });
-                
-                const closeFilters = () => {
-                    mobilePanel.classList.remove('open');
-                    mobileOverlay.style.display = 'none';
-                    document.body.style.overflow = '';
-                };
-                
-                if (closeBtn) closeBtn.addEventListener('click', closeFilters);
-                mobileOverlay.addEventListener('click', closeFilters);
-            }
-            
-            // Subscribe to store changes (with safety check)
-            if (window.MF.store && window.MF.store.subscribe) {
-                if (unsubscribe) unsubscribe();
-                unsubscribe = window.MF.store.subscribe(() => {
-                    loadAndRenderProducts();
-                });
-            }
-            
-            // Initial load
-            loadAndRenderProducts();
-        }
-        
-        // Start when DOM ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initProductsPage);
-        } else {
-            initProductsPage();
-        }
-    })();
-</script>
-
-
 <!-- MOBILE NAV PANEL -->
 <div class="nav-links-mobile" id="mobileNavPanel">
     <ul>
@@ -966,6 +797,484 @@
 </div>
 <div class="mobile-overlay" id="mobileOverlay"></div>
 
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Magnificent <span>Furnitures</span></h3>
+                <p>Quality furniture for home and office since <strong>2015</strong>. We deliver premium furniture solutions across Kenya with guaranteed quality and best prices.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="products.html">All Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="products.html">View All Categories →</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Categories</h4>
+                <ul>
+                    <li><a href="products.html?category=office-chairs">Office Chairs</a></li>
+                    <li><a href="products.html?category=office-desks">Office Desks</a></li>
+                    <li><a href="products.html?category=dining-tables">Dining Tables</a></li>
+                    <li><a href="products.html?category=workstations">Workstations</a></li>
+                    <li><a href="products.html">All Categories →</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li>📞 <a href="tel:0726100242">0726 100242</a></li>
+                    <li>📧 <a href="mailto:info@magnificentfurnitures.co.ke">info@magnificentfurnitures.co.ke</a></li>
+                    <li>📍 Nairobi, Kenya</li>
+                    <li>🕒 Mon-Sat: 8AM - 6PM</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="https://wa.me/254726100242" target="_blank">💬 WhatsApp</a>
+                    <a href="https://www.facebook.com/profile.php?id=100063784484194" target="_blank">📘 Facebook</a>
+                    <a href="#" target="_blank">📷 Instagram</a>
+                    <a href="#" target="_blank">🎵 TikTok</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Magnificent Furnitures Limited. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">Powered by <a href="https://bucolic-wisp-420b34.netlify.app/" target="_blank">Kiara Web Solutions</a></p>
+        </div>
+    </div>
+</footer>
+
+<!-- Floating WhatsApp Button -->
+<div class="floating-wa">
+    <a href="https://wa.me/254726100242?text=Hello%20Magnificent%20Furnitures,%20I%20need%20more%20information"
+       class="whatsapp-float"
+       target="_blank"
+       aria-label="Chat on WhatsApp">
+
+        <svg class="wa-icon" viewBox="0 0 32 32">
+            <path fill="white" d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8A13 13 0 0016 29c7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.5c-2 0-3.9-.5-5.6-1.5l-.4-.2-4 .9.9-3.8-.2-.4A10.7 10.7 0 015.3 16C5.3 10.1 10.1 5.3 16 5.3S26.7 10.1 26.7 16 21.9 26.5 16 26.5z"/>
+            <path fill="white" d="M22.2 18.7c-.3-.2-1.8-.9-2-.9-.3-.1-.5-.1-.7.2-.2.3-.8.9-1 .9-.2.1-.4.1-.7 0-.3-.2-1.2-.4-2.3-1.4-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.2.3-.4.4-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.2 3.4 5.4 4.8.8.4 1.4.6 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.5z"/>
+        </svg>
+
+        <span class="whatsapp-tooltip">Chat with us</span>
+    </a>
+</div>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTopBtn" title="Back to Top">↑</button>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({ duration: 800, once: true });
+
+    // ============================================
+    // HELPER FUNCTIONS
+    // ============================================
+    function formatCurrency(amount) {
+        return 'KES ' + parseInt(amount).toLocaleString();
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // ============================================
+    // GLOBALS
+    // ============================================
+    let currentPage = 1;
+    const productsPerPage = 12;
+    let allProducts = [];
+    let allCategories = [];
+    let filteredProducts = [];
+    let currentSort = 'featured';
+
+    // ============================================
+    // LOAD CATEGORIES
+    // ============================================
+    async function loadCategories() {
+        try {
+            allCategories = await fetchAllCategories();
+            
+            // Remove duplicates based on slug
+            const uniqueCategories = [];
+            const seenSlugs = new Set();
+            
+            for (const cat of allCategories) {
+                if (!seenSlugs.has(cat.slug)) {
+                    seenSlugs.add(cat.slug);
+                    uniqueCategories.push(cat);
+                }
+            }
+            
+            // Category dropdown in navbar
+            const dropdown = document.getElementById('categoryDropdown');
+            if (dropdown) {
+                dropdown.innerHTML = uniqueCategories.filter(c => c.is_active !== false).slice(0, 8).map(cat => `
+                    <li role="none"><a href="products.html?category=${cat.slug}" role="menuitem">${escapeHtml(cat.display_name)}</a></li>
+                `).join('') + `
+                    <li role="none"><a href="products.html" role="menuitem">All Categories →</a></li>
+                `;
+            }
+            
+            // Category filter in sidebar
+            const categoryFilter = document.getElementById('categoryFilter');
+            if (categoryFilter) {
+                // Check URL for category parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                const selectedCategory = urlParams.get('category') || '';
+                
+                categoryFilter.innerHTML = `
+                    <label><input type="radio" name="category" value="all" ${!selectedCategory ? 'checked' : ''}> All Categories</label>
+                    ${uniqueCategories.filter(c => c.is_active !== false).map(cat => `
+                        <label><input type="radio" name="category" value="${cat.slug}" ${selectedCategory === cat.slug ? 'checked' : ''}> ${escapeHtml(cat.display_name)} (${cat.count || 0}+)</label>
+                    `).join('')}
+                `;
+                
+                // Add event listeners
+                categoryFilter.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        applyFilters();
+                    });
+                });
+            }
+            
+            // Footer categories
+            const footerCategories = document.getElementById('footerCategories');
+            if (footerCategories) {
+                footerCategories.innerHTML = uniqueCategories.filter(c => c.is_active !== false && c.featured).slice(0, 4).map(cat => `
+                    <li><a href="products.html?category=${cat.slug}">${escapeHtml(cat.display_name)}</a></li>
+                `).join('');
+            }
+            
+        } catch (error) {
+            console.error('Error loading categories:', error);
+        }
+    }
+
+    // ============================================
+    // LOAD PRODUCTS
+    // ============================================
+    async function loadProducts() {
+        try {
+            allProducts = await fetchAllProducts();
+            
+            // Check URL for category parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedCategory = urlParams.get('category') || '';
+            
+            if (selectedCategory) {
+                // Filter by category
+                filteredProducts = allProducts.filter(p => p.category_slug === selectedCategory);
+            } else {
+                filteredProducts = [...allProducts];
+            }
+            
+            // Apply sort
+            applySort();
+            
+            // Render
+            renderProducts();
+            
+        } catch (error) {
+            console.error('Error loading products:', error);
+            document.getElementById('productsGrid').innerHTML = `
+                <div class="no-results">
+                    <div class="empty-icon">❌</div>
+                    <h3>Error loading products</h3>
+                    <p>Please refresh the page.</p>
+                </div>
+            `;
+        }
+    }
+
+    // ============================================
+    // APPLY FILTERS
+    // ============================================
+    function applyFilters() {
+        // Get selected category
+        const selectedRadio = document.querySelector('#categoryFilter input[type="radio"]:checked');
+        const category = selectedRadio ? selectedRadio.value : 'all';
+        
+        // Get price range
+        const minPrice = parseInt(document.getElementById('minPrice').value) || 0;
+        const maxPrice = parseInt(document.getElementById('maxPrice').value) || Infinity;
+        
+        // Get materials
+        const selectedMaterials = Array.from(document.querySelectorAll('#materialFilter input:checked')).map(cb => cb.value);
+        
+        // Get stock filter
+        const inStockOnly = document.getElementById('inStockOnly')?.checked || false;
+        
+        // Apply filters
+        filteredProducts = allProducts.filter(p => {
+            // Category filter
+            if (category !== 'all' && p.category_slug !== category) return false;
+            
+            // Price filter
+            if (p.price < minPrice || p.price > maxPrice) return false;
+            
+            // Material filter
+            if (selectedMaterials.length > 0) {
+                const productMaterial = p.specifications?.material || '';
+                if (!selectedMaterials.some(m => productMaterial.toLowerCase().includes(m.toLowerCase()))) return false;
+            }
+            
+            // Stock filter
+            if (inStockOnly && !p.in_stock) return false;
+            
+            return true;
+        });
+        
+        // Apply sort
+        applySort();
+        
+        // Reset to first page
+        currentPage = 1;
+        renderProducts();
+    }
+
+    // ============================================
+    // APPLY SORT
+    // ============================================
+    function applySort() {
+        const sortSelect = document.getElementById('sortSelect');
+        currentSort = sortSelect ? sortSelect.value : 'featured';
+        
+        switch (currentSort) {
+            case 'price-low':
+                filteredProducts.sort((a, b) => a.price - b.price);
+                break;
+            case 'price-high':
+                filteredProducts.sort((a, b) => b.price - a.price);
+                break;
+            case 'name-asc':
+                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'name-desc':
+                filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+            case 'featured':
+            default:
+                filteredProducts.sort((a, b) => {
+                    if (a.featured === b.featured) return 0;
+                    return a.featured ? -1 : 1;
+                });
+                break;
+        }
+    }
+
+    // ============================================
+    // RENDER PRODUCTS
+    // ============================================
+    function renderProducts() {
+        const container = document.getElementById('productsGrid');
+        const countEl = document.getElementById('resultsCount');
+        const paginationEl = document.getElementById('pagination');
+        
+        // Update count
+        countEl.textContent = `Showing ${filteredProducts.length} product${filteredProducts.length !== 1 ? 's' : ''}`;
+        
+        if (filteredProducts.length === 0) {
+            container.innerHTML = `
+                <div class="no-results">
+                    <div class="empty-icon">🔍</div>
+                    <h3>No products found</h3>
+                    <p>Try adjusting your filters or search criteria</p>
+                    <button class="btn btn-primary" id="resetFiltersBtn">Reset Filters</button>
+                </div>
+            `;
+            const resetBtn = document.getElementById('resetFiltersBtn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    document.querySelectorAll('#categoryFilter input[type="radio"]').forEach(r => {
+                        if (r.value === 'all') r.checked = true;
+                    });
+                    document.getElementById('minPrice').value = '';
+                    document.getElementById('maxPrice').value = '';
+                    document.querySelectorAll('#materialFilter input').forEach(cb => cb.checked = false);
+                    if (document.getElementById('inStockOnly')) document.getElementById('inStockOnly').checked = false;
+                    applyFilters();
+                });
+            }
+            paginationEl.innerHTML = '';
+            return;
+        }
+        
+        // Pagination
+        const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+        const start = (currentPage - 1) * productsPerPage;
+        const paginatedProducts = filteredProducts.slice(start, start + productsPerPage);
+        
+        // Render products
+        container.innerHTML = paginatedProducts.map(product => `
+            <div class="product-card ${product.featured ? 'product-card-featured' : ''}" data-aos="fade-up" data-aos-delay="100">
+                ${product.featured ? '<div class="featured-badge">FEATURED</div>' : ''}
+                <div class="product-image">
+                    <img src="${escapeHtml(product.thumbnail || '')}" 
+                         alt="${escapeHtml(product.name)}" 
+                         loading="lazy"
+                         onerror="this.onerror=null; this.src='https://placehold.co/300x260?text=No+Image'">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">${escapeHtml(product.name)}</h3>
+                    <div class="product-price">${formatCurrency(product.price)}</div>
+                    <div class="product-specs">${escapeHtml(product.short_description || '')}</div>
+                    <div class="product-buttons">
+                        <a href="product.html?slug=${product.slug}" class="btn-sm btn-outline-sm">View Details</a>
+                        <a href="https://wa.me/254726100242?text=${encodeURIComponent(`Hello Magnificent Furnitures,\n\nI am interested in:\n\n${product.name}\nPrice: ${formatCurrency(product.price)}\n\nPlease send me more details.`)}" 
+                           class="btn-sm btn-whatsapp-sm" target="_blank">WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        // Render pagination
+        if (totalPages <= 1) {
+            paginationEl.innerHTML = '';
+            return;
+        }
+        
+        let html = '';
+        html += `<button class="pagination-prev ${currentPage === 1 ? 'disabled' : ''}" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>`;
+        
+        for (let i = 1; i <= Math.min(totalPages, 5); i++) {
+            html += `<button class="pagination-page ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        }
+        
+        if (totalPages > 5) {
+            html += `<span>...</span>`;
+            html += `<button class="pagination-page" data-page="${totalPages}">${totalPages}</button>`;
+        }
+        
+        html += `<button class="pagination-next ${currentPage === totalPages ? 'disabled' : ''}" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>`;
+        
+        paginationEl.innerHTML = html;
+        
+        // Pagination event listeners
+        document.querySelectorAll('.pagination-page').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const page = parseInt(btn.dataset.page);
+                if (page && page !== currentPage) {
+                    currentPage = page;
+                    renderProducts();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        });
+        
+        document.querySelector('.pagination-prev')?.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderProducts();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+        
+        document.querySelector('.pagination-next')?.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderProducts();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sort
+        document.getElementById('sortSelect').addEventListener('change', applyFilters);
+        
+        // Clear filters
+        document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+            document.querySelectorAll('#categoryFilter input[type="radio"]').forEach(r => {
+                if (r.value === 'all') r.checked = true;
+            });
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.querySelectorAll('#materialFilter input').forEach(cb => cb.checked = false);
+            if (document.getElementById('inStockOnly')) document.getElementById('inStockOnly').checked = false;
+            applyFilters();
+        });
+        
+        // Apply price
+        document.getElementById('applyPriceBtn').addEventListener('click', applyFilters);
+        
+        // Material filters
+        document.querySelectorAll('#materialFilter input').forEach(cb => {
+            cb.addEventListener('change', applyFilters);
+        });
+        
+        // Stock filter
+        document.getElementById('inStockOnly').addEventListener('change', applyFilters);
+        
+        // Mobile filters
+        const mobileToggle = document.getElementById('mobileFiltersToggle');
+        const mobilePanel = document.getElementById('mobileFiltersPanel');
+        const mobileOverlay = document.getElementById('mobileFiltersOverlay');
+        const closeBtn = document.getElementById('closeFiltersBtn');
+        const mobileContent = document.getElementById('mobileFiltersContent');
+        
+        if (mobileToggle && mobilePanel && mobileOverlay && mobileContent) {
+            const desktopFilters = document.querySelector('.filters-sidebar');
+            if (desktopFilters && !mobileContent.hasChildNodes()) {
+                const clone = desktopFilters.cloneNode(true);
+                clone.id = '';
+                clone.classList.add('mobile-filters-copy');
+                mobileContent.appendChild(clone);
+            }
+            
+            mobileToggle.addEventListener('click', () => {
+                mobilePanel.classList.add('open');
+                mobileOverlay.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            const closeFilters = () => {
+                mobilePanel.classList.remove('open');
+                mobileOverlay.style.display = 'none';
+                document.body.style.overflow = '';
+            };
+            
+            if (closeBtn) closeBtn.addEventListener('click', closeFilters);
+            mobileOverlay.addEventListener('click', closeFilters);
+        }
+        
+        // Load categories and products
+        loadCategories().then(() => {
+            loadProducts();
+        });
+    });
+
+    // ===== BACK TO TOP =====
+    var backToTopBtn = document.getElementById('backToTopBtn');
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    });
+
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+
+<!-- Mobile Menu JavaScript -->
 <script>
 (function() {
     var btn = document.getElementById('mobileMenuBtn');
@@ -1008,7 +1317,6 @@
         if (e.key === 'Escape') closeMenu();
     });
 
-    // Products dropdown toggle
     var dropdownToggles = panel.querySelectorAll('.mob-dropdown-toggle');
     dropdownToggles.forEach(function(toggle) {
         toggle.addEventListener('click', function(e) {
@@ -1021,7 +1329,6 @@
         });
     });
 
-    // Close menu on regular link click
     var links = panel.querySelectorAll('a:not(.mob-dropdown-toggle)');
     links.forEach(function(link) {
         link.addEventListener('click', function() {

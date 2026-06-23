@@ -2,12 +2,45 @@
    SUPABASE CLIENT - Magnificent Furnitures
    ============================================ */
 
-// Supabase configuration - REPLACE WITH YOUR VALUES
+// Supabase configuration
 const SUPABASE_URL = 'https://rxvtpesnqfskusuxogim.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_kXyyA6W0Xz3pKEZfPPz0ZA_8cp6Bzgz';
 
 // Initialize Supabase client
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ============================================
+// IMAGE UPLOAD FUNCTION
+// ============================================
+
+async function uploadProductImage(file) {
+    try {
+        // Generate a unique file name
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
+        const filePath = `products/${fileName}`;
+
+        // Upload to Supabase Storage
+        const { data, error } = await supabaseClient.storage
+            .from('product-images')
+            .upload(filePath, file);
+
+        if (error) {
+            console.error('Error uploading image:', error);
+            return null;
+        }
+
+        // Get public URL
+        const { data: urlData } = supabaseClient.storage
+            .from('product-images')
+            .getPublicUrl(filePath);
+
+        return urlData.publicUrl;
+    } catch (error) {
+        console.error('Upload error:', error);
+        return null;
+    }
+}
 
 // ============================================
 // PRODUCT FUNCTIONS
